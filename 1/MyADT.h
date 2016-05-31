@@ -31,10 +31,10 @@ private:
 	Profile** data;
 
 	//profile counts of each letter of the alphabet
-	unsigned int dataCount[letterCount];
+	//unsigned int dataCount[letterCount];
 
 	//profile max capacity of each letter of the alphabet
-	//unsigned int dataMax[letterCount];
+	unsigned int dataMax[letterCount];
 
 	//how many profiles in total
 	unsigned int totalCount;
@@ -57,12 +57,9 @@ private:
 	int getProfileIndex(const Profile inputProfile, const unsigned int inputLetterIndex);
 
 public:
-	unsigned int dataMax[letterCount];
+	unsigned int dataCount[letterCount];
 	//Generic constructor, defaults to 10 profiles per letter
 	MyADT();
-
-	//Constructor with customizable size of profile per letter, must be greater than 0
-	MyADT(unsigned int size);
 
 	//Destructor
 	~MyADT();
@@ -88,6 +85,8 @@ public:
 // Description: Prints all elements stored in MyADT.
 	friend ostream & operator<<(ostream & os, const MyADT& rhs);
 
+	//Dumps the contents of the array
+	void contentDumper(void);
 };
 
 

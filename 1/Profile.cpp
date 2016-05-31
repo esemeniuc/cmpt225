@@ -107,7 +107,7 @@ bool Profile::operator==(const Profile & rhs) {
 // Description: Prints the content of "this".
 ostream & operator<<(ostream & os, const Profile & p) {
 
-	os << p.name << ", " << p.image << ", " << p.status << ", with " << p.numberOfFriends << " friends:" << endl;	
+	os << p.name << ", " << p.image << ", " << p.status << ", with " << p.numberOfFriends << " friends:" << endl;
     for (int index = 0; index < p.numberOfFriends; index++)
     //for (int index = 0; index < Profile::ARRAY_SIZE; index++) // compile!!!
        os << p.friends[index] << endl;

@@ -1,13 +1,12 @@
 //
 // Created by eric on 28/05/16.
 //
-
+#include <iostream>
 #include <cstring>
-#include <string.h>
 #include "Profile.h"
 #include "MyADT.h"
 
-//Attributes:
+//MyADT Class Attributes:
 /*
 	//2d array of all letters of the alphabet
 	Profile** data[letterCount];
@@ -52,13 +51,16 @@ int MyADT::getLetterIndex(Profile inputProfile)
 {
 	string profileName = inputProfile.getName();
 	char firstLetter = profileName[0];
+
+	//check if character is in valid range
 	if( firstLetter > 64 && firstLetter < 91 ) //returns uppercase letters
 	{
+		cout << "Found Index: " << firstLetter - 65 << endl; //remove me
 		return firstLetter - 65; //offset by 65 to base 0 (eg. 'A' = 0)
 	}
-
-	if( firstLetter > 96 && firstLetter < 123 ) //returns uppercase letters
+	else if( firstLetter > 96 && firstLetter < 123 ) //returns lowercase letters
 	{
+		cout << "Found Index: " << firstLetter - 97 << endl; //remove me
 		return firstLetter - 97; //offset by 97 to base 0 (eg. 'a' = 0)
 	}
 
@@ -101,27 +103,11 @@ totalCount(0)
 	for(int i = 0; i < letterCount; i++) //allocate each the default size for each letter of the alphabet
 	{
 		data[i] = new Profile[defaultSize];
-		dataMax[i] = 10; //set the max of each to be 10
+		dataMax[i] = defaultSize; //set the max of each to be 10
 	}
 
 };
 
-//Constructor with customizable size of profile per letter, must be greater than 0
-//precondition: size is greater than 0
-//postcondition: a 2d array 26 x size will be created
-MyADT::MyADT(unsigned int size):
-data(NULL),
-dataCount{0},
-totalCount(0)
-{
-	data = new Profile*[letterCount]; //make new array of profile pointers
-	for(int i = 0; i < letterCount; i++) //allocate each the default size for each letter of the alphabet
-	{
-		data[i] = new Profile[defaultSize];
-		dataMax[i] = size; //set the max of each to be size
-	}
-
-};
 
 //Destructor
 //postcondition: all data in MyADT will be cleared
@@ -141,7 +127,7 @@ int MyADT::getElementCount() const
 	return totalCount;
 }
 
-// Description: Inserts an element. Returns 1 on error, and 0 if all is good
+// Description: Inserts an element. Returns 1 on success, and 0 on failure
 // Precondition: newElement must not already be in data collection.
 // Postcondition: newElement inserted and the appropriate elementCount has been incremented.
 bool MyADT::insert(const Profile& newElement)
@@ -150,7 +136,7 @@ bool MyADT::insert(const Profile& newElement)
 	int letterIndex = getLetterIndex(newElement);
 	if(letterIndex < 0)
 	{
-		return 1; //error, string doesn't have proper first letter
+		return 0; //error, string doesn't have proper first letter
 	}
 
 	//check if profile is already in letter subarray
@@ -159,21 +145,23 @@ bool MyADT::insert(const Profile& newElement)
 	{
 		if ( inputName.compare(data[letterIndex][i].getName()) == 0 ) //if match, then condition will pass
 		{
-			return 1; //already exists, can't have duplicates
+			return 0; //already exists, can't have duplicates
 		}
 	}
 
 	//check if letter array is full, if so then expand
 	if(dataCount[letterIndex] == dataMax[letterIndex])
 	{
-		expand((unsigned int)letterIndex); //expand the subarray since its full
+		expand((unsigned int)letterIndex); //expand the letter subarray since its full
 	}
 
 	//add new profile to letter subarray
 	data[letterIndex][dataCount[letterIndex]] = newElement; //insert the new profile
 	dataCount[letterIndex]++; //increment our counter
 	totalCount++;
-	return 0;
+
+	cout << "passed" << endl; //remove me
+	return 1; //all good
 }
 
 // Description: Removes an element.
@@ -214,16 +202,50 @@ Profile* MyADT::search(const Profile& target)
 	{
 		return &data[letterIndex][targetProfileIndex];
 	}
+
+	return NULL;
 }
 
 // Description: Removes all elements.
 void MyADT::removeAll()
 {
-	
+	for(int i = 0; i < letterCount; i++)
+	{
+		delete[] data[i]; //remove old array
+		data[i] = new Profile[defaultSize]; //create new array
+		dataMax[i] = defaultSize; //set the max of each to be 10
+	}
+
+	totalCount = 0;
 }
 
 // Description: Prints all elements stored in MyADT.
-ostream & operator<<(ostream & os, const MyADT& rhs)
+ostream& operator<<(ostream& os, const MyADT& rhs)
 {
-	
+	for(int i = 0; i < letterCount; i++) //iterate through all letters
+	{
+		for(int j = 0; j < rhs.dataCount[i]; j++) //iterate through all elements of each letter
+		{
+			Profile p = rhs.data[i][j];
+			//example: Barb, No image yet, Just joined, with 0 friends
+			os << p.getName() << ", " << p.getImage() << ", " << p.getStatus() << ", with " << p.getNumberOfFriends() << endl;
+		}
+	}
+	return os;
+}
+
+// Description: Dumps all elements stored in MyADT.
+void MyADT::contentDumper(void)
+{
+	for(int i = 0; i < letterCount; i++) //iterate through all letters
+	{
+		cout << "Letter: " << (char)(i + 65) << endl;
+		for(int j = 0; j < dataCount[i]; j++) //iterate through all elements of each letter
+		{
+			Profile p = data[i][j];
+			//example: Barb, No image yet, Just joined, with 0 friends
+			cout << p.getName() << ", " << p.getImage() << ", " << p.getStatus() << ", with " << p.getNumberOfFriends() << " friends" << endl;
+		}
+	}
+	return;
 }
