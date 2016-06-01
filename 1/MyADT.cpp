@@ -1,6 +1,19 @@
-//
-// Created by eric on 28/05/16.
-//
+/*
+ * filename: MyADT.cpp
+ *
+ * Class Description: A data collection ADT class to satisfy Assn 1's requiremetns.
+ * Class Invariant: Data collection with the following characteristics:
+ *                   - Each element is unique (no duplicate).
+ *                   - Once it has been ascertained that the element has not already been
+ *                     inserted, its data structure allows insertion in O(1)
+ *                   - Once the element to be removed as been found,
+ *                     its data structure allows removal in O(1).
+ *                   - Its data structure is resizable: when full, it expands to accommodate
+ *                     new element insertions. This is done unbeknown to the client code.
+ *
+ * Creation date: 28/05/16
+ * Author: Eric Semeniuc
+ */
 #include <iostream>
 #include <cstring>
 #include "Profile.h"
@@ -30,10 +43,6 @@ int MyADT::expand(unsigned int letterIndex)
 {
 	Profile* temp = new(std::nothrow) Profile[2 * dataCount[letterIndex]]; //double the size of the old array
 
-	if(temp == NULL)
-	{
-		return 1; //error
-	}
 	memcpy(temp, data[letterIndex], dataCount[letterIndex] * sizeof(Profile)); //copy data[i] into temp
 
 	dataMax[letterIndex] *= 2; //double capacity
@@ -47,7 +56,7 @@ int MyADT::expand(unsigned int letterIndex)
 //gets the index the first letter of a users name, returns -1 if there is an error
 //precondition: inputProfile is not null, first letter is between A-Z, a-z
 //postcondition: returns the index if it is able to retrieve the first letter (0-25), returns -1 if error appears
-int MyADT::getLetterIndex(Profile inputProfile)
+int MyADT::getLetterIndex(const Profile inputProfile)
 {
 	string profileName = inputProfile.getName();
 	char firstLetter = profileName[0];
@@ -55,12 +64,12 @@ int MyADT::getLetterIndex(Profile inputProfile)
 	//check if character is in valid range
 	if( firstLetter > 64 && firstLetter < 91 ) //returns uppercase letters
 	{
-		cout << "Found Index: " << firstLetter - 65 << endl; //remove me
+		//cout << "Found Index: " << firstLetter - 65 << endl; //remove me
 		return firstLetter - 65; //offset by 65 to base 0 (eg. 'A' = 0)
 	}
 	else if( firstLetter > 96 && firstLetter < 123 ) //returns lowercase letters
 	{
-		cout << "Found Index: " << firstLetter - 97 << endl; //remove me
+		//cout << "Found Index: " << firstLetter - 97 << endl; //remove me
 		return firstLetter - 97; //offset by 97 to base 0 (eg. 'a' = 0)
 	}
 
@@ -92,6 +101,7 @@ int MyADT::getProfileIndex(const Profile inputProfile, const unsigned int inputL
 
 
 //Public Methods:
+
 //Generic constructor, defaults to 10 profiles per letter of the alphabet
 //postcondition: a 2d array of size 26 x 10 will be created
 MyADT::MyADT():
@@ -110,7 +120,7 @@ totalCount(0)
 
 
 //Destructor
-//postcondition: all data in MyADT will be cleared
+//postcondition: all data in or associated with MyADT will be cleared
 MyADT::~MyADT()
 {
 	for(int i = 0; i < letterCount; i++)
@@ -122,6 +132,7 @@ MyADT::~MyADT()
 }
 
 // Description: Returns the total of elements currently stored in MyADT.
+// Postcondition: The element (a positive integer) is returned
 int MyADT::getElementCount() const
 {
 	return totalCount;
@@ -160,11 +171,11 @@ bool MyADT::insert(const Profile& newElement)
 	dataCount[letterIndex]++; //increment our counter
 	totalCount++;
 
-	cout << "passed" << endl; //remove me
 	return 1; //all good
 }
 
-// Description: Removes an element.
+// Description: Removes an element. Returns 1 on success, and 0 on failure
+// Precondition: a valid name string is provided
 // Postcondition: toBeRemoved is removed and the appropriate elementCount has been decremented.
 bool MyADT::remove(const Profile& toBeRemoved)
 {
@@ -187,6 +198,8 @@ bool MyADT::remove(const Profile& toBeRemoved)
 }
 
 // Description: Searches for target element.
+// Precondition: a string for a name is entered
+// Postcondition: On success returns a profile with a matching name; On failure, NULL is returned
 Profile* MyADT::search(const Profile& target)
 {
 	//get first character from profile name and check if first letter is valid alphabet character
@@ -207,12 +220,14 @@ Profile* MyADT::search(const Profile& target)
 }
 
 // Description: Removes all elements.
+// Postcondition: All elements in the data array will be remove, and array sizes will be reset to defaultSize
 void MyADT::removeAll()
 {
 	for(int i = 0; i < letterCount; i++)
 	{
 		delete[] data[i]; //remove old array
 		data[i] = new Profile[defaultSize]; //create new array
+		dataCount[i] = 0; //reset the profile count
 		dataMax[i] = defaultSize; //set the max of each to be 10
 	}
 
@@ -226,9 +241,9 @@ ostream& operator<<(ostream& os, const MyADT& rhs)
 	{
 		for(int j = 0; j < rhs.dataCount[i]; j++) //iterate through all elements of each letter
 		{
-			Profile p = rhs.data[i][j];
+			//Profile& p = rhs.data[i][j];
 			//example: Barb, No image yet, Just joined, with 0 friends
-			os << p.getName() << ", " << p.getImage() << ", " << p.getStatus() << ", with " << p.getNumberOfFriends() << endl;
+			os << rhs.data[i][j].getName() << ", " << rhs.data[i][j].getImage() << ", " << rhs.data[i][j].getStatus() << ", with " << rhs.data[i][j].getNumberOfFriends() << " friends" << endl; //fixme
 		}
 	}
 	return os;
@@ -239,7 +254,7 @@ void MyADT::contentDumper(void)
 {
 	for(int i = 0; i < letterCount; i++) //iterate through all letters
 	{
-		cout << "Letter: " << (char)(i + 65) << endl;
+		cout << "Letter: " << (char)(i + 65) << " Letter Count: " << dataCount[i] << " Letter Max:" << dataMax[i] << endl;
 		for(int j = 0; j < dataCount[i]; j++) //iterate through all elements of each letter
 		{
 			Profile p = data[i][j];

@@ -1,5 +1,5 @@
 /*
- * filename: MyADT.h or MyADT.cpp
+ * filename: MyADT.h
  *
  * Class Description: A data collection ADT class to satisfy Assn 1's requiremetns.
  * Class Invariant: Data collection with the following characteristics:
@@ -20,7 +20,7 @@
 
 #include "Profile.h"
 const int letterCount = 26; //a-z
-const int defaultSize = 10; //arbritrarily set
+const int defaultSize = 2; //arbritrarily set
 
 class MyADT
 {
@@ -33,10 +33,10 @@ private:
 	//profile counts of each letter of the alphabet
 	//unsigned int dataCount[letterCount];
 
-	//profile max capacity of each letter of the alphabet
+	//max capacity of profiles for each letter of the alphabet
 	unsigned int dataMax[letterCount];
 
-	//how many profiles in total
+	//how many profiles are stored in MyADT in total
 	unsigned int totalCount;
 
 	//Methods:*******************************************
@@ -49,7 +49,7 @@ private:
 	//gets the index the first letter of a users name, returns -1 if there is an error
 	//precondition: inputProfile is not null, first letter is between A-Z, a-z
 	//postcondition: returns the index if it is able to retrieve the first letter, returns -1 if error appears
-	int getLetterIndex(Profile inputProfile);
+	int getLetterIndex(const Profile inputProfile);
 
 	//returns the index of a input profile. If not found, getProfileIndex returns -1
 	//Preconditions: Profile is has a valid name, and there exists profiles in MyADT
@@ -58,28 +58,36 @@ private:
 
 public:
 	unsigned int dataCount[letterCount];
-	//Generic constructor, defaults to 10 profiles per letter
+
+	//Generic constructor, defaults to 10 profiles per letter of the alphabet
+	//postcondition: a 2d array of size 26 x 10 will be created
 	MyADT();
 
 	//Destructor
+	//postcondition: all data in or associated with MyADT will be cleared
 	~MyADT();
 
 // Description: Returns the total of elements currently stored in MyADT.
+// Postcondition: The element (a positive integer) is returned
 	int getElementCount() const;
 
-// Description: Inserts an element.
+// Description: Inserts an element. Returns 1 on success, and 0 on failure
 // Precondition: newElement must not already be in data collection.
 // Postcondition: newElement inserted and the appropriate elementCount has been incremented.
 	bool insert(const Profile& newElement);
 
-// Description: Removes an element.
+// Description: Removes an element. Returns 1 on success, and 0 on failure
+// Precondition: a valid name string is provided
 // Postcondition: toBeRemoved is removed and the appropriate elementCount has been decremented.
 	bool remove(const Profile& toBeRemoved);
 
 // Description: Searches for target element.
+// Precondition: a string for a name is entered
+// Postcondition: On success returns a profile with a matching name; On failure, NULL is returned
 	Profile* search(const Profile& target);
 
 // Description: Removes all elements.
+// Postcondition: All elements in the data array will be remove, and array sizes will be reset to defaultSize
 	void removeAll();
 
 // Description: Prints all elements stored in MyADT.

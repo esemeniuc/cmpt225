@@ -17,6 +17,11 @@
 
 using namespace std;
 
+void removeAll(MyADT* theMembers)
+{
+
+	theMembers->removeAll(); //remove all
+}
 
 void join(MyADT* theMembers) {
 	string theName = "";
@@ -121,13 +126,13 @@ void modify(MyADT* theMembers) {
 int main() {
 
 	// Variables declaration
-	MyADT* members = new MyADT(); 
+	MyADT* members = new MyADT();
 	bool done = false;
 	char input = 0;
 
-
 	// Keep doing what the user selects until the user exits
 	while (not done) {
+		//members->contentDumper(); //dump all content -- remove me
 		// Print menu to user 
 		cout << "\n----Welcome to FriendsBook!\n" << endl;
 		cout << "To join the network and create a profile  enter: j" << endl;
@@ -135,6 +140,7 @@ int main() {
 		cout << "To modify your profile\t\t\t  enter: m" << endl;
 		cout << "To search for someone on the network\t  enter: s" << endl;
 		cout << "To exit FriendsBook\t\t\t  enter: x\n" << endl;
+		cout << "RemoveAll \t\t\t enter: r\n" << endl;
 
 		cout << "Your choice: ";
 		cin >> input;
@@ -145,6 +151,7 @@ int main() {
 			case 'm': modify(members); break;
 			case 's': search(members); break;
 			case 'x': cout << "\n----Bye!\n" << endl; done = true; break;
+			case 'r': removeAll(members); break;
 			default: cout << "Not sure what you mean! Please, try again!" << endl;
 		}
 		cout << "There are now " << members->getElementCount() << " members in FriendsBook." << endl;	
