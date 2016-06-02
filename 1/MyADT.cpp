@@ -41,9 +41,13 @@
 //postcondition: the data[letter] subarray is 2x as large and dataMax[letter] is doubled
 int MyADT::expand(unsigned int letterIndex)
 {
-	Profile* temp = new(std::nothrow) Profile[2 * dataCount[letterIndex]]; //double the size of the old array
+	Profile* temp = new(std::nothrow) Profile[2 * dataMax[letterIndex]]; //double the size of the old letter sub array
 
-	memcpy(temp, data[letterIndex], dataCount[letterIndex] * sizeof(Profile)); //copy data[i] into temp
+	//memcpy(temp, data[letterIndex], dataCount[letterIndex] * sizeof(Profile)); //copy data[i] into temp
+	for(int i = 0; i < dataCount[letterIndex]; i++)
+	{
+		temp[i] = data[letterIndex][i];
+	}
 
 	dataMax[letterIndex] *= 2; //double capacity
 	delete[] data[letterIndex]; //clean up old array
@@ -79,7 +83,7 @@ int MyADT::getLetterIndex(const Profile inputProfile)
 //returns the index of a input profile. If not found, getProfileIndex returns -1
 //Preconditions: Profile is has a valid name, and there exists profiles in MyADT
 //Postcondition: returns the index of profile name match the input profile
-int MyADT::getProfileIndex(const Profile inputProfile, const unsigned int inputLetterIndex) {
+int MyADT::getProfileIndex(const Profile inputProfile, const int inputLetterIndex) {
 	//check for valid inputLetterIndex
 	if (inputLetterIndex < 0) {
 		return -1; //error, string doesn't have proper first letter
@@ -106,13 +110,13 @@ int MyADT::getProfileIndex(const Profile inputProfile, const unsigned int inputL
 //postcondition: a 2d array of size 26 x 10 will be created
 MyADT::MyADT():
 data(NULL),
-dataCount{0},
 totalCount(0)
 {
 	data = new Profile*[letterCount]; //make new array of profile pointers
 	for(int i = 0; i < letterCount; i++) //allocate each the default size for each letter of the alphabet
 	{
-		data[i] = new Profile[defaultSize];
+		dataCount[i] = 0;
+		data[i] = new Profile[defaultSize]; //data
 		dataMax[i] = defaultSize; //set the max of each to be 10
 	}
 
@@ -243,7 +247,7 @@ ostream& operator<<(ostream& os, const MyADT& rhs)
 		{
 			//Profile& p = rhs.data[i][j];
 			//example: Barb, No image yet, Just joined, with 0 friends
-			os << rhs.data[i][j].getName() << ", " << rhs.data[i][j].getImage() << ", " << rhs.data[i][j].getStatus() << ", with " << rhs.data[i][j].getNumberOfFriends() << " friends" << endl; //fixme
+			os << rhs.data[i][j].getName() << ", " << rhs.data[i][j].getImage() << ", " << rhs.data[i][j].getStatus() << ", with " << rhs.data[i][j].getNumberOfFriends() << " friends" << endl;
 		}
 	}
 	return os;

@@ -20,7 +20,7 @@
 
 #include "Profile.h"
 const int letterCount = 26; //a-z
-const int defaultSize = 2; //arbritrarily set
+const int defaultSize = 10; //arbitrarily set
 
 class MyADT
 {
@@ -31,7 +31,7 @@ private:
 	Profile** data;
 
 	//profile counts of each letter of the alphabet
-	//unsigned int dataCount[letterCount];
+	unsigned int dataCount[letterCount];
 
 	//max capacity of profiles for each letter of the alphabet
 	unsigned int dataMax[letterCount];
@@ -54,11 +54,9 @@ private:
 	//returns the index of a input profile. If not found, getProfileIndex returns -1
 	//Preconditions: Profile is has a valid name, and there exists profiles in MyADT
 	//Postcondition: returns the index of profile name match the input profile
-	int getProfileIndex(const Profile inputProfile, const unsigned int inputLetterIndex);
+	int getProfileIndex(const Profile inputProfile, const int inputLetterIndex);
 
 public:
-	unsigned int dataCount[letterCount];
-
 	//Generic constructor, defaults to 10 profiles per letter of the alphabet
 	//postcondition: a 2d array of size 26 x 10 will be created
 	MyADT();
