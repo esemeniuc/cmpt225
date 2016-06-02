@@ -2,6 +2,6 @@ language: cpp
 compiler:
   - clang
   - gcc
-
-1/cmake CMakeLists.txt 
-1/configure && make && make test
+script:
+  - ./1/cmake CMakeLists.txt 
+  - ./1/configure && make && make test
