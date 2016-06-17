@@ -16,6 +16,7 @@
  */
 #include <iostream>
 #include <cstring>
+#include <algorithm>
 #include "Profile.h"
 #include "MyADT.h"
 
@@ -42,12 +43,13 @@
 int MyADT::expand(unsigned int letterIndex)
 {
 	Profile* temp = new(std::nothrow) Profile[2 * dataMax[letterIndex]]; //double the size of the old letter sub array
-
-	//memcpy(temp, data[letterIndex], dataCount[letterIndex] * sizeof(Profile)); //copy data[i] into temp
-	for(int i = 0; i < dataCount[letterIndex]; i++)
-	{
-		temp[i] = data[letterIndex][i];
-	}
+	//cout << "Size of profile: " << sizeof(Profile) << endl;
+	//memcpy(temp, data[letterIndex], dataCount[letterIndex] * sizeof(Profile)); //copy data[i] into temp -- segfaults
+	copy(data[letterIndex], data[letterIndex]+dataCount[letterIndex], temp); //copy profiles intotemp
+//	for(int i = 0; i < dataCount[letterIndex]; i++)
+//	{
+//		temp[i] = data[letterIndex][i];
+//	}
 
 	dataMax[letterIndex] *= 2; //double capacity
 	delete[] data[letterIndex]; //clean up old array
