@@ -10,6 +10,14 @@
 //priority. Note that "highest" priority does not always mean
 //largest value.
 
+//Arrival events and departure events are ordered by time, and we always want to remove and
+//process the next event that should occur—the highest-priority event. The ADT priority queue is
+//used in this way. Our events can be stored in the priority queue eventListPQueue . We can initialize
+//eventListPQueue with the arrival events in the simulation data fi le and later add the departure
+//events as they are generated.
+
+//time of departure = time service begins + length of transaction
+
 #ifndef INC_2_PQUEUE_H
 #define INC_2_PQUEUE_H
 

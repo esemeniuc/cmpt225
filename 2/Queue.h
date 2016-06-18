@@ -6,6 +6,8 @@
 //Use an array-based implementation for this Queue class and make sure our
 //implementation abides to its Public Interface described below (expressed in C++):
 
+//bankQueue , to represent the line of customers in the bank
+
 #ifndef INC_2_QUEUE_H
 #define INC_2_QUEUE_H
 

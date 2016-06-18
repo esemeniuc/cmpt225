@@ -1,5 +1,5 @@
-//
-// Created by eric on 16/06/16.
+//Filename: Event.h/Event.cpp
+//Created by eric on 16/06/16.
 //Description:
 //An Event class as described in Section 13.4. It must be designed and
 //implemented as an ADT and have getters and setters for the attributes
