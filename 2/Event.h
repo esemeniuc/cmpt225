@@ -1,48 +1,81 @@
 //Filename: Event.h/Event.cpp
 //Created by eric on 16/06/16.
 //Description:
-//stores the list of events of customers
+//stores the details of a bank customer event
 
 //An Event class as described in Section 13.4. It must be designed and
 //implemented as an ADT and have getters and setters for the attributes
 //"type", "time" and "length". This class ***must not*** print anything
 //on the computer monitor screen. Name this class Event (Event.h and Event.cpp).
 
-//As customers arrive, they go to the back of the
-//line. The current customer, who was at the front of the line, is being served, and it is this customer that
-//you remove from the system next. It is thus natural to use a queue, bankQueue, to represent the line of
-//customers in the bank. For this problem, the only information that you must store in the queue about
-//each customer is the time of arrival and the length of the transaction.
 
 #ifndef INC_2_EVENT_H
 #define INC_2_EVENT_H
 
-
+//Class Invariant: Type must be 'A' or 'D', time and length attributes cannot be negative
 class Event
 {
 private:
 
-	int type;
-
-	int time;
-
-	int length;
+	char type; //Event type, either A or D
+	unsigned int time; //Time of customer arrival
+	unsigned int length; //Length of time it takes to process the event
 
 public:
 
+	//Description: default constructor
+	//Preconditions: None
+	//Postconditions: constructs an empty Event with type = 'A' (Arrival), time = 0, and length = 0
+	Event(void);
+
+	//Description: Constructor with time and length inputs
+	//Preconditions: inputTime and inputLength are non negative
+	//Postconditions: constructs an empty Event with type = 'A' (Arrival), time = inputTime, and length = inputLength
+	Event(unsigned int inputTime, unsigned int inputLength);
+
+	//Description: Constructor with type, time, and length inputs
+	//Preconditions: inputType is 'A' or 'D', inputTime and inputLength are non negative
+	//Postconditions: constructs an empty Event with type = inputType, time = inputTime, and length = inputLength
+	Event(char inputType, unsigned int inputTime, unsigned int inputLength);
+
+	//Description: default destructor
+	//Preconditions: the object exists
+	//Postconditions: the object no longer exists
+	~Event(); //default destructor
+
 	//Getters
+
+	//Description: returns the type of the event
+	//Preconditions: none
+	//Postconditions: returns -1 if the type is not valid, 1 if the event is an arrival, 2 if the event is a departure
 	int getType();
 
+	//Description: returns the arrival time of the event
+	//Preconditions: time is non negative
+	//Postconditions: returns the arrival time of the event in minutes
 	int getTime();
 
+	//Description: returns the processing time of the event
+	//Preconditions: length is non negative
+	//Postconditions: returns the processing time of the event in minutes
 	int getLength();
 
 	//Setters
-	int setType();
 
-	int setTime();
+	//Description: sets the type of the event
+	//Preconditions: Type is either 'A' or 'D'
+	//Postconditions: returns 1 if the type is not valid, 0 if it was successfully set
+	int setType(char inputType);
 
-	int setLength();
+	//Description: sets the arrival time of the event
+	//Preconditions: inputTime is a non negative integer
+	//Postconditions: returns 1 if the time is not valid, 0 if it was successfully set
+	int setTime(unsigned int inputTime);
+
+	//Description: sets the processing length of the event
+	//Preconditions: inputLength is a non negative integer
+	//Postconditions: returns 1 if the length is not valid, 0 if it was successfully set
+	int setLength(unsigned int inputLength);
 };
 
 

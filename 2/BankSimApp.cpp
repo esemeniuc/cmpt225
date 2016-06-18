@@ -1,8 +1,15 @@
+//Filename: BankSimApp.cpp
+//Created by eric on 16/06/16.
+//Description:
+//Processes the list of events ( customers entering the bank)
+//Notes:
+//BankSimApp is not to open and read input files, but is to read input from the command line
+//eg ./bsApp < simulation.in
+
 #include <iostream>
 #include "Event.h"
 #include "Queue.h"
 #include "PQueue.h"
-
 
 using namespace std;
 
@@ -24,14 +31,14 @@ int* takeInput(void)
 int main(void)
 {
 
-	//BankSimApp is not to open and read input files, but is to read input from the command line
-	//eg ./bsApp < simulation.in
 
-
-	//cin >> NULL;
-	cout << "Hello, World!" << endl;
+	Queue bankQueue; //represents the line of customers in the bank
+	PQueue eventListPQueue; //stores the priority list of customers
 
 	int* inputEvents = takeInput();
+	//add all the the arrival events from bankQueue
+	//now add the departure events
+
 
 // Psuedocode
 //	Initialize the line to “no customers”
@@ -46,7 +53,7 @@ int main(void)
 //
 //	When an arrival event and a departure event occur at the same time,
 //	arbitrarily process the arrival event first
-}
+
 
 
 

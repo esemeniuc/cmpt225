@@ -6,7 +6,12 @@
 //Use an array-based implementation for this Queue class and make sure our
 //implementation abides to its Public Interface described below (expressed in C++):
 
-//bankQueue , to represent the line of customers in the bank
+//bankQueue represents the line of customers in the bank
+//As customers arrive, they go to the back of the
+//line. The current customer, who was at the front of the line, is being served, and it is this customer that
+//you remove from the system next. It is thus natural to use a queue, bankQueue, to represent the line of
+//customers in the bank. For this problem, the only information that you must store in the queue about
+//each customer is the time of arrival and the length of the transaction.
 
 #ifndef INC_2_QUEUE_H
 #define INC_2_QUEUE_H

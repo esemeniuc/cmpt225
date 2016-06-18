@@ -1,17 +1,17 @@
 # I am a comment, and I want to say that the variable CC will be
 # the compiler to use.
-CC=clang++
+CC=g++
 # Hey!, I am comment number 2. I want to say that CFLAGS will be the
 # options I'll pass to the compiler.
 CFLAGS=-c -Wall
 
-all: BankSimApp
+all: bsApp
 
-BankSimApp: BankSimApp.o Event.o Queue.o PQueue.o Node.o EmptyDataCollectionException.o
-	$(CC) BankSimApp.o Event.o Queue.o PQueue.o Node.o EmptyDataCollectionException.o -o BankSimApp
+bsApp: BankSimApp.o Event.o Queue.o PQueue.o Node.o EmptyDataCollectionException.o
+	$(CC) BankSimApp.o Event.o Queue.o PQueue.o Node.o EmptyDataCollectionException.o -o bsApp
 
-Debug: Debug.o Event.o Queue.o PQueue.o Node.o EmptyDataCollectionException.o
-	$(CC) Debug.o Event.o Queue.o PQueue.o Node.o EmptyDataCollectionException.o -o Debug
+debug: Debug.o Event.o Queue.o PQueue.o Node.o EmptyDataCollectionException.o
+	$(CC) Debug.o Event.o Queue.o PQueue.o Node.o EmptyDataCollectionException.o -o debug
 
 BankSimApp.o: BankSimApp.cpp
 	$(CC) $(CFLAGS) BankSimApp.cpp
