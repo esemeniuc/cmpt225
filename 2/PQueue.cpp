@@ -29,14 +29,25 @@
 //public methods
 
 // Description: default constructor for an empty priority queue
-PQueue::PQueue()
+PQueue::PQueue():
+pQueueCount(0),
+head(NULL)
 {
-
+	//nothing else to do here
 }
 
 // Description: default destructor for an empty priority queue
 PQueue::~PQueue()
 {
+	//TODO: check for memory leaks
+	Node* last = head; //keep a tracker
+	Node* current = head;
+	while(current != NULL)
+	{
+		last = current;
+		delete last;
+		current = current->next; //iterate forward
+	}
 
 }
 
@@ -44,7 +55,7 @@ PQueue::~PQueue()
 // Time Efficiency: O(1)
 bool PQueue::isEmpty() const
 {
-	if(pQueueCount == -1) //check if empty
+	if(pQueueCount == 0) //check if empty
 	{
 		return true; //-1 is defined to be empty, so return true
 	}
@@ -58,7 +69,14 @@ bool PQueue::isEmpty() const
 // Postcondition: Once newElement is inserted, this Priority Queue remains sorted.
 bool PQueue::enqueue(const Event& newElement)
 {
-
+	if(&newElement == NULL) //check for null
+	{
+		return false; //can't insert NULL event
+	}
+	Node* tempNode = new Node(newElement, head); //make a new node with newElement as our event, and next = (current) head
+	head = tempNode; //update our head pointer
+	pQueueCount++; //increment our counter
+	return true;
 }
 
 // Description: Removes the element with the "highest" priority.
@@ -66,7 +84,16 @@ bool PQueue::enqueue(const Event& newElement)
 // Precondition: This Priority Queue is not empty.
 bool PQueue::dequeue()
 {
+	if(head == NULL) //check if head is null
+	{
+		return false; //can't dequeue an empty linked list
+	}
 
+	Node* headNext = head->next; //store second element pointer (head->next)
+	delete head; //free up first element
+	head = headNext; //set head to be the new second element
+	pQueueCount--; //decrement our counter
+	return true; //all good
 }
 
 // Description: Retrieves (but does not remove) the element with the "highest" priority.
@@ -75,7 +102,13 @@ bool PQueue::dequeue()
 // Exceptions: Throws EmptyDataCollectionException if this Priority Queue is empty.
 Event PQueue::peek() const throw(EmptyDataCollectionException)
 {
+	if(head == NULL) //check for empty priority queue
+	{
+		//TODO: fix exception handling
+		throw 2; //throw an exception
+	}
 
+	return head->data; //return event
 }
 
 //Description: prints out the contents of the priority queue
@@ -83,6 +116,10 @@ Event PQueue::peek() const throw(EmptyDataCollectionException)
 //Postconditions: prints out the contents of the priority queue
 void PQueue::print(void) const
 {
-
+	Node* current = head; //make tracking variable, start from head
+	while(current != NULL)
+	{
+		current->data.print(); //print out the current element in priority queue
+		current = current->next; //move up our tracking variable
+	}
 }
-
