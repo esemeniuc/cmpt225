@@ -65,7 +65,7 @@ public:
 	//Description: prints out the contents of the queue
 	//Preconditions: none
 	//Postconditions: prints out the contents of the queue
-	void print(void);
+	void print(void) const;
 };
 
 

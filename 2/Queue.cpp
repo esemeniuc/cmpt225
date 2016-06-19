@@ -102,7 +102,7 @@ Event Queue::peek() const throw(EmptyDataCollectionException)
 //Description: prints out the contents of the queue
 //Preconditions: none
 //Postconditions: prints out the contents of the queue
-void Queue::print(void)
+void Queue::print(void) const
 {
 	for(int i = 0; i < queueCount; i++)
 	{
