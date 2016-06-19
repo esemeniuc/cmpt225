@@ -28,10 +28,10 @@
 // Description: default constructor for an empty queue
 Queue::Queue():
 queueCount(-1),
-queueMax(queueMaxCapacity),
+queueMax(queueDefaultMax),
 queueElements(NULL)
 {
-	queueElements = new Event[queueMaxCapacity]; //allocate heap memory to keep our object size small
+	queueElements = new Event[queueDefaultMax]; //allocate heap memory to keep our object size small
 }
 
 // Description: default destructor for an empty queue
@@ -45,7 +45,12 @@ Queue::~Queue()
 // Time Efficiency: O(1)
 bool Queue::isEmpty() const
 {
+	if(queueCount == -1) //check if empty
+	{
+		return true; //-1 is defined to be empty, so return true
+	}
 
+	return false; //non empty
 }
 
 
@@ -54,7 +59,13 @@ bool Queue::isEmpty() const
 // Time Efficiency: O(1)
 bool Queue::enqueue(const Event& newElement)
 {
-	return 0;
+	queueCount++; //increment our count first since it starts at -1
+	if(queueCount > queueMax)
+	{
+		return false; //not successful
+	}
+	queueElements[queueCount] = newElement; //copy the element into our array
+	return 0; //all is good
 }
 
 // Description: Removes the element at the "front" of this queue and
@@ -63,7 +74,14 @@ bool Queue::enqueue(const Event& newElement)
 // Time Efficiency: O(1)
 bool Queue::dequeue()
 {
-	return 0;
+	if(queueCount == -1) //check for empty queue
+	{
+		return false; //not successful, can't dequeue an empty queue
+	}
+	queueElements[queueCount] = NULL; //null the last element
+	queueCount--; //decrement our counter
+	return 0; //all is good
+
 }
 
 // Description: Retrieves (but does not remove) the element at the
@@ -74,7 +92,12 @@ bool Queue::dequeue()
 // Time Efficiency: O(1)
 Event Queue::peek() const throw(EmptyDataCollectionException)
 {
-	return NULL;
+	if(queueCount == -1) //check for empty queue
+	{
+		//TODO: throw proper exception instead of 0
+		throw 0; //can't return an event in an empty queue
+	}
+	return queueElements[queueCount]; //return the newest item
 }
 
 //Description: prints out the contents of the queue
