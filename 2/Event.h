@@ -47,8 +47,8 @@ public:
 
 	//Description: returns the type of the event
 	//Preconditions: none
-	//Postconditions: returns -1 if the type is not valid, 1 if the event is an arrival, 2 if the event is a departure
-	int getType();
+	//Postconditions: returns NULL if the type is not valid, 'A' if the event is an arrival, 'D' if the event is a departure
+	char getType();
 
 	//Description: returns the arrival time of the event
 	//Preconditions: time is non negative
