@@ -76,6 +76,11 @@ public:
 	//Preconditions: inputLength is a non negative integer
 	//Postconditions: returns 1 if the length is not valid, 0 if it was successfully set
 	int setLength(unsigned int inputLength);
+
+	//Description: prints out the contents of an event
+	//Preconditions: none
+	//Postconditions: prints out the contents of an event
+	void print(void);
 };
 
 

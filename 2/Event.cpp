@@ -135,3 +135,11 @@ int Event::setLength(unsigned int inputLength)
 	length = inputLength;
 	return 0; //all is good
 }
+
+//Description: prints out the contents of an event
+//Preconditions: none
+//Postconditions: prints out the contents of an event
+void Event::print(void)
+{
+	std::cout << "Event of Type: " << type << ", Time: " << time << ", Length: " << length;
+}
