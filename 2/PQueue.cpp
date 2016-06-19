@@ -73,8 +73,22 @@ bool PQueue::enqueue(const Event& newElement)
 	{
 		return false; //can't insert NULL event
 	}
-	Node* tempNode = new Node(newElement, head); //make a new node with newElement as our event, and next = (current) head
-	head = tempNode; //update our head pointer
+
+	//iterate through our pQueue to find proper location to put our event in
+	//TODO: make sure this doesn't segfault with null or out of bound errors
+	Node* current = head; //keep a tracking variable
+	while(newElement.getTime() > current->data.getTime()) //check until newElement's arrival time is not greater than the other elements
+	{
+		current = current->next; //move our tracking variable up
+	}
+	//check if the next variable is an arrival, since arrivals must be (arbitrarily) processed before departures
+	if(current->data.getType() == 'A' && (newElement.getTime() == current->data.getTime()))
+	{
+		current = current->next; //increment next because the times match, but the arrival must be closer to the front
+	}
+
+	Node* tempNode = new Node(newElement, current->next); //make a new node with newElement as our event, and next = the following element in the linked list
+	current->next = tempNode; //connect our tempNode to the current->next pointer
 	pQueueCount++; //increment our counter
 	return true;
 }
