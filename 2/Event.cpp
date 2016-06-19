@@ -80,7 +80,7 @@ char Event::getType()
 //Description: returns the arrival time of the event
 //Preconditions: time is non negative
 //Postconditions: returns the arrival time of the event in minutes
-int Event::getTime()
+unsigned int Event::getTime()
 {
 	return time;
 }
@@ -88,7 +88,7 @@ int Event::getTime()
 //Description: returns the processing time of the event
 //Preconditions: length is non negative
 //Postconditions: returns the processing time of the event in minutes
-int Event::getLength()
+unsigned int Event::getLength()
 {
 	return length;
 }
