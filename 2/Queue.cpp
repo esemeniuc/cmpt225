@@ -19,22 +19,26 @@
 
 //private attributes:
 
-//unsigned int queueCount; //how many items are currently in the queue. Default value is -1
+//int queueCount; //how many items are currently in the queue. Default value is -1
 //
-//unsigned int queueMax; //keeps track of the maximum elements in the queue
+//unsigned int queueMax; //keeps track of the maximum elements that can be stored in the queue
 //
 //Event* queueElements; //array of events in the queue
 
 // Description: default constructor for an empty queue
-Queue::Queue()
+Queue::Queue():
+queueCount(-1),
+queueMax(queueMaxCapacity),
+queueElements(NULL)
 {
-
+	queueElements = new Event[queueMaxCapacity]; //allocate heap memory to keep our object size small
 }
 
 // Description: default destructor for an empty queue
 Queue::~Queue()
 {
-
+	delete queueElements; //clean up our heap memory
+	queueElements = NULL; //avoid use after free errors
 }
 
 // Description: Returns "true" is this queue is empty, otherwise "false".

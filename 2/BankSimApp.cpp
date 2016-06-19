@@ -13,6 +13,7 @@
 
 using namespace std;
 
+//basic test function
 //takes input until an EOF is reached, and returns an array (of size queueCapacity) of integers
 int* takeInput(void)
 {
