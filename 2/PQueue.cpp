@@ -77,16 +77,21 @@ bool PQueue::enqueue(const Event& newElement)
 	//iterate through our pQueue to find proper location to put our event in
 	//TODO: make sure this doesn't segfault with null or out of bound errors
 	Node* current = head; //keep a tracking variable
-	while(newElement.getTime() > current->data.getTime()) //check until newElement's arrival time is not greater than the other elements
+	while((newElement.getTime() > current->data.getTime()) && (current->next != NULL)) //check until newElement's arrival time is not greater than the other elements
 	{
 		current = current->next; //move our tracking variable up
 	}
-	//check if the next variable is an arrival, since arrivals must be (arbitrarily) processed before departures
-	if(current->data.getType() == 'A' && (newElement.getTime() == current->data.getTime()))
+
+	//check if newElement is a Departure, and the next variable is an arrival, since arrivals must be (arbitrarily) processed before departures
+	if(newElement.getType() == 'D' && current->data.getType() == 'A')
 	{
-		current = current->next; //increment next because the times match, but the arrival must be closer to the front
+		if((newElement.getTime() == current->data.getTime()) && (current->next != NULL)) //check if the times collide, if they do, they make the departure follow the arrival event
+		{
+			current = current->next; //increment next because the times match, but the arrival must be closer to the front
+		}
 	}
 
+	//insert the node in
 	Node* tempNode = new Node(newElement, current->next); //make a new node with newElement as our event, and next = the following element in the linked list
 	current->next = tempNode; //connect our tempNode to the current->next pointer
 	pQueueCount++; //increment our counter
