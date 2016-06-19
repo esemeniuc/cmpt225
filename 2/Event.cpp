@@ -31,7 +31,7 @@ time(0),
 length(0)
 {
 	//nothing else to do here
-	std::cout << "Calling constructor on Type: " << type << ", Time: " << time << ", Length: " << length << std::endl; //debug
+	//std::cout << "Calling constructor on Type: " << type << ", Time: " << time << ", Length: " << length << std::endl; //debug
 }
 
 //Description: Constructor with time and length inputs
@@ -64,7 +64,7 @@ length(inputLength)
 Event::~Event()
 {
 	//nothing else to do here
-	std::cout << "Calling destructor on Type: " << type << ", Time: " << time << ", Length: " << length << std::endl; //debug
+	//std::cout << "Calling destructor on Type: " << type << ", Time: " << time << ", Length: " << length << std::endl; //debug
 }
 
 //Getters

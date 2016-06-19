@@ -35,4 +35,4 @@ EmptyDataCollectionException.o: EmptyDataCollectionException.h EmptyDataCollecti
 	$(CC) $(CFLAGS) EmptyDataCollectionException.cpp
 
 clean:
-	rm -f *.o BankSimApp Debug
+	rm -f *.o bsApp debug

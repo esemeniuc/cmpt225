@@ -37,7 +37,7 @@ queueElements(NULL)
 // Description: default destructor for an empty queue
 Queue::~Queue()
 {
-	delete queueElements; //clean up our heap memory
+	delete[] queueElements; //clean up our heap memory
 	queueElements = NULL; //avoid use after free errors
 }
 
@@ -60,7 +60,7 @@ bool Queue::isEmpty() const
 bool Queue::enqueue(const Event& newElement)
 {
 	queueCount++; //increment our count first since it starts at -1
-	if(queueCount > queueMax)
+	if(queueCount == (int)queueMax)
 	{
 		return false; //not successful
 	}
@@ -78,7 +78,6 @@ bool Queue::dequeue()
 	{
 		return false; //not successful, can't dequeue an empty queue
 	}
-	queueElements[queueCount] = NULL; //null the last element
 	queueCount--; //decrement our counter
 	return 0; //all is good
 
