@@ -12,8 +12,8 @@
 
 //Arrival events and departure events are ordered by time, and we always want to remove and
 //process the next event that should occur—the highest-priority event. The ADT priority queue is
-//used in this way. Our events can be stored in the priority queue eventListPQueue . We can initialize
-//eventListPQueue with the arrival events in the simulation data fi le and later add the departure
+//used in this way. Our events can be stored in the priority queue eventListPQueue. We can initialize
+//eventListPQueue with the arrival events in the simulation data file and later add the departure
 //events as they are generated.
 
 //time of departure = time service begins + length of transaction
@@ -23,11 +23,22 @@
 
 #include "Event.h"
 #include "EmptyDataCollectionException.h"
+#include "Node.h"
 
 //Class Invariant: The elements stored in this Priority Queue are always sorted.
 class PQueue
 {
+private:
+	unsigned int pQueueCount; //count of how many elements are in our priority queue, 0 indexed
+	Node* head; //head pointer of our singly headed singly linked list
 
+public:
+
+	// Description: default constructor for an empty priority queue
+	PQueue();
+
+	// Description: default destructor for an empty priority queue
+	~PQueue();
 
 	// Description: Returns "true" is this Priority Queue is empty, otherwise "false".
 	// Time Efficiency: O(1)
@@ -49,6 +60,11 @@ class PQueue
 	// Postcondition: This Priority Queue is unchanged.
 	// Exceptions: Throws EmptyDataCollectionException if this Priority Queue is empty.
 	Event peek() const throw(EmptyDataCollectionException);
+
+	//Description: prints out the contents of the priority queue
+	//Preconditions: none
+	//Postconditions: prints out the contents of the priority queue
+	void print(void) const;
 };
 
 
