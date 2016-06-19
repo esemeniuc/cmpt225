@@ -4,8 +4,9 @@
  * Class Definition: Node of a singly linked list 
  *                   in which the data is of Event class type.
  *
- * Created on: 
- * Author: 
+ * Created on: 16/06/16
+ * Author: eric
+ * Description: a definition for node elements to allow a singly linked list
  */
  
 // #pragma once is shorthand for the 2 #include guards we've seen before:
