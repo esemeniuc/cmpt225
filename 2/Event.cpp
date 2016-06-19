@@ -72,7 +72,7 @@ Event::~Event()
 //Description: returns the type of the event
 //Preconditions: none
 //Postconditions: returns NULL if the type is not valid, 'A' if the event is an arrival, 'D' if the event is a departure
-char Event::getType()
+char Event::getType() const
 {
 	return type;
 }
@@ -80,7 +80,7 @@ char Event::getType()
 //Description: returns the arrival time of the event
 //Preconditions: time is non negative
 //Postconditions: returns the arrival time of the event in minutes
-unsigned int Event::getTime()
+unsigned int Event::getTime() const
 {
 	return time;
 }
@@ -88,7 +88,7 @@ unsigned int Event::getTime()
 //Description: returns the processing time of the event
 //Preconditions: length is non negative
 //Postconditions: returns the processing time of the event in minutes
-unsigned int Event::getLength()
+unsigned int Event::getLength() const
 {
 	return length;
 }

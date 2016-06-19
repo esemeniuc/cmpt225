@@ -48,17 +48,17 @@ public:
 	//Description: returns the type of the event
 	//Preconditions: none
 	//Postconditions: returns NULL if the type is not valid, 'A' if the event is an arrival, 'D' if the event is a departure
-	char getType();
+	char getType() const;
 
 	//Description: returns the arrival time of the event
 	//Preconditions: time is non negative
 	//Postconditions: returns the arrival time of the event in minutes
-	unsigned int getTime();
+	unsigned int getTime() const;
 
 	//Description: returns the processing time of the event
 	//Preconditions: length is non negative
 	//Postconditions: returns the processing time of the event in minutes
-	unsigned int getLength();
+	unsigned int getLength() const;
 
 	//Setters
 
@@ -80,7 +80,7 @@ public:
 	//Description: prints out the contents of an event
 	//Preconditions: none
 	//Postconditions: prints out the contents of an event
-	void print(void);
+	void print(void) const;
 };
 
 
