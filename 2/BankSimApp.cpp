@@ -57,6 +57,46 @@ using namespace std;
 	}
 }*/
 
+// Processes an arrival event.
+void processArrival(Event &arrivalEvent, PQueue &eventListPQueue, Queue &bankQueue, bool &tellerAvailable, unsigned int currentTime)
+{
+	//Remove this event from the event list
+	eventListPQueue.dequeue();
+	Event customer = arrivalEvent; //customer referenced in arrivalEvent ?????????????????????
+	if (bankQueue.isEmpty() && tellerAvailable)
+	{
+		unsigned int departureTime = currentTime + customer.getLength();//currentTime + transaction time in arrivalEvent
+		Event newDepartureEvent('D', departureTime, 0); //a new departure event with departureTime
+		eventListPQueue.enqueue(newDepartureEvent);
+		tellerAvailable = false;
+	}
+	else
+	{
+		bankQueue.enqueue(customer);
+	}
+}
+
+// Processes a departure event.
+void processDeparture(Event departureEvent, PQueue eventListPQueue, Queue &bankQueue, bool &tellerAvailable, unsigned int currentTime)
+{
+	// Remove this event from the event list
+	eventListPQueue.dequeue();
+
+	if(!bankQueue.isEmpty())
+	{
+		// Customer at front of line begins transaction
+		Event customer = bankQueue.peek();
+		bankQueue.dequeue();
+		unsigned int departureTime = currentTime + customer.getLength(); //currentTime + transaction time in customer
+		Event newDepartureEvent('D', departureTime, 0); //a new departure event with departureTime
+		eventListPQueue.enqueue(newDepartureEvent);
+	}
+	else
+	{
+		tellerAvailable = true;
+	}
+}
+
 void loadIntoQueue(Queue &inputQueue) //loads data into inputQueue
 {
 	// Create and add arrival events to event list
@@ -78,16 +118,30 @@ void loadIntoQueue(Queue &inputQueue) //loads data into inputQueue
 
 int main(void)
 {
-	bool tellerAvailable = true;
-
 	Queue bankQueue; //represents the line of customers in the bank/bank line
 	PQueue eventListPQueue; //priority queue eventListPQueue for the event list
 
-	loadIntoQueue(bankQueue);
+	bool tellerAvailable = true;
+
+	loadIntoQueue(bankQueue); //load data into bankQueue from file
 
 
-	//add all the the arrival events from bankQueue
-	//now add the departure events
+	//??add all the the arrival events from bankQueue
+	while(!eventListPQueue.isEmpty()) //run while eventListPQueue is not empty
+	{
+		Event newEvent = eventListPQueue.peek();
+		// Get current time
+		unsigned int currentTime = newEvent.getTime(); // get time of newEvent
+		if (newEvent.getType() == 'A') //check if newEvent is an arrival event
+		{
+			processArrival(newEvent, eventListPQueue, bankQueue, tellerAvailable, currentTime);
+		}
+		else
+		{
+			processDeparture(newEvent, eventListPQueue, bankQueue, tellerAvailable, currentTime);
+		}
+	}
+
 
 
 // Psuedocode
@@ -103,9 +157,6 @@ int main(void)
 //
 //	When an arrival event and a departure event occur at the same time,
 //	arbitrarily process the arrival event first
-
-
-
 
 	return 0;
 }
