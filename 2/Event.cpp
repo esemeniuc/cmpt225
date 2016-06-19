@@ -10,7 +10,6 @@
 
 #include "Event.h"
 #include <iostream>
-#include <cstddef>
 
 //Class Invariant: Type must be 'A' or 'D', time and length attributes cannot be negative
 
@@ -32,7 +31,7 @@ time(0),
 length(0)
 {
 	//nothing else to do here
-	std::cout << "Calling constructor on Type: " << type << ", Time: " << time << ", Length: " << length; //debug
+	std::cout << "Calling constructor on Type: " << type << ", Time: " << time << ", Length: " << length << std::endl; //debug
 }
 
 //Description: Constructor with time and length inputs
@@ -44,7 +43,7 @@ time(inputTime),
 length(inputLength)
 {
 	//nothing else to do here
-	std::cout << "Calling constructor on Type: " << type << ", Time: " << time << ", Length: " << length; //debug
+	std::cout << "Calling constructor on Type: " << type << ", Time: " << time << ", Length: " << length << std::endl; //debug
 }
 
 //Description: Constructor with type, time, and length inputs
@@ -56,7 +55,7 @@ time(inputTime),
 length(inputLength)
 {
 	//nothing else to do here
-	std::cout << "Calling constructor on Type: " << type << ", Time: " << time << ", Length: " << length; //debug
+	std::cout << "Calling constructor on Type: " << type << ", Time: " << time << ", Length: " << length << std::endl; //debug
 }
 
 //Description: default destructor
@@ -65,7 +64,7 @@ length(inputLength)
 Event::~Event()
 {
 	//nothing else to do here
-	std::cout << "Calling destructor on Type: " << type << ", Time: " << time << ", Length: " << length; //debug
+	std::cout << "Calling destructor on Type: " << type << ", Time: " << time << ", Length: " << length << std::endl; //debug
 }
 
 //Getters
@@ -141,5 +140,5 @@ int Event::setLength(unsigned int inputLength)
 //Postconditions: prints out the contents of an event
 void Event::print(void)
 {
-	std::cout << "Event of Type: " << type << ", Time: " << time << ", Length: " << length;
+	std::cout << "Event of Type: " << type << ", Time: " << time << ", Length: " << length << std::endl;
 }
