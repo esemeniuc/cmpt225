@@ -6,7 +6,7 @@
 //Use an array-based implementation for this Queue class and make sure our
 //implementation abides to its Public Interface described below (expressed in C++):
 
-//bankQueue represents the line of customers in the bank
+//bankQueue represents the line of customers in the bank, and stores events of in the order that they were received
 //As customers arrive, they go to the back of the
 //line. The current customer, who was at the front of the line, is being served, and it is this customer that
 //you remove from the system next. It is thus natural to use a queue, bankQueue, to represent the line of
@@ -19,11 +19,26 @@
 #include "Event.h"
 #include "EmptyDataCollectionException.h"
 
-const unsigned int queueCapacity = 100; //as defined by Anne
+const unsigned int queueMaxCapacity = 100; //as defined by Anne
 
 //Class invariants: FIFO or LILO
 class Queue
 {
+private:
+	unsigned int queueCount; //how many items are currently in the queue. Default value is -1
+
+	unsigned int queueMax; //keeps track of the maximum elements in the queue
+
+	Event* queueElements; //array of events in the queue
+
+public:
+
+	// Description: default constructor for an empty queue
+	Queue();
+
+	// Description: default destructor for an empty queue
+	~Queue();
+
 	// Description: Returns "true" is this queue is empty, otherwise "false".
 	// Time Efficiency: O(1)
 	bool isEmpty() const;
@@ -46,6 +61,11 @@ class Queue
 	// Exceptions: Throws EmptyDataCollectionException if this queue is empty.
 	// Time Efficiency: O(1)
 	Event peek() const throw(EmptyDataCollectionException);
+
+	//Description: prints out the contents of the queue
+	//Preconditions: none
+	//Postconditions: prints out the contents of the queue
+	void print(void);
 };
 
 
