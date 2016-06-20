@@ -62,7 +62,7 @@ Event::Event(char inputType, unsigned int inputTime, unsigned int inputLength)
 //Postconditions: the object no longer exists
 Event::~Event()
 {
-	delete[] this; 
+	
 } //default destructor
 
 //Getters
