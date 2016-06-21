@@ -25,9 +25,9 @@ const unsigned int queueDefaultMax = 100; //as defined by Anne
 class Queue
 {
 private:
-	int queueCount; //how many items are currently in the queue. Default value is -1
+	unsigned int startPos; //starting position of the queue
 
-	unsigned int queueMax; //keeps track of the maximum elements that can be stored in the queue
+	unsigned int endPos; //ending position of the queue. endPos - startPos = how many items currently of queue
 
 	Event* queueElements; //array of events in the queue
 

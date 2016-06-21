@@ -14,6 +14,7 @@
 //each customer is the time of arrival and the length of the transaction.
 
 #include "Queue.h"
+#include <cmath>
 
 //Class invariants: FIFO or LILO
 
@@ -27,8 +28,8 @@
 
 // Description: default constructor for an empty queue
 Queue::Queue():
-queueCount(-1),
-queueMax(queueDefaultMax),
+startPos(0),
+endPos(0),
 queueElements(NULL)
 {
 	queueElements = new Event[queueDefaultMax]; //allocate heap memory to keep our object size small
@@ -45,7 +46,7 @@ Queue::~Queue()
 // Time Efficiency: O(1)
 bool Queue::isEmpty() const
 {
-	if(queueCount == -1) //check if empty
+	if(startPos == endPos) //check if empty
 	{
 		return true; //-1 is defined to be empty, so return true
 	}
@@ -59,13 +60,14 @@ bool Queue::isEmpty() const
 // Time Efficiency: O(1)
 bool Queue::enqueue(const Event& newElement)
 {
-	queueCount++; //increment our count first since it starts at -1
-	if(queueCount == (int)queueMax)
-	{
-		return false; //not successful
-	}
-	queueElements[queueCount] = newElement; //copy the element into our array
-	return 0; //all is good
+//	if((startPos % queueDefaultMax) == (endPos+1) % queueDefaultMax) //check if full
+//	{
+//		return false; //not successful
+//	}
+	queueElements[(endPos) % queueDefaultMax] = newElement; //copy the element into our array
+	endPos++;
+	//endPos = (endPos+1) % queueDefaultMax ; //increment our count
+	return true; //all is good
 }
 
 // Description: Removes the element at the "front" of this queue and
@@ -74,12 +76,12 @@ bool Queue::enqueue(const Event& newElement)
 // Time Efficiency: O(1)
 bool Queue::dequeue()
 {
-	if(queueCount == -1) //check for empty queue
+	if(startPos == endPos) //check for empty queue
 	{
 		return false; //not successful, can't dequeue an empty queue
 	}
-	queueCount--; //decrement our counter
-	return 0; //all is good
+	startPos++; //decrement our counter
+	return true; //all is good
 
 }
 
@@ -91,12 +93,12 @@ bool Queue::dequeue()
 // Time Efficiency: O(1)
 Event Queue::peek() const throw(EmptyDataCollectionException)
 {
-	if(queueCount == -1) //check for empty queue
+	if(startPos == endPos) //check for empty queue
 	{
 		//TODO: throw proper exception instead of 0
 		throw 0; //can't return an event in an empty queue
 	}
-	return queueElements[queueCount]; //return the newest item
+	return queueElements[startPos % queueDefaultMax]; //return the newest item
 }
 
 //Description: prints out the contents of the queue
@@ -104,7 +106,10 @@ Event Queue::peek() const throw(EmptyDataCollectionException)
 //Postconditions: prints out the contents of the queue
 void Queue::print(void) const
 {
-	for(int i = 0; i < queueCount; i++)
+	//for(unsigned int  i=0; i< abs(endPos%queueDefaultMax-startPos%queueDefaultMax); i++)
+
+	//TODO: fix for modulo wraparound printing
+	for(unsigned int i = startPos; i < endPos; i++)
 	{
 		queueElements[i].print(); //print out each element of our queue
 	}
