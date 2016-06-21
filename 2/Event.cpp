@@ -43,7 +43,7 @@ time(inputTime),
 length(inputLength)
 {
 	//nothing else to do here
-	std::cout << "Calling constructor on Type: " << type << ", Time: " << time << ", Length: " << length << std::endl; //debug
+//	std::cout << "Calling constructor on Type: " << type << ", Time: " << time << ", Length: " << length << std::endl; //debug
 }
 
 //Description: Constructor with type, time, and length inputs
@@ -55,7 +55,7 @@ time(inputTime),
 length(inputLength)
 {
 	//nothing else to do here
-	std::cout << "Calling constructor on Type: " << type << ", Time: " << time << ", Length: " << length << std::endl; //debug
+//	std::cout << "Calling constructor on Type: " << type << ", Time: " << time << ", Length: " << length << std::endl; //debug
 }
 
 //Description: default destructor

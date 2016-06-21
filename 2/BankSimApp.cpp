@@ -108,8 +108,8 @@ int main(void)
 	PQueue eventListPQueue; //priority queue eventListPQueue for the event list
 
 	bool tellerAvailable = true;
-	loadIntoBankQueue(bankQueue); //load data into bank Queue from file
-//	loadIntoPriorityQueue(eventListPQueue); //load data into Priority Queue from file
+//	loadIntoBankQueue(bankQueue); //load data into bank Queue from file
+	loadIntoPriorityQueue(eventListPQueue); //load data into Priority Queue from file
 
 	//??add all the the arrival events from bankQueue
 	while(!eventListPQueue.isEmpty()) //run while eventListPQueue is not empty
@@ -135,12 +135,16 @@ int main(void)
 				{
 					bankQueue.enqueue(customer);
 				}
+
+			cout << "Processing an arrival event at time:\t" << customer.getTime() << endl;
+
 		}
 		else
 		{
 			// Processes a departure event.
 //			processDeparture(newEvent, eventListPQueue, bankQueue, tellerAvailable, currentTime);
 			// Remove this event from the event list
+			cout << "Processing a departure event at time:\t" << currentTime + newEvent.getLength() << endl; //temp
 			eventListPQueue.dequeue();
 
 			if(!bankQueue.isEmpty())
@@ -156,14 +160,16 @@ int main(void)
 			{
 				tellerAvailable = true;
 			}
+
 		}
+
 	}
 
 //	cout << "Bank Queue Contents:" << endl;
 //	bankQueue.print();
 //	cout << "Priority Queue Contents:" << endl;
 //	eventListPQueue.print();
-	resultPrinterQueue(bankQueue); //print out the results
+//	resultPrinterQueue(bankQueue); //print out the results
 
 
 
