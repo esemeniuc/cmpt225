@@ -136,6 +136,27 @@ void loadIntoPriorityQueue(PQueue &inputPQueue) //loads data into inputQueue
 	inputPQueue.print(); //debug
 }
 
+void loadIntoPriorityQueueAdvanced(PQueue &inputPQueue) //loads data into inputQueue
+{
+	// Create and add arrival events to event list
+	int currentInputCount = 0; //counter for inputEvents array
+
+	char tempType;
+	unsigned int tempTime; //temporary placeholders for cin
+	unsigned int tempLength;
+
+	while(cin >> tempType >> tempTime >> tempLength) //load data into both variables until hits EOF
+	{
+		//cout << "Input #" << currentInputCount << ": Time = " << tempTime << ", Length = " << tempLength << endl; //debug
+		Event tempEvent(tempType, tempTime, tempLength);
+		//cout << "created event successfully" << endl; //debug
+		inputPQueue.enqueue(tempEvent); //insert our new event into the queue
+		currentInputCount++; //increment our counter
+	}
+
+	inputPQueue.print(); //debug
+}
+
 //void bankQueueStressTest(Queue &inputQueue) //loads data into inputQueue
 //{
 //	for(int i =1; i <= 100; i++)
@@ -154,25 +175,25 @@ void loadIntoPriorityQueue(PQueue &inputPQueue) //loads data into inputQueue
 //	inputQueue.print(); //debug
 //}
 
-void pQueueStressTest(PQueue &inputPQueue) //loads data into inputQueue
-{
-	for(unsigned int i= 1; i <= 5; i++)
-//	for(unsigned int i= 100; i >= 95; i--)
-	{
-		Event tempEvent(i, i);
-		bool status = inputPQueue.enqueue(tempEvent); //insert our new event into the queue
-		//cout << status << endl;
-	}
-
-	for(int i = 0; i < 3; i++)
-	{
-		bool status = inputPQueue.dequeue(); //insert our new event into the queue
-		//inputPQueue.print(); //debug
-		//cout << status << endl;
-	}
-
-	inputPQueue.print(); //debug
-}
+//void pQueueStressTest(PQueue &inputPQueue) //loads data into inputQueue
+//{
+//	for(unsigned int i= 1; i <= 5; i++)
+////	for(unsigned int i= 100; i >= 95; i--)
+//	{
+//		Event tempEvent(i, i);
+//		bool status = inputPQueue.enqueue(tempEvent); //insert our new event into the queue
+//		//cout << status << endl;
+//	}
+//
+//	for(int i = 0; i < 3; i++)
+//	{
+//		bool status = inputPQueue.dequeue(); //insert our new event into the queue
+//		//inputPQueue.print(); //debug
+//		//cout << status << endl;
+//	}
+//
+//	inputPQueue.print(); //debug
+//}
 
 int main(void)
 {
@@ -183,9 +204,10 @@ int main(void)
 
 //	loadIntoBankQueue(bankQueue); //load data into bankQueue from file
 //	loadIntoPriorityQueue(eventListPQueue); //load data into Priority Queue from file
+	loadIntoPriorityQueueAdvanced(eventListPQueue); //load data into Priority Queue from file
 //
 //	bankQueueStressTest(bankQueue);
-	pQueueStressTest(eventListPQueue);
+//	pQueueStressTest(eventListPQueue);
 
 //	//??add all the the arrival events from bankQueue
 //	while(!eventListPQueue.isEmpty()) //run while eventListPQueue is not empty

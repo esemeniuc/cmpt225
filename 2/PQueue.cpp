@@ -118,6 +118,7 @@ bool PQueue::enqueue(const Event& newElement)
 	{
 		if(newElement.getTime() == current->data.getTime()) //check if the times collide, if they do, they make the departure follow the arrival event
 		{
+			previous = current; //move our backup variable up
 			current = current->next; //increment next because the times match, but the arrival must be closer to the front
 		}
 	}
