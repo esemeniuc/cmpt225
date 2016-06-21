@@ -9,7 +9,7 @@
 #include <iostream>
 #include "Event.h"
 #include "Queue.h"
-#include "PQueue2.h"
+#include "PQueue.h"
 
 using namespace std;
 
@@ -97,24 +97,24 @@ void processDeparture(Event departureEvent, PQueue eventListPQueue, Queue &bankQ
 	}
 }
 
-void loadIntoBankQueue(Queue &inputQueue) //loads data into inputQueue
-{
-	// Create and add arrival events to event list
-	//int currentInputCount = 0; //counter for inputEvents array
-
-	unsigned int tempTime; //temporary placeholders for cin
-	unsigned int tempLength;
-
-	while(cin >> tempTime >> tempLength) //load data into both variables until hits EOF
-	{
-		//cout << "Input #" << currentInputCount << ": Time = " << tempTime << ", Length = " << tempLength << endl; //debug
-		Event tempEvent(tempTime, tempLength);
-		inputQueue.enqueue(tempEvent); //insert our new event into the queue
-		//currentInputCount++; //increment our counter
-	}
-
-	inputQueue.print(); //debug
-}
+//void loadIntoBankQueue(Queue &inputQueue) //loads data into inputQueue
+//{
+//	// Create and add arrival events to event list
+//	//int currentInputCount = 0; //counter for inputEvents array
+//
+//	unsigned int tempTime; //temporary placeholders for cin
+//	unsigned int tempLength;
+//
+//	while(cin >> tempTime >> tempLength) //load data into both variables until hits EOF
+//	{
+//		//cout << "Input #" << currentInputCount << ": Time = " << tempTime << ", Length = " << tempLength << endl; //debug
+//		Event tempEvent(tempTime, tempLength);
+//		inputQueue.enqueue(tempEvent); //insert our new event into the queue
+//		//currentInputCount++; //increment our counter
+//	}
+//
+//	inputQueue.print(); //debug
+//}
 
 void loadIntoPriorityQueue(PQueue &inputPQueue) //loads data into inputQueue
 {
@@ -136,35 +136,35 @@ void loadIntoPriorityQueue(PQueue &inputPQueue) //loads data into inputQueue
 	inputPQueue.print(); //debug
 }
 
-void bankQueueStressTest(Queue &inputQueue) //loads data into inputQueue
-{
-	for(int i =1; i <= 100; i++)
-	{
-		Event tempEvent(i*2, i*10);
-		bool status = inputQueue.enqueue(tempEvent); //insert our new event into the queue
-		//cout << status << endl;
-	}
-
-	for(int i = 0; i < 100; i++)
-	{
-		bool status = inputQueue.dequeue(); //insert our new event into the queue
-//		inputQueue.print(); //debug
-	}
-
-	inputQueue.print(); //debug
-}
+//void bankQueueStressTest(Queue &inputQueue) //loads data into inputQueue
+//{
+//	for(int i =1; i <= 100; i++)
+//	{
+//		Event tempEvent(i*2, i*10);
+//		bool status = inputQueue.enqueue(tempEvent); //insert our new event into the queue
+//		//cout << status << endl;
+//	}
+//
+//	for(int i = 0; i < 100; i++)
+//	{
+//		bool status = inputQueue.dequeue(); //insert our new event into the queue
+////		inputQueue.print(); //debug
+//	}
+//
+//	inputQueue.print(); //debug
+//}
 
 void pQueueStressTest(PQueue &inputPQueue) //loads data into inputQueue
 {
-//	for(int i= 1; i <= 100; i++)
-	for(int i= 100; i >= 1; i--)
+	for(unsigned int i= 1; i <= 5; i++)
+//	for(unsigned int i= 100; i >= 95; i--)
 	{
-		Event tempEvent(i*2, i*10);
+		Event tempEvent(i, i);
 		bool status = inputPQueue.enqueue(tempEvent); //insert our new event into the queue
 		//cout << status << endl;
 	}
 
-	for(int i = 0; i < 110; i++)
+	for(int i = 0; i < 3; i++)
 	{
 		bool status = inputPQueue.dequeue(); //insert our new event into the queue
 		//inputPQueue.print(); //debug
@@ -181,9 +181,9 @@ int main(void)
 
 	bool tellerAvailable = true;
 
-	//loadIntoBankQueue(bankQueue); //load data into bankQueue from file
+//	loadIntoBankQueue(bankQueue); //load data into bankQueue from file
 //	loadIntoPriorityQueue(eventListPQueue); //load data into Priority Queue from file
-
+//
 //	bankQueueStressTest(bankQueue);
 	pQueueStressTest(eventListPQueue);
 
