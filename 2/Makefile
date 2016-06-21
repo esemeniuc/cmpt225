@@ -8,12 +8,13 @@ CFLAGS=-c -Wall -ggdb
 all: bsApp
 
 bsApp: BankSimApp.o Event.o Queue.o PQueue.o Node.o EmptyDataCollectionException.o
-	$(CC) BankSimApp.o Event.o Queue.o PQueue.o Node.o EmptyDataCollectionException.o -o bsApp
+	$(CC) -Wall -ggdb BankSimApp.o Event.o Queue.o PQueue.o Node.o EmptyDataCollectionException.o -o bsApp
+
 bsApp2: BankSimApp.o Event.o Queue.o PQueue2.o Node.o EmptyDataCollectionException.o
-	$(CC) BankSimApp.o Event.o Queue.o PQueue2.o Node.o EmptyDataCollectionException.o -o bsApp
+	$(CC) -Wall -ggdb BankSimApp.o Event.o Queue.o PQueue2.o Node.o EmptyDataCollectionException.o -o bsApp
 
 debug: Debug.o Event.o Queue.o PQueue.o Node.o EmptyDataCollectionException.o
-	$(CC) Debug.o Event.o Queue.o PQueue.o Node.o EmptyDataCollectionException.o -o debug
+	$(CC) -Wall -ggdb Debug.o Event.o Queue.o PQueue.o Node.o EmptyDataCollectionException.o -o debug
 
 BankSimApp.o: BankSimApp.cpp
 	$(CC) $(CFLAGS) BankSimApp.cpp
