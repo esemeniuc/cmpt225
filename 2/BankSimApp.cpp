@@ -9,7 +9,7 @@
 #include <iostream>
 #include "Event.h"
 #include "Queue.h"
-#include "PQueue.h"
+#include "PQueue2.h"
 
 using namespace std;
 
@@ -97,23 +97,81 @@ void processDeparture(Event departureEvent, PQueue eventListPQueue, Queue &bankQ
 	}
 }
 
-void loadIntoQueue(Queue &inputQueue) //loads data into inputQueue
+void loadIntoBankQueue(Queue &inputQueue) //loads data into inputQueue
 {
 	// Create and add arrival events to event list
-	int currentInputCount = 0; //counter for inputEvents array
+	//int currentInputCount = 0; //counter for inputEvents array
 
-	unsigned int tempTime;
+	unsigned int tempTime; //temporary placeholders for cin
 	unsigned int tempLength;
 
 	while(cin >> tempTime >> tempLength) //load data into both variables until hits EOF
 	{
 		//cout << "Input #" << currentInputCount << ": Time = " << tempTime << ", Length = " << tempLength << endl; //debug
 		Event tempEvent(tempTime, tempLength);
-		inputQueue.enqueue(tempEvent); //insert our new evnt into the queue
+		inputQueue.enqueue(tempEvent); //insert our new event into the queue
+		//currentInputCount++; //increment our counter
+	}
+
+	inputQueue.print(); //debug
+}
+
+void loadIntoPriorityQueue(PQueue &inputPQueue) //loads data into inputQueue
+{
+	// Create and add arrival events to event list
+	int currentInputCount = 0; //counter for inputEvents array
+
+	unsigned int tempTime; //temporary placeholders for cin
+	unsigned int tempLength;
+
+	while(cin >> tempTime >> tempLength) //load data into both variables until hits EOF
+	{
+		//cout << "Input #" << currentInputCount << ": Time = " << tempTime << ", Length = " << tempLength << endl; //debug
+		Event tempEvent(tempTime, tempLength);
+		//cout << "created event successfully" << endl; //debug
+		inputPQueue.enqueue(tempEvent); //insert our new event into the queue
 		currentInputCount++; //increment our counter
 	}
 
-	//inputQueue.print(); //debug
+	inputPQueue.print(); //debug
+}
+
+void bankQueueStressTest(Queue &inputQueue) //loads data into inputQueue
+{
+	for(int i =1; i <= 100; i++)
+	{
+		Event tempEvent(i*2, i*10);
+		bool status = inputQueue.enqueue(tempEvent); //insert our new event into the queue
+		//cout << status << endl;
+	}
+
+	for(int i = 0; i < 100; i++)
+	{
+		bool status = inputQueue.dequeue(); //insert our new event into the queue
+//		inputQueue.print(); //debug
+	}
+
+	inputQueue.print(); //debug
+}
+
+void pQueueStressTest(PQueue &inputPQueue) //loads data into inputQueue
+{
+//	for(int i= 1; i <= 100; i++)
+	for(int i= 100; i >= 1; i--)
+	{
+		Event tempEvent(i*2, i*10);
+		bool status = inputPQueue.enqueue(tempEvent); //insert our new event into the queue
+		//cout << status << endl;
+	}
+
+	for(int i = 0; i < 110; i++)
+	{
+		bool status = inputPQueue.dequeue(); //insert our new event into the queue
+		//inputPQueue.print(); //debug
+		//cout << status << endl;
+	}
+
+	inputPQueue.print(); //debug
 }
 
 int main(void)
@@ -123,25 +181,27 @@ int main(void)
 
 	bool tellerAvailable = true;
 
-	loadIntoQueue(bankQueue); //load data into bankQueue from file
+	//loadIntoBankQueue(bankQueue); //load data into bankQueue from file
+//	loadIntoPriorityQueue(eventListPQueue); //load data into Priority Queue from file
 
+//	bankQueueStressTest(bankQueue);
+	pQueueStressTest(eventListPQueue);
 
-	//??add all the the arrival events from bankQueue
-	while(!eventListPQueue.isEmpty()) //run while eventListPQueue is not empty
-	{
-		Event newEvent = eventListPQueue.peek();
-		// Get current time
-		unsigned int currentTime = newEvent.getTime(); // get time of newEvent
-		if (newEvent.getType() == 'A') //check if newEvent is an arrival event
-		{
-			processArrival(newEvent, eventListPQueue, bankQueue, tellerAvailable, currentTime);
-		}
-		else
-		{
-			processDeparture(newEvent, eventListPQueue, bankQueue, tellerAvailable, currentTime);
-		}
-	}
-
+//	//??add all the the arrival events from bankQueue
+//	while(!eventListPQueue.isEmpty()) //run while eventListPQueue is not empty
+//	{
+//		Event newEvent = eventListPQueue.peek();
+//		// Get current time
+//		unsigned int currentTime = newEvent.getTime(); // get time of newEvent
+//		if (newEvent.getType() == 'A') //check if newEvent is an arrival event
+//		{
+//			processArrival(newEvent, eventListPQueue, bankQueue, tellerAvailable, currentTime);
+//		}
+//		else
+//		{
+//			processDeparture(newEvent, eventListPQueue, bankQueue, tellerAvailable, currentTime);
+//		}
+//	}
 
 
 // Psuedocode
