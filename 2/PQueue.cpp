@@ -19,6 +19,7 @@
 //time of departure = time service begins + length of transaction
 
 #include "PQueue.h"
+#include <iostream>
 
 //Class Invariant: The elements stored in this Priority Queue are always sorted.
 
@@ -30,24 +31,25 @@
 
 // Description: default constructor for an empty priority queue
 PQueue::PQueue():
-pQueueCount(0),
-head(NULL)
+		head(NULL)
 {
 	//nothing else to do here
+	//cout << "Calling pQueue default constructor" << endl;
 }
 
-// Description: default destructor for an empty priority queue
+// Description: default destructor for a priority queue
 PQueue::~PQueue()
 {
 	//TODO: check for memory leaks
-	Node* last = head; //keep a tracker
+	Node* last; //keep a tracker
 	Node* current = head;
 	while(current != NULL)
 	{
 		last = current;
-		delete last;
 		current = current->next; //iterate forward
+		delete last;
 	}
+	head = NULL; //avoid use after free
 
 }
 
@@ -55,7 +57,7 @@ PQueue::~PQueue()
 // Time Efficiency: O(1)
 bool PQueue::isEmpty() const
 {
-	if(pQueueCount == 0) //check if empty
+	if(head == NULL) //check if empty
 	{
 		return true; //-1 is defined to be empty, so return true
 	}
@@ -71,30 +73,60 @@ bool PQueue::enqueue(const Event& newElement)
 {
 	if(&newElement == NULL) //check for null
 	{
+		//cout << "failed null check" << endl; //debug
 		return false; //can't insert NULL event
 	}
+	//cout << "passed null check" << endl; //debug
+
+	//compare with head
+
+
+	if(head == NULL || newElement.getTime() < head->data.getTime()) //for empty list where the head is null
+	{
+//		cout << "had null list or less than head time" << endl; //debug
+		Node* tempNode = new Node(newElement, head); //make a new node with newElement as our event, and next = NULL
+		//insert tempNode into our front of priority queue
+		head = tempNode; //set our tempNode to be the head of the linked list
+		return true;
+	}
+//	else if(newElement.getTime() > head->data.getTime()) //prob unnecessary
+//	{
+//		cout << "small than head" << endl; //debug
+//		Node* tempNode = new Node(newElement, head); //make a new node with newElement as our event, and next = NULL
+//		//insert tempNode into our front of priority queue
+//		head = tempNode; //set our tempNode to be the head of the linked list
+//		return true;
+//	}
 
 	//iterate through our pQueue to find proper location to put our event in
 	//TODO: make sure this doesn't segfault with null or out of bound errors
 	Node* current = head; //keep a tracking variable
-	while((newElement.getTime() > current->data.getTime()) && (current->next != NULL)) //check until newElement's arrival time is not greater than the other elements
+	Node* previous = head; //keep a second tracking variable
+
+	//for non empty list
+	while(current != NULL && (newElement.getTime() > current->data.getTime()) ) //check until newElement's arrival time is not greater than the other elements
 	{
+//		cout << "ran loop - newElement: " << newElement.getTime() << "-" << newElement.getLength() << " currentTime: " << current->data.getTime() << "-" << current->data.getLength() << " current : " << current << endl; //debug
+		previous = current; //move our backup variable up
 		current = current->next; //move our tracking variable up
 	}
+	//cout << "finished loop, current = " << current << endl; //debug
 
-	//check if newElement is a Departure, and the next variable is an arrival, since arrivals must be (arbitrarily) processed before departures
-	if(newElement.getType() == 'D' && current->data.getType() == 'A')
+	//check if newElement is a Departure, and the next variable is an arrival,
+	//since arrivals must be (arbitrarily) processed before departures
+	if(current != NULL && (newElement.getType() == 'D' && current->data.getType() == 'A'))
 	{
-		if((newElement.getTime() == current->data.getTime()) && (current->next != NULL)) //check if the times collide, if they do, they make the departure follow the arrival event
+		if(newElement.getTime() == current->data.getTime()) //check if the times collide, if they do, they make the departure follow the arrival event
 		{
 			current = current->next; //increment next because the times match, but the arrival must be closer to the front
 		}
 	}
 
-	//insert the node in
-	Node* tempNode = new Node(newElement, current->next); //make a new node with newElement as our event, and next = the following element in the linked list
-	current->next = tempNode; //connect our tempNode to the current->next pointer
-	pQueueCount++; //increment our counter
+	//insert new node
+//	cout << "had existing list, current = " << current << endl; //debug
+	Node* tempNode = new Node(newElement, previous->next); //make a new node with newElement as our event, and next = the following element in the linked list
+	//insert tempNode into our priority queue
+	previous->next = tempNode; //connect our tempNode to the current->next pointer
 	return true;
 }
 
@@ -111,7 +143,6 @@ bool PQueue::dequeue()
 	Node* headNext = head->next; //store second element pointer (head->next)
 	delete head; //free up first element
 	head = headNext; //set head to be the new second element
-	pQueueCount--; //decrement our counter
 	return true; //all good
 }
 

@@ -29,8 +29,9 @@
 class PQueue
 {
 private:
-	unsigned int pQueueCount; //count of how many elements are in our priority queue, 0 indexed
+	//unsigned int pQueueCount; //count of how many elements are in our priority queue, 0 indexed
 	Node* head; //head pointer of our singly headed singly linked list
+	//Node* tail; //tail pointer of our singly headed singly linked list
 
 public:
 
