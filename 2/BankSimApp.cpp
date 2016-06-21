@@ -13,75 +13,24 @@
 
 using namespace std;
 
-// Performs the simulation.
-/*void simulate(void) {
-	//Create an empty queue bankQueue to represent the bank line
-	//Create an empty priority queue eventListPQueue for the event list
-	bool tellerAvailable = true;
+void loadIntoBankQueue(Queue &inputQueue) //loads data into inputQueue
+{
 	// Create and add arrival events to event list
-	while (data file is not empty )
-	{
-		//Get next arrival time a and transaction time t from file
-		newArrivalEvent = a new arrival event containinga andt;
-		eventListPQueue.add(newArrivalEvent);
-	}
-	// Event loop
-	while(eventListPQueue is not empty )
-	{
-		newEvent = eventListPQueue.peek();
-		// Get current time
-		currentTime = time of newEvent;
-		if (newEvent is an arrival event )
-		{
-			processArrival(newEvent, eventListPQueue, bankQueue);
-		}
-		else
-		{
-			processDeparture(newEvent, eventListPQueue, bankQueue)
-		}
-	}
-}*/
+	//int currentInputCount = 0; //counter for inputEvents array
 
-// Processes an arrival event.
-void processArrival(Event &arrivalEvent, PQueue &eventListPQueue, Queue &bankQueue, bool &tellerAvailable, unsigned int currentTime)
-{
-	//Remove this event from the event list
-	eventListPQueue.dequeue();
-	Event customer = arrivalEvent; //customer referenced in arrivalEvent ?????????????????????
-	if (bankQueue.isEmpty() && tellerAvailable)
+	unsigned int tempTime; //temporary placeholders for cin
+	unsigned int tempLength;
+
+	while(cin >> tempTime >> tempLength) //load data into both variables until hits EOF
 	{
-		unsigned int departureTime = currentTime + customer.getLength();//currentTime + transaction time in arrivalEvent
-		Event newDepartureEvent('D', departureTime, 0); //a new departure event with departureTime
-		eventListPQueue.enqueue(newDepartureEvent);
-		tellerAvailable = false;
+		//cout << "Input #" << currentInputCount << ": Time = " << tempTime << ", Length = " << tempLength << endl; //debug
+		Event tempEvent(tempTime, tempLength);
+		inputQueue.enqueue(tempEvent); //insert our new event into the queue
+		//currentInputCount++; //increment our counter
 	}
-	else
-	{
-		bankQueue.enqueue(customer);
-	}
+
+	//inputQueue.print(); //debug
 }
-
-// Processes a departure event.
-void processDeparture(Event departureEvent, PQueue eventListPQueue, Queue &bankQueue, bool &tellerAvailable, unsigned int currentTime)
-{
-	// Remove this event from the event list
-	eventListPQueue.dequeue();
-
-	if(!bankQueue.isEmpty())
-	{
-		// Customer at front of line begins transaction
-		Event customer = bankQueue.peek();
-		bankQueue.dequeue();
-		unsigned int departureTime = currentTime + customer.getLength(); //currentTime + transaction time in customer
-		Event newDepartureEvent('D', departureTime, 0); //a new departure event with departureTime
-		eventListPQueue.enqueue(newDepartureEvent);
-	}
-	else
-	{
-		tellerAvailable = true;
-	}
-}
-
 void loadIntoPriorityQueue(PQueue &inputPQueue) //loads data into inputQueue
 {
 	// Create and add arrival events to event list
@@ -99,7 +48,8 @@ void loadIntoPriorityQueue(PQueue &inputPQueue) //loads data into inputQueue
 	//inputPQueue.print(); //debug
 }
 
-void resultPrinter(PQueue &inputPQueue)
+//prints out the results of the simulation
+void resultPrinterPQueue(PQueue &inputPQueue)
 {
 	unsigned int arrivalCount = 0; //track how many customers came in
 	unsigned int avgTimeWait; //TODO: add time wait calculation
@@ -109,21 +59,48 @@ void resultPrinter(PQueue &inputPQueue)
 	{
 		Event tempEvent = inputPQueue.peek();
 		if (tempEvent.getType() == 'A') {
-			cout << "Processing an arrival event at time: " << tempEvent.getTime() << endl;
+			cout << "Processing an arrival event at time:\t" << tempEvent.getTime() << endl;
 			arrivalCount++;
 		}
 		else
 		{
-			cout << "Processing a departure event at time: " << tempEvent.getTime() << endl;
+			cout << "Processing a departure event at time:\t" << tempEvent.getTime() << endl;
 		}
+		inputPQueue.dequeue(); //finished with the event
 	}
 
-	cout << "Simulation Ends" << endl;
+	cout << "Simulation Ends\n\n";
 	cout << "Final Statistics:" << endl;
-	cout << "Total number of people processed: " << arrivalCount << endl;
-	cout << "Average amount of time spent waiting: " << avgTimeWait << endl;
+	cout << "\tTotal number of people processed: " << arrivalCount << endl;
+	cout << "\tAverage amount of time spent waiting: " << avgTimeWait << endl;
 }
 
+//prints out the results of the simulation
+void resultPrinterQueue(Queue &inputQueue)
+{
+	unsigned int arrivalCount = 0; //track how many customers came in
+	unsigned int avgTimeWait; //TODO: add time wait calculation
+	cout << "Simulation Begins" << endl;
+
+	while(!inputQueue.isEmpty()) //while there are still elements
+	{
+		Event tempEvent = inputQueue.peek();
+		if (tempEvent.getType() == 'A') {
+			cout << "Processing an arrival event at time:\t" << tempEvent.getTime() << endl;
+			arrivalCount++;
+		}
+		else
+		{
+			cout << "Processing a departure event at time:\t" << tempEvent.getTime() << endl;
+		}
+		inputQueue.dequeue(); //finished with the event
+	}
+
+	cout << "Simulation Ends\n\n";
+	cout << "Final Statistics:" << endl;
+	cout << "\tTotal number of people processed: " << arrivalCount << endl;
+	cout << "\tAverage amount of time spent waiting: " << avgTimeWait << endl;
+}
 
 int main(void)
 {
@@ -131,7 +108,8 @@ int main(void)
 	PQueue eventListPQueue; //priority queue eventListPQueue for the event list
 
 	bool tellerAvailable = true;
-	loadIntoPriorityQueue(eventListPQueue); //load data into Priority Queue from file
+	loadIntoBankQueue(bankQueue); //load data into bank Queue from file
+//	loadIntoPriorityQueue(eventListPQueue); //load data into Priority Queue from file
 
 	//??add all the the arrival events from bankQueue
 	while(!eventListPQueue.isEmpty()) //run while eventListPQueue is not empty
@@ -141,13 +119,52 @@ int main(void)
 		unsigned int currentTime = newEvent.getTime(); // get time of newEvent
 		if (newEvent.getType() == 'A') //check if newEvent is an arrival event
 		{
-			processArrival(newEvent, eventListPQueue, bankQueue, tellerAvailable, currentTime);
+			//processArrival(newEvent, eventListPQueue, bankQueue, tellerAvailable, currentTime);
+			// Processes an arrival event.
+				//Remove this event from the event list
+				eventListPQueue.dequeue();
+				Event customer = newEvent; //customer referenced in arrivalEvent ?????????
+				if (bankQueue.isEmpty() && tellerAvailable)
+				{
+					unsigned int departureTime = currentTime + customer.getLength();//currentTime + transaction time in arrivalEvent
+					Event newDepartureEvent('D', departureTime, 0); //a new departure event with departureTime
+					eventListPQueue.enqueue(newDepartureEvent);
+					tellerAvailable = false;
+				}
+				else
+				{
+					bankQueue.enqueue(customer);
+				}
 		}
 		else
 		{
-			processDeparture(newEvent, eventListPQueue, bankQueue, tellerAvailable, currentTime);
+			// Processes a departure event.
+//			processDeparture(newEvent, eventListPQueue, bankQueue, tellerAvailable, currentTime);
+			// Remove this event from the event list
+			eventListPQueue.dequeue();
+
+			if(!bankQueue.isEmpty())
+			{
+				// Customer at front of line begins transaction
+				Event customer = bankQueue.peek();
+				bankQueue.dequeue();
+				unsigned int departureTime = currentTime + customer.getLength(); //currentTime + transaction time in customer
+				Event newDepartureEvent('D', departureTime, 0); //a new departure event with departureTime
+				eventListPQueue.enqueue(newDepartureEvent);
+			}
+			else
+			{
+				tellerAvailable = true;
+			}
 		}
 	}
+
+//	cout << "Bank Queue Contents:" << endl;
+//	bankQueue.print();
+//	cout << "Priority Queue Contents:" << endl;
+//	eventListPQueue.print();
+	resultPrinterQueue(bankQueue); //print out the results
+
 
 
 // Psuedocode
