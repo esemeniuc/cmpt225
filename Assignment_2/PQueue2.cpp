@@ -1,5 +1,5 @@
 // Filename: PQueue.h/PQueue.cpp
-// Created by eric on 16/06/16.Edited by Eugene Filatov, 
+// Created by eric on 16/06/16.Edited by Eugene Filatov,
 //Description:
 //A data collection Priority Queue ADT class. This class ***must
 //not*** print anything on the computer monitor screen. Name this
@@ -30,30 +30,30 @@
 
 
 
-	//Default constructor
+//Default constructor
 PQueue::PQueue() {
 	Head = NULL;
 	Tail = NULL;
 
-	}
+}
 PQueue::~PQueue() {
 
 
 }
 
-	// Description: Returns "true" is this Priority Queue is empty, otherwise "false".
-	// Time Efficiency: O(1)
+// Description: Returns "true" is this Priority Queue is empty, otherwise "false".
+// Time Efficiency: O(1)
 bool PQueue::isEmpty() const {
 	if (Head == NULL) {
 		return true;
 	}
 	return false;
-	}
+}
 
-	// Description: Inserts newElement in sort order.
-	//              It returns "true" if successful, otherwise "false".
-	// Precondition: This Priority Queue is sorted.
-	// Postcondition: Once newElement is inserted, this Priority Queue remains sorted.
+// Description: Inserts newElement in sort order.
+//              It returns "true" if successful, otherwise "false".
+// Precondition: This Priority Queue is sorted.
+// Postcondition: Once newElement is inserted, this Priority Queue remains sorted.
 bool PQueue::enqueue(const Event& newElement) {
 
 
@@ -65,7 +65,7 @@ bool PQueue::enqueue(const Event& newElement) {
 	}
 
 	// Case : comparison to front
-	if ( newElement.getTime() < (Head->data).getTime() ) { 
+	if ( newElement.getTime() < (Head->data).getTime() ) {
 		Node* Nd = new Node(newElement);
 		Nd->next = Head;
 		Head = Nd;
@@ -97,16 +97,16 @@ bool PQueue::enqueue(const Event& newElement) {
 	}
 
 
-// Case: comparison to the rest of the list 
+// Case: comparison to the rest of the list
 	Node* prev = Head;
 	for (Node* curr = Head->next; !(curr->next->next == NULL); curr = curr->next) {
 
 		if (newElement.getTime() < (curr->data).getTime()) {
 			Node* Nd = new Node(newElement);
-			Nd->next = curr; 
+			Nd->next = curr;
 			prev->next = Nd;
 			return true;
-}
+		}
 
 		if (newElement.getTime() == (Head->data).getTime() && newElement.getType() < (Head->data).getType()) {
 			Node* Nd = new Node(newElement);
@@ -123,38 +123,39 @@ bool PQueue::enqueue(const Event& newElement) {
 
 
 
-		}
+	}
 
 	return false;
 
-	}
+}
 
-	
 
-	// Description: Removes the element with the "highest" priority.
-	//              It returns "true" if successful, otherwise "false".
-	// Precondition: This Priority Queue is not empty.
+
+// Description: Removes the element with the "highest" priority.
+//              It returns "true" if successful, otherwise "false".
+// Precondition: This Priority Queue is not empty.
 bool PQueue::dequeue() {
 
 	if (this->isEmpty()) {
 		return false;
 	}
 
-	Node* Nd = Head;
-	while (!(Nd->next == NULL)) {
-		Nd = Nd->next;
+	if(Head->next==NULL){
+		Head=NULL;
+		Tail=NULL;
+		return true;
 	}
 
-	Tail = Nd;
-	Tail->next = NULL;
+	 Head=Head->next;
+
 	return true;
 
-	}
+}
 
-	// Description: Retrieves (but does not remove) the element with the "highest" priority.
-	// Precondition: This Priority Queue is not empty.
-	// Postcondition: This Priority Queue is unchanged.
-	// Exceptions: Throws EmptyDataCollectionException if this Priority Queue is empty.
+// Description: Retrieves (but does not remove) the element with the "highest" priority.
+// Precondition: This Priority Queue is not empty.
+// Postcondition: This Priority Queue is unchanged.
+// Exceptions: Throws EmptyDataCollectionException if this Priority Queue is empty.
 Event PQueue::peek() const throw(EmptyDataCollectionException)
 
 {
@@ -164,7 +165,7 @@ Event PQueue::peek() const throw(EmptyDataCollectionException)
 
 	return Head->data;
 
-	}
+}
 
 void PQueue::print(void) const
 {
