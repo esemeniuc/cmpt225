@@ -116,6 +116,60 @@ void processDeparture(Event departureEvent, PQueue eventListPQueue, Queue &bankQ
 //	inputQueue.print(); //debug
 //}
 
+//prints out the results of the simulation --broken
+//void resultPrinterPQueue(PQueue &inputPQueue)
+//{
+//	unsigned int arrivalCount = 0; //track how many customers came in
+//	unsigned int avgTimeWait; //TODO: add time wait calculation
+//	cout << "Simulation Begins" << endl;
+//
+//	while(!inputPQueue.isEmpty()) //while there are still elements
+//	{
+//		Event tempEvent = inputPQueue.peek();
+//		if (tempEvent.getType() == 'A') {
+//			cout << "Processing an arrival event at time:\t" << tempEvent.getTime() << endl;
+//			arrivalCount++;
+//		}
+//		else
+//		{
+//			cout << "Processing a departure event at time:\t" << tempEvent.getTime() << endl;
+//		}
+//		inputPQueue.dequeue(); //finished with the event
+//	}
+//
+//	cout << "Simulation Ends\n\n";
+//	cout << "Final Statistics:" << endl;
+//	cout << "\tTotal number of people processed: " << arrivalCount << endl;
+//	cout << "\tAverage amount of time spent waiting: " << avgTimeWait << endl;
+//}
+
+//prints out the results of the simulation --broken
+//void resultPrinterQueue(Queue &inputQueue)
+//{
+//	unsigned int arrivalCount = 0; //track how many customers came in
+//	unsigned int avgTimeWait; //TODO: add time wait calculation
+//	cout << "Simulation Begins" << endl;
+//
+//	while(!inputQueue.isEmpty()) //while there are still elements
+//	{
+//		Event tempEvent = inputQueue.peek();
+//		if (tempEvent.getType() == 'A') {
+//			cout << "Processing an arrival event at time:\t" << tempEvent.getTime() << endl;
+//			arrivalCount++;
+//		}
+//		else
+//		{
+//			cout << "Processing a departure event at time:\t" << tempEvent.getTime() << endl;
+//		}
+//		inputQueue.dequeue(); //finished with the event
+//	}
+//
+//	cout << "Simulation Ends\n\n";
+//	cout << "Final Statistics:" << endl;
+//	cout << "\tTotal number of people processed: " << arrivalCount << endl;
+//	cout << "\tAverage amount of time spent waiting: " << avgTimeWait << endl;
+//}
+
 void loadIntoPriorityQueue(PQueue &inputPQueue) //loads data into inputQueue
 {
 	// Create and add arrival events to event list
