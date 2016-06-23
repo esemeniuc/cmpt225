@@ -156,7 +156,7 @@ Event PQueue::peek() const throw(EmptyDataCollectionException)
 	if(head == NULL) //check for empty priority queue
 	{
 		//TODO: fix exception handling
-		throw 2; //throw an exception
+		throw EmptyDataCollectionException("PQueue is Empty"); //throw an exception
 	}
 
 	return head->data; //return event
@@ -165,12 +165,12 @@ Event PQueue::peek() const throw(EmptyDataCollectionException)
 //Description: prints out the contents of the priority queue
 //Preconditions: none
 //Postconditions: prints out the contents of the priority queue
-void PQueue::print(void) const
-{
-	Node* current = head; //make tracking variable, start from head
-	while(current != NULL)
-	{
-		current->data.print(); //print out the current element in priority queue
-		current = current->next; //move up our tracking variable
-	}
-}
+//void PQueue::print(void) const
+//{
+//	Node* current = head; //make tracking variable, start from head
+//	while(current != NULL)
+//	{
+//		current->data.print(); //print out the current element in priority queue
+//		current = current->next; //move up our tracking variable
+//	}
+//}

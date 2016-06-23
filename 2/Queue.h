@@ -19,7 +19,7 @@
 #include "Event.h"
 #include "EmptyDataCollectionException.h"
 
-const unsigned int queueDefaultMax = 100; //as defined by Anne
+const unsigned int queueDefaultMax = 101; //as defined by Anne
 
 //Class invariants: FIFO or LILO
 class Queue
@@ -65,7 +65,7 @@ public:
 	//Description: prints out the contents of the queue
 	//Preconditions: none
 	//Postconditions: prints out the contents of the queue
-	void print(void) const;
+	//void print(void) const; //debug
 };
 
 

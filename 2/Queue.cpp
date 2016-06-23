@@ -33,6 +33,7 @@ endPos(0),
 queueElements(NULL)
 {
 	queueElements = new Event[queueDefaultMax]; //allocate heap memory to keep our object size small
+	//size + 1 to avoid segfault
 }
 
 // Description: default destructor for an empty queue
@@ -60,10 +61,10 @@ bool Queue::isEmpty() const
 // Time Efficiency: O(1)
 bool Queue::enqueue(const Event& newElement)
 {
-//	if((startPos % queueDefaultMax) == (endPos+1) % queueDefaultMax) //check if full
-//	{
-//		return false; //not successful
-//	}
+	if((startPos % queueDefaultMax) == (endPos+1) % queueDefaultMax) //check if full
+	{
+		return false; //not successful
+	}
 	queueElements[(endPos) % queueDefaultMax] = newElement; //copy the element into our array
 	endPos++;
 	//endPos = (endPos+1) % queueDefaultMax ; //increment our count
@@ -96,7 +97,7 @@ Event Queue::peek() const throw(EmptyDataCollectionException)
 	if(startPos == endPos) //check for empty queue
 	{
 		//TODO: throw proper exception instead of 0
-		throw 0; //can't return an event in an empty queue
+		throw EmptyDataCollectionException("Queue is Empty"); //can't return an event in an empty queue
 	}
 	return queueElements[startPos % queueDefaultMax]; //return the newest item
 }
@@ -104,13 +105,13 @@ Event Queue::peek() const throw(EmptyDataCollectionException)
 //Description: prints out the contents of the queue
 //Preconditions: none
 //Postconditions: prints out the contents of the queue
-void Queue::print(void) const
-{
-	//for(unsigned int  i=0; i< abs(endPos%queueDefaultMax-startPos%queueDefaultMax); i++)
-
-	//TODO: fix for modulo wraparound printing
-	for(unsigned int i = startPos; i < endPos; i++)
-	{
-		queueElements[i].print(); //print out each element of our queue
-	}
-}
+//void Queue::print(void) const
+//{
+//	//for(unsigned int  i=0; i< abs(endPos%queueDefaultMax-startPos%queueDefaultMax); i++)
+//
+//	//TODO: fix for modulo wraparound printing
+//	for(unsigned int i = startPos; i < endPos; i++)
+//	{
+//		queueElements[i].print(); //print out each element of our queue
+//	}
+//}

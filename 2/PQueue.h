@@ -65,7 +65,7 @@ public:
 	//Description: prints out the contents of the priority queue
 	//Preconditions: none
 	//Postconditions: prints out the contents of the priority queue
-	void print(void) const;
+//	void print(void) const;
 };
 
 

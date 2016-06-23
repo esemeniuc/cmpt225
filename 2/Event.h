@@ -80,7 +80,7 @@ public:
 	//Description: prints out the contents of an event
 	//Preconditions: none
 	//Postconditions: prints out the contents of an event
-	void print(void) const;
+//	void print(void) const; //debug
 };
 
 
