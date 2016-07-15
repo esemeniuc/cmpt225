@@ -31,4 +31,4 @@ ClassException.o: ClassException.cpp ClassException.h
 	$(CC) $(CFLAGS) ClassException.cpp
 
 clean:
-	rm -r *.o EKTApp
+	rm *.o *.h.gch EKTApp

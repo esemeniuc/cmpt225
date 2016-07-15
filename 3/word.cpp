@@ -95,7 +95,7 @@ string word::getDest(void) const
 //preconditions: none
 //postconditions: returns 0 if src and dest are empty, returns 1 if dest is empty, and returns 2 if both are not empty
 //description: gets the value of dest
-uint8_t word::isEmpty(void) const
+uint8_t word::size(void) const
 {
 	//cout << "Src: " << src << "=" << src.length() << " Dest: " << dest << "=" <<  dest.length() << endl;
 	if(src.length() != 0 && dest.length() != 0)

@@ -4,7 +4,7 @@
  * Class Description: A data collection ADT class to satisfy Assn 3's requirements.
 
  * Class Invariant: Data collection with the following characteristics:
- *                   -
+ *                   - assumes size(), print() are available for use in templated object
  *                   -
  *                   -
  *                   -
@@ -58,7 +58,7 @@ public:
 	//description: recursively calls rSearch and stops when a Type matching inputSrc is found, or reaches bottom of the tree
 	Type search(Type* inputData) const throw(ClassException);
 	
-	//preconditions: inputData.isEmpty() >= 1 (at least 1 term is entered)
+	//preconditions: inputData.size() >= 1 (at least 1 term is entered)
 	//postconditions: returns 0 if successfully inputted, 1 if there is an error
 	//description: creates a node to insert in sorted order (based on src) into the tree
 	uint8_t insert(Type inputData);
@@ -116,7 +116,7 @@ template <class Type>
 //description: finds a Type matching inputSrc if it exists in the tree
 node<Type>* btree<Type>::rSearch(node<Type>* root, Type* inputData) const
 {
-	if(root == NULL || root->data.getSrc() == inputData->getSrc()) //base case
+	if(root == NULL || root->data == *inputData) //base case
 	{
 		return root;
 	}
@@ -140,7 +140,7 @@ uint8_t btree<Type>::rInsert(node<Type>* currentRoot, node<Type>* inputNode)
 {
 	while(currentRoot != NULL) //base case
 	{
-		if (currentRoot->data.getSrc() == inputNode->data.getSrc()) //check for duplicates
+		if (currentRoot->data == inputNode->data) //check for duplicates
 		{
 			return 1; // failure, don't want duplicates
 		}
@@ -176,15 +176,15 @@ uint8_t btree<Type>::rInsert(node<Type>* currentRoot, node<Type>* inputNode)
 }
 
 template <class Type>
-//preconditions: inputData.isEmpty() >= 1 (at least 1 term is entered)
+//preconditions: inputData.size() >= 1 (at least 1 term is entered)
 //postconditions: returns 0 if successfully inputted, 1 if there is an error
 //description: creates a node to insert in sorted order (based on src) into the tree
 uint8_t btree<Type>::insert(Type inputData)
 {
 	//check if params are valid
-	if(inputData.isEmpty() < 2) //check for non fully populated
+	if(inputData.size() == 0) //check for non fully populated
 	{
-		return 1; //can't input partially/non filled objects
+		return 1; //can't non filled objects
 	}
 	
 	//cout << "**about to insert**" << endl;
@@ -214,7 +214,7 @@ template <class Type>
 //description: recursively calls rSearch and stops when a Type matching inputSrc is found, or reaches bottom of the tree
 Type btree<Type>::search(Type* inputData) const throw(ClassException)
 {
-	if (inputData->isEmpty() == 0) //check for empty input
+	if (inputData->size() == 0) //check for empty input
 	{
 		throw ClassException("Can't search with empty input");//can't search without proper input
 	}
@@ -223,9 +223,16 @@ Type btree<Type>::search(Type* inputData) const throw(ClassException)
 	
 	if(searchResult == NULL) //compare
 	{
-		inputData->setDest("<not found>");
-		return *inputData;
+		//option 1
+//		inputData->setDest("<not found>");
+//		return *inputData;
+		
+		//option 2
 		//throw ClassException("Type doesn't exist"); //failed, don't try to access searchResult->data unless segfault
+		
+		//option 3 - make an empty object and have client code check if its empty, to make the <not found> version
+		Type emptyObject;
+		return emptyObject;
 	}
 	
 	return searchResult->data; //otherwise return Type, all is good

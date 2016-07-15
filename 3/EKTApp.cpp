@@ -93,7 +93,17 @@ int main(int argc, char* argv[])
 		word tempSearchTerm = word(userInputQueue.peek()); //get stuff on the top
 		userInputQueue.dequeue(); //decrement
 		word tempResult = dataBtree.search(&tempSearchTerm);
-		tempResult.print();
+		
+		if(tempResult.size() == 0) //check if empty object is returned
+		{
+			//then mash together the tempSearchTerm src field with <not found>
+			word printWord(tempSearchTerm.getSrc(), "<not found>");
+			printWord.print();
+		}
+		else
+		{
+			tempResult.print();
+		}
 	}
 
 	userInputQueue.print();

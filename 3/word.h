@@ -61,7 +61,7 @@ public:
 	//preconditions: none
 	//postconditions: returns 0 if src and dest are empty, returns 1 if dest is empty, and returns 2 if both are not empty
 	//description: gets the value of dest
-	uint8_t isEmpty(void) const;
+	uint8_t size(void) const;
 	
 	//preconditions: inputWord is not null
 	//postconditions: 0 if inputWord is greater than "this", 1 if less than "this"
