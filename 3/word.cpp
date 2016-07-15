@@ -1,7 +1,7 @@
 //
 // Created by eric on 07/07/16.
 //
-#include <iostream>
+#include <iostream> //for cout
 #include "word.h"
 
 /*private:

@@ -1,7 +1,7 @@
 /*
- * filename: btree.h
+ * filename: btree.cpp
  *
- * Class Description: A data collection ADT class to satisfy Assn 3's requiremetns.
+ * Class Description: A data collection ADT class to satisfy Assn 3's requirements.
 
  * Class Invariant: Data collection with the following characteristics:
  *                   -

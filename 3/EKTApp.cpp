@@ -21,10 +21,12 @@
 #include <algorithm> //for lowercase
 #include "btree.h"
 #include "queue.h"
+#include "word.h"
 
 using namespace std;
 
-void dictLoader(string inputFilename, btree* inputBtree)
+template <class Type>
+void dictLoader(string inputFilename, btree<Type>* inputBtree)
 {
 	ifstream inputFile;
 	inputFile.open(inputFilename, ios::in); //set to read as input mode only
@@ -41,7 +43,7 @@ void dictLoader(string inputFilename, btree* inputBtree)
 //			cout << "src: " << tempSrc << " dest: " << tempDest << endl; //debug
 //			cout << tempDest << endl; //debug
 			
-			inputBtree->insert(word(tempSrc, tempDest)); //insert the new word
+			inputBtree->insert(word(tempSrc, tempDest)); //insert the new word. Note: this is client code, no need to template
 		}
 	}
 	
@@ -63,7 +65,7 @@ void userInputLoader(queue* inputQueue)
 int main(int argc, char* argv[])
 {
 	//load data into tree
-	btree dataBtree;
+	btree<word> dataBtree;
 	dictLoader("dataFile.txt", &dataBtree);
 	
 	//dumps out the contents of the tree and ends if in display mode
