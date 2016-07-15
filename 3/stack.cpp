@@ -48,7 +48,7 @@ uint32_t stack::getSize() const
 //postcondition: the data array is 2x as large and dataMax is doubled
 uint8_t stack::expand(void)
 {
-	word* tempArray = new(std::nothrow) word[2 * dataMax]; //double the size of the old array
+	word* tempArray = new word[2 * dataMax]; //double the size of the old array
 	//cout << "Size of profile: " << sizeof(Profile) << endl;
 	copy(dataArray, dataArray + dataCount, tempArray); //copy profiles into temp
 //	for(int i = 0; i < dataCount; i++)
@@ -70,7 +70,9 @@ uint8_t stack::push(const word& inputData)
 	//check if letter array is full, if so then expand
 	if(dataCount == dataMax)
 	{
+		//expand(); //expand the array since its full
 		uint8_t status = expand(); //expand the array since its full
+		cout << "Expand status: " << (int)status << " Size: " << dataMax << endl;
 	}
 	
 	//add the new element to the array
@@ -89,7 +91,7 @@ word stack::pop(void) throw(ClassException)
 {
 	if(dataCount == 0) //check for empty stack
 	{
-		throw "cannot pop from an empty stack";
+		throw ClassException("Cannot pop from an empty stack");
 	}
 	
 	//remove element from the array
@@ -114,7 +116,8 @@ void stack::randomizeStack(void)
 //Postconditions: prints out the contents of the stack
 void stack::print(void) const //debug
 {
-	for(int i = 0; i < dataCount; i++)
+	cout << "call print" << endl;
+	for(unsigned int i = 0; i < dataCount; i++)
 	{
 		dataArray[i].print();
 	}

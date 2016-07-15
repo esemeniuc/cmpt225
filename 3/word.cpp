@@ -15,7 +15,7 @@ string dest; //translation of the word
 word::word()
 {
 	//nothing to do
-	cout << "Word created, Source: " << src << " Destination: " << dest << endl; //for debugging
+//	cout << "Word created, Source: " << src << " Destination: " << dest << endl; //for debugging
 }
 
 //preconditions: none

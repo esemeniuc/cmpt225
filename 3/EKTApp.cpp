@@ -20,6 +20,7 @@
 #include <fstream>
 #include <algorithm>
 #include "btree.h"
+#include "stack.h"
 
 using namespace std;
 
@@ -47,20 +48,42 @@ void dictLoader(string inputFilename, btree* inputBtree)
 	inputFile.close();
 }
 
+void userInputLoader(stack* inputStack)
+{
+	//keep taking user input until EOF
+	string tempString; //temporary holder for cin input
+	while(cin >> tempString) //load data into variable until we hit EOF
+	{
+		//cout << "Input #" << currentInputCount << ": Time = " << tempTime < << endl; //debug
+		inputStack->push(tempString); //insert our new string into the queue
+	}
+}
 
 int main(int argc, char* argv[])
 {
 	//load data into tree
-	btree testbtree;
-	dictLoader("dataFile.txt", &testbtree);
+	btree dataBtree;
+	dictLoader("dataFile.txt", &dataBtree);
 	
-	if(argc == 2 && std::string(argv[1]) == "display") //dumps out the contents of the tree and ends if in display mode
+	//dumps out the contents of the tree and ends if in display mode
+	if(argc == 2 && std::string(argv[1]) == "display")
 	{
-		testbtree.print();
+		dataBtree.print(); //print out all contents of btree
 		return 0; //all done, no need to continue running
 	}
-	
-	cout << "Tree contents:" << endl;
-	testbtree.print();
 
+//	cout << "Tree contents:" << endl;
+//	dataBtree.print();
+	
+	stack userInputStack; //store user input here
+	userInputLoader(&userInputStack);
+
+//	word poptest1 = userInputStack.pop();
+//	word poptest2 = userInputStack.pop();
+//
+//	poptest1.print();
+//	poptest2.print();
+	
+	userInputStack.print();
+	
 }

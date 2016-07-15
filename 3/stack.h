@@ -12,7 +12,7 @@
 #include "word.h"
 #include "ClassException.h"
 
-const unsigned int stackDefaultMax = 100; //as defined by Anne
+const unsigned int stackDefaultMax = 2; //as defined by Anne
 
 //Class invariants: FIFO or LILO
 class stack
