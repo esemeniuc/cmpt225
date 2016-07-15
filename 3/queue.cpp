@@ -90,7 +90,7 @@ string queue::peek() const throw(ClassException)
 {
 	if(startPos == endPos) //check for empty queue
 	{
-		throw ClassException("Queue is Empty"); //can't return an string in an empty queue
+		throw ClassException("Cannot dequeue an empty queue"); //can't return an string in an empty queue
 	}
 	return queueElements[startPos % queueDefaultMax]; //return the newest item
 }

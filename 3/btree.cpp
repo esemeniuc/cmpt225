@@ -149,7 +149,9 @@ word btree::search(word* inputData) const throw(ClassException)
 	
 	if(searchResult == NULL) //compare
 	{
-		throw ClassException("Word doesn't exist"); //failed, don't try to access searchResult->data unless segfault
+		inputData->setDest("<not found>");
+		return *inputData;
+		//throw ClassException("Word doesn't exist"); //failed, don't try to access searchResult->data unless segfault
 	}
 	
 	return searchResult->data; //otherwise return word, all is good

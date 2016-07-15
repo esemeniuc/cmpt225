@@ -57,7 +57,7 @@ void userInputLoader(queue* inputQueue)
 		//cout << "Input #" << currentInputCount << ": Time = " << tempTime < << endl; //debug
 		inputQueue->enqueue(tempString); //insert our new string into the queue
 	}
-	inputQueue->print();
+//	inputQueue->print();
 }
 
 int main(int argc, char* argv[])
@@ -76,23 +76,24 @@ int main(int argc, char* argv[])
 //	cout << "Tree contents:" << endl;
 //	dataBtree.print();
 	
-	queue userinputQueue; //store user input here
-	userInputLoader(&userinputQueue);
-
-//	word poptest1 = userinputQueue.pop();
-//	word poptest2 = userinputQueue.pop();
-//
-//	poptest1.print();
-//	poptest2.print();
+	queue userInputQueue; //store user input here
+	userInputLoader(&userInputQueue);
 	
-	while(userinputQueue.isEmpty() == 0)
+//	string poptest1 = userInputQueue.peek();
+//	userInputQueue.dequeue();
+//	string poptest2 = userInputQueue.peek();
+//
+//	cout << poptest1 << endl;
+//	cout << poptest2 << endl;
+
+	while(userInputQueue.isEmpty() == 0)
 	{
-		word tempSearchTerm = word(userinputQueue.peek()); //get stuff on the top
-		userinputQueue.dequeue(); //decrement
+		word tempSearchTerm = word(userInputQueue.peek()); //get stuff on the top
+		userInputQueue.dequeue(); //decrement
 		word tempResult = dataBtree.search(&tempSearchTerm);
 		tempResult.print();
 	}
-	
-	//userinputQueue.print();
+
+	userInputQueue.print();
 	
 }
