@@ -21,7 +21,6 @@
 #include <iostream>
 #include <fstream>
 #include "btree.h"
-#include <algorithm>
 
 using namespace std;
 
