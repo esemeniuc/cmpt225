@@ -5,9 +5,6 @@
 
  * Class Invariant: Data collection with the following characteristics:
  *                   - assumes size(), print() are available for use in templated object
- *                   -
- *                   -
- *                   -
  * Creation date: July 8, 2016
  * Author: Eric Semeniuc, David Magaril
  * ID: esemeniu_dmagaril

@@ -1,7 +1,7 @@
 /*
  * filename: EKTApp.cpp
  *
- * Description: A file, with a main that tests the other components specified in the Makefile.
+ * Description: A file with a main that creates the English - Klingon Translator
  * Creation date: July 8, 2016
  * Author: Eric Semeniuc, David Magaril
  * ID: esemeniu_dmagaril
@@ -40,9 +40,9 @@ void dictLoader(string inputFilename, btree<Type>* inputBtree)
 			string tempSrc = tempString.substr(0, length);
 			string tempDest = tempString.substr(length+1, tempString.length());
 			std::transform(tempSrc.begin(), tempSrc.end(), tempSrc.begin(), ::tolower); //make things lowercase
-//			cout << "src: " << tempSrc << " dest: " << tempDest << endl; //debug
-//			cout << tempDest << endl; //debug
+			//cout << "src: " << tempSrc << " dest: " << tempDest << endl; //debug
 			
+			//add randomize function here
 			inputBtree->insert(word(tempSrc, tempDest)); //insert the new word. Note: this is client code, no need to template
 		}
 	}
@@ -106,6 +106,6 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	userInputQueue.print();
+	//userInputQueue.print();
 	
 }

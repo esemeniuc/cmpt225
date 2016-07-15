@@ -10,7 +10,8 @@
 
 // #pragma once is shorthand for the 2 #include guards we've seen before:
 // #ifndef _node and #define _node
-#pragma once
+#ifndef INC_3_NODE_H
+#define INC_3_NODE_H
 
 #include <cstddef>  // defines NULL
 
@@ -66,3 +67,5 @@ node<Type>::~node()
 	left = NULL;
 	right = NULL;
 }
+
+#endif //INC_3_NODE_H

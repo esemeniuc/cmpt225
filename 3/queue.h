@@ -1,11 +1,14 @@
-// Filename: queue.h/queue.cpp
-// Created by eric on 16/06/16.
-// Description:
-//A data collection Queue ADT class. This class ***must not*** print anything
-//on the computer monitor screen. Name this class Queue (Queue.h and Queue.cpp).
-//Use an array-based implementation for this Queue class and make sure our
-//implementation abides to its Public Interface described below (expressed in C++):
+/*
+ * filename: queue.h/queue.cpp
+ *
+ * Description: A file, with a main that tests the other components specified in the Makefile.
+ * Creation date: July 8, 2016
+ * Author: Eric Semeniuc, David Magaril
+ * ID: esemeniu_dmagaril
+ */
 
+// Description:
+//A data collection Queue ADT class that uses an array-based implementation
 
 #ifndef INC_3_QUEUE_H
 #define INC_3_QUEUE_H
@@ -54,6 +57,11 @@ public:
 	// Exceptions: Throws EmptyDataCollectionException if this queue is empty.
 	// Time Efficiency: O(1)
 	string peek() const throw(ClassException);
+	
+	// Description: randomizes the elements of queueElements
+	// Precondition: This queue is not empty.
+	// Time Efficiency: O(n)
+	void randomize(void);
 
 	//Description: prints out the contents of the queue
 	//Preconditions: none

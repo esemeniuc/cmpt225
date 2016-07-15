@@ -1,6 +1,12 @@
-//
-// Created by eric on 07/07/16.
-//
+/*
+ * filename: word.h/word.cpp
+ *
+ * Description: A word object that stores a pair of strings
+ * Creation date: July 8, 2016
+ * Author: Eric Semeniuc, David Magaril
+ * ID: esemeniu_dmagaril
+ */
+
 #include <iostream> //for cout
 #include "word.h"
 
@@ -25,7 +31,7 @@ word::word(string inputSrc):
 		src(inputSrc)
 {
 	//nothing to do
-	cout << "Word created, Source: " << src << " Destination: " << dest << endl; //for debugging
+//	cout << "Word created, Source: " << src << " Destination: " << dest << endl; //for debugging
 }
 
 //preconditions: none

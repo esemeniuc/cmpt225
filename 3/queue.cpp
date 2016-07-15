@@ -1,24 +1,28 @@
-// Filename: queue.h/queue.cpp
-// Created by eric on 16/06/16.
+/*
+ * filename: queue.h/queue.cpp
+ *
+ * Description: A file, with a main that tests the other components specified in the Makefile.
+ * Creation date: July 8, 2016
+ * Author: Eric Semeniuc, David Magaril
+ * ID: esemeniu_dmagaril
+ */
+
 // Description:
-//A data collection Queue ADT class. This class ***must not*** print anything
-//on the computer monitor screen. Name this class Queue (Queue.h and Queue.cpp).
-//Use an array-based implementation for this Queue class and make sure our
-//implementation abides to its Public Interface described below (expressed in C++):
+//A data collection Queue ADT class that uses an array-based implementation
 
 #include "queue.h"
 #include <cmath>
+#include <algorithm>
 #include <iostream> //debug
 
 //Class invariants: FIFO or LILO
 
 //private attributes:
-
-//int queueCount; //how many items are currently in the queue. Default value is -1
+//unsigned int startPos; //starting position of the queue
 //
-//unsigned int queueMax; //keeps track of the maximum elements that can be stored in the queue
+//unsigned int endPos; //ending position of the queue. endPos - startPos = how many items currently of queue
 //
-//string* queueElements; //array of strings in the queue
+//string* queueElements; //array of events in the queue
 
 // Description: default constructor for an empty queue
 queue::queue():
@@ -93,6 +97,18 @@ string queue::peek() const throw(ClassException)
 		throw ClassException("Cannot dequeue an empty queue"); //can't return an string in an empty queue
 	}
 	return queueElements[startPos % queueDefaultMax]; //return the newest item
+}
+
+// Description: randomizes the elements of queueElements
+// Precondition: This queue is not empty.
+// Time Efficiency: O(n)
+void queue::randomize(void)
+{
+	if(endPos - startPos >= 2) //no need to shuffle a tiny array
+	{
+		random_shuffle(&queueElements[startPos % queueDefaultMax], &queueElements[(endPos+1) % queueDefaultMax]);
+	}
+	return; //nothing else to do
 }
 
 //Description: prints out the contents of the queue

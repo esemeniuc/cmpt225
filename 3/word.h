@@ -1,6 +1,11 @@
-//
-// Created by eric on 07/07/16.
-//
+/*
+ * filename: word.h/word.cpp
+ *
+ * Description: A word object that stores a pair of strings
+ * Creation date: July 8, 2016
+ * Author: Eric Semeniuc, David Magaril
+ * ID: esemeniu_dmagaril
+ */
 
 #ifndef INC_3_WORD_H
 #define INC_3_WORD_H
