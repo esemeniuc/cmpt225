@@ -18,12 +18,11 @@ node::node():
 }
 
 node::node(word inputData):
+		data(inputData),
 		left(NULL),
-		right(NULL),
-		data(inputData)
+		right(NULL)
 {
 	//nothing else
-	//data = inputData; //TODO
 }
 
 node::~node()

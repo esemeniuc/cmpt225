@@ -25,8 +25,8 @@
 //postconditions: creates a tree object with no nodes
 //description: default constructor
 btree::btree():
-root(NULL),
-nodeCount(0)
+		root(NULL),
+		nodeCount(0)
 {
 	//nothing else to do
 }
@@ -114,11 +114,11 @@ uint8_t btree::insert(word inputData)
 		return 1; //can't input partially/non filled objects
 	}
 	
-	cout << "**about to insert**" << endl;
+	//cout << "**about to insert**" << endl;
 	//create a node to insert based input params
 	node* tempNode = new node(inputData); //pass in inputData
 	
-
+	
 	//if root is NULL, then insert at root, because insert function cant modify root variable
 	if(root == NULL)
 	{
@@ -129,7 +129,7 @@ uint8_t btree::insert(word inputData)
 	
 	//find proper place in tree to insert the node
 	uint8_t status = rInsert(root, tempNode);
-	cout << "insert status: " << (int)status << endl; //debug
+//	cout << "insert status: " << (int)status << endl; //debug
 	nodeCount++; //increment count
 	return 0; //all good
 }
@@ -137,22 +137,21 @@ uint8_t btree::insert(word inputData)
 //preconditions: none
 //postconditions: a word object matching inputSrc is returned, otherwise NULL is returned or throw exception
 //description: recursively calls rSearch and stops when a word matching inputSrc is found, or reaches bottom of the tree
-word btree::search(word* inputData) const
+word btree::search(word* inputData) const throw(ClassException)
 {
-	if(inputData->isEmpty() == 0) //check for empty input
+	if (inputData->isEmpty() == 0) //check for empty input
 	{
-		throw "Can't search with empty input"; //can't search without proper input
+		throw ClassException("Can't search with empty input");//can't search without proper input
 	}
 	
 	node* searchResult = rSearch(root, inputData); //look for parent of matching node
 	
 	if(searchResult == NULL) //compare
 	{
-		throw "Word doesn't exist"; //failed, don't try to access searchResult->data unless segfault
+		throw ClassException("Word doesn't exist"); //failed, don't try to access searchResult->data unless segfault
 	}
 	
-	
-	return searchResult->data; //all good
+	return searchResult->data; //otherwise return word, all is good
 }
 
 //preconditions: none
@@ -165,7 +164,7 @@ void btree::rPrint(node* currentRoot) const
 		//cout << "base case" << endl; //debug
 		return;
 	}
-
+	
 	rPrint(currentRoot->left); //recurse left
 	currentRoot->data.print(); //print the object
 	rPrint(currentRoot->right); //recurse right

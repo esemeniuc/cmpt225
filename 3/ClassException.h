@@ -1,5 +1,5 @@
 /*
- * EmptyDataCollectionException.h
+ * ClassException.h
  *
  * Class Description: Defines the exception that is thrown when the 
  *                    data collection ADT class is empty.
@@ -15,9 +15,9 @@
 
 using namespace std;
 
-class EmptyDataCollectionException : public logic_error
+class ClassException : public logic_error
 {
 public:
-   EmptyDataCollectionException(const string& message = "");
+   ClassException(const string& message = "");
    
-}; // end EmptyDataCollectionException 
+}; // end ClassException 

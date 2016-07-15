@@ -1,5 +1,5 @@
 /*
- * EmptyDataCollectionException.cpp
+ * ClassException.cpp
  *
  * Class Description: Defines the exception that is thrown when the 
  *                    data collection ADT class is empty.
@@ -9,10 +9,10 @@
  */
  
 
-#include "EmptyDataCollectionException.h"  
+#include "ClassException.h"  
 
-EmptyDataCollectionException::EmptyDataCollectionException(const string& message): 
-logic_error("Empty Data Collection ADT Class Exception: " + message)
+ClassException::ClassException(const string& message): 
+logic_error("Error Occurred: " + message)
 {
 }  // end constructor
 
