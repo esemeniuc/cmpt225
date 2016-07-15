@@ -7,8 +7,8 @@ CFLAGS= -std=c++11 -c -Wall -ggdb
 
 all: EKTApp
 
-EKTApp: EKTApp.o btree.o node.o stack.o word.o ClassException.o
-	$(CC) -std=c++11 -Wall -ggdb EKTApp.o btree.o node.o stack.o word.o ClassException.o -o EKTApp
+EKTApp: EKTApp.o btree.o node.o queue.o word.o ClassException.o
+	$(CC) -std=c++11 -Wall -ggdb EKTApp.o btree.o node.o queue.o word.o ClassException.o -o EKTApp
 
 EKTApp.o: EKTApp.cpp
 	$(CC) $(CFLAGS) EKTApp.cpp
@@ -19,8 +19,8 @@ btree.o: btree.cpp btree.h
 node.o: node.cpp node.h
 	$(CC) $(CFLAGS) node.cpp
 
-stack.o: stack.cpp stack.h
-	$(CC) $(CFLAGS) stack.cpp
+queue.o: queue.cpp queue.h
+	$(CC) $(CFLAGS) queue.cpp
 
 word.o: word.cpp word.h
 	$(CC) $(CFLAGS) word.cpp

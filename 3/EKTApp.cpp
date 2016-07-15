@@ -16,11 +16,11 @@
 // Add more commenting to where it's needed. - Contact me (David) if needed.
 
 
-#include <iostream>
-#include <fstream>
-#include <algorithm>
+#include <iostream> //for printing
+#include <fstream> //for file input
+#include <algorithm> //for lowercase
 #include "btree.h"
-#include "stack.h"
+#include "queue.h"
 
 using namespace std;
 
@@ -48,15 +48,16 @@ void dictLoader(string inputFilename, btree* inputBtree)
 	inputFile.close();
 }
 
-void userInputLoader(stack* inputStack)
+void userInputLoader(queue* inputQueue)
 {
 	//keep taking user input until EOF
 	string tempString; //temporary holder for cin input
 	while(cin >> tempString) //load data into variable until we hit EOF
 	{
 		//cout << "Input #" << currentInputCount << ": Time = " << tempTime < << endl; //debug
-		inputStack->push(tempString); //insert our new string into the queue
+		inputQueue->enqueue(tempString); //insert our new string into the queue
 	}
+	inputQueue->print();
 }
 
 int main(int argc, char* argv[])
@@ -75,15 +76,23 @@ int main(int argc, char* argv[])
 //	cout << "Tree contents:" << endl;
 //	dataBtree.print();
 	
-	stack userInputStack; //store user input here
-	userInputLoader(&userInputStack);
+	queue userinputQueue; //store user input here
+	userInputLoader(&userinputQueue);
 
-//	word poptest1 = userInputStack.pop();
-//	word poptest2 = userInputStack.pop();
+//	word poptest1 = userinputQueue.pop();
+//	word poptest2 = userinputQueue.pop();
 //
 //	poptest1.print();
 //	poptest2.print();
 	
-	userInputStack.print();
+	while(userinputQueue.isEmpty() == 0)
+	{
+		word tempSearchTerm = word(userinputQueue.peek()); //get stuff on the top
+		userinputQueue.dequeue(); //decrement
+		word tempResult = dataBtree.search(&tempSearchTerm);
+		tempResult.print();
+	}
+	
+	//userinputQueue.print();
 	
 }

@@ -39,7 +39,7 @@ public:
 	// Time Efficiency: O(1)
 	uint32_t getSize() const;
 
-	// Description: Adds inputData to the of this stack and
+	// Description: Adds inputData to the back of this stack and
 	//              returns 0 if successful, otherwise 1.
 	// Time Efficiency: O(1)
 	uint8_t push(const word& inputData);

@@ -128,7 +128,8 @@ uint8_t btree::insert(word inputData)
 	}
 	
 	//find proper place in tree to insert the node
-	uint8_t status = rInsert(root, tempNode);
+	rInsert(root, tempNode);
+//	uint8_t status = rInsert(root, tempNode);
 //	cout << "insert status: " << (int)status << endl; //debug
 	nodeCount++; //increment count
 	return 0; //all good
