@@ -35,7 +35,7 @@ dest(inputDest)
 word::~word()
 {
 	//nothing to do
-	cout << "Word destructor, Source: " << src << " Destination: " << dest << endl; //for debugging
+	//cout << "Word destructor, Source: " << src << " Destination: " << dest << endl; //for debugging
 }
 
 //preconditions: src is a non empty string
@@ -69,7 +69,7 @@ uint8_t word::setDest(string inputDest)
 //preconditions: none
 //postconditions: src is returned
 //description: gets the value of src
-string word::getSrc(void)
+string word::getSrc(void) const
 {
 	return src;
 }
@@ -77,7 +77,7 @@ string word::getSrc(void)
 //preconditions: none
 //postconditions: dest is returned
 //description: gets the value of dest
-string word::getDest(void)
+string word::getDest(void) const
 {
 	return dest;
 }
@@ -111,4 +111,34 @@ bool word::operator<(word& inputWord) const
 		return true;
 	}
 	return false;
+}
+
+//preconditions: inputWord is not null
+//postconditions: 1 if src == inputWord.getSrc(), 0 otherwise
+//description: equality overloaded operator
+bool word::operator==(word& inputWord) const
+{
+	if(src.compare(inputWord.getSrc()) == 0) //check if src is the same as inputWord's src
+	{
+		return true;
+	}
+	return false;
+}
+
+/*
+//preconditions: none
+//postconditions: overloads cout to print out the word object
+//description: cout overloaded operator
+ostream& word::operator<<(ostream& os)
+{
+	return os << this->getSrc() << ":" << this->getDest();
+}
+*/
+
+//preconditions: none
+//postconditions: prints out the word object
+//description: cout overloaded operator
+void word::print(void) const
+{
+	cout << getSrc() << ":" << getDest() << endl;
 }

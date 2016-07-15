@@ -46,12 +46,12 @@ public:
 	//preconditions: none
 	//postconditions: src is returned
 	//description: gets the value of src
-	string getSrc(void);
+	string getSrc(void) const;
 	
 	//preconditions: none
 	//postconditions: dest is returned
 	//description: gets the value of dest
-	string getDest(void);
+	string getDest(void) const;
 	
 	//preconditions: none
 	//postconditions: returns 0 if src and dest are empty, returns 1 if dest is empty, and returns 2 if both are not empty
@@ -63,6 +63,22 @@ public:
 	//description: less than overloaded operator
 	bool operator<(word& inputWord) const;
 	
+	//preconditions: inputWord is not null
+	//postconditions: 1 if src == inputWord.getSrc(), 0 otherwise
+	//description: equality overloaded operator
+	bool operator==(word& inputWord) const;
+	
+	/*
+	//preconditions: none
+	//postconditions: overloads cout to print out the word object
+	//description: cout overloaded operator
+	ostream& operator<<(ostream& os);
+	*/
+	
+	//preconditions: none
+	//postconditions: prints out the word object
+	//description: cout overloaded operator
+	void print(void) const;
 
 };
 
