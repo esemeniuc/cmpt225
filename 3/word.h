@@ -24,6 +24,11 @@ public:
 	word();
 	
 	//preconditions: none
+	//postconditions: creates a shell word object for searching
+	//description: constructor that fills in the class
+	word(string inputSrc);
+	
+	//preconditions: none
 	//postconditions: creates a word object
 	//description: constructor that fills in the class
 	word(string inputSrc, string inputDest);

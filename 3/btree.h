@@ -29,10 +29,10 @@ private:
 	//description: finds a word matching inputSrc if it exists in the tree
 	node* rSearch(node* root, word* inputData) const;
 	
-	//preconditions: none
-	//postconditions: returns the memory address of the parent matching inputData.getSrc() to insert our new node
+	//preconditions: inputNode has a valid filled class
+	//postconditions: returns 0 on successful insertion our new node, 0 on failure
 	//description: finds the correct parent node to allow insertion a child node
-	void rInsert(node* root, node* inputNode);
+	uint8_t rInsert(node* root, node* inputNode);
 	
 	//preconditions: none
 	//postconditions: none

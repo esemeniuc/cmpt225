@@ -62,31 +62,45 @@ node* btree::rSearch(node* root, word* inputData) const
 
 
 //preconditions: inputNode has a valid filled class
-//postconditions: inserts our new node
+//postconditions: returns 0 on successful insertion our new node, 0 on failure
 //description: finds the correct parent node to allow insertion a child node
-void btree::rInsert(node* currentRoot, node* inputNode)
+uint8_t btree::rInsert(node* currentRoot, node* inputNode)
 {
-	if(currentRoot == NULL) //base case
+	while(currentRoot != NULL) //base case
 	{
-		//fix me
-		currentRoot = inputNode; //insert our node
-		return;
+		if (currentRoot->data.getSrc() == inputNode->data.getSrc()) //check for duplicates
+		{
+			return 1; // failure, don't want duplicates
+		}
+		
+		if (inputNode->data < currentRoot->data) //check if we have to go to the left
+		{
+			if (currentRoot->left == NULL) //check if empty
+			{
+				currentRoot->left = inputNode; //insert
+				return 0; //all good
+			}
+			else //non empty, so continue
+			{
+				currentRoot = currentRoot->left; //visit the left subtree
+			}
+		}
+		else //go to right
+		{
+			if (currentRoot->right == NULL) //check if empty
+			{
+				currentRoot->right = inputNode; //insert
+				return 0; //all good
+			}
+			else //non empty, so continue
+			{
+				currentRoot = currentRoot->right; //visit the right subtree
+			}
+		}
 	}
 	
-	if(currentRoot->data.getSrc() == inputNode->data.getSrc()) //check for duplicates
-	{
-		return; // don't want duplicates
-	}
 	
-	if(inputNode->data < currentRoot->data)
-	{
-		return rInsert(root->left, inputNode);
-	}
-	else
-	{
-		return rInsert(root->right, inputNode);
-	}
-	
+	return 1; //shouldn't reach the end, so throw error
 }
 
 //preconditions: inputData.isEmpty() >= 1 (at least 1 term is entered)
@@ -104,17 +118,18 @@ uint8_t btree::insert(word inputData)
 	//create a node to insert based input params
 	node* tempNode = new node(inputData); //pass in inputData
 	
-	/* Not necessary
-	//if root is NULL, then insert at root
+
+	//if root is NULL, then insert at root, because insert function cant modify root variable
 	if(root == NULL)
 	{
 		root = tempNode; //make the new node our root
 		nodeCount++; //update counter
 		return 0; //all good
-	}*/
+	}
 	
 	//find proper place in tree to insert the node
-	rInsert(root, tempNode);
+	uint8_t status = rInsert(root, tempNode);
+	cout << "insert status: " << (int)status << endl; //debug
 	nodeCount++; //increment count
 	return 0; //all good
 }
@@ -145,9 +160,9 @@ word btree::search(word* inputData) const
 //description: prints out the contents of the array in order using in order traversal
 void btree::rPrint(node* currentRoot) const
 {
-	if(root == NULL) //base case
+	if(currentRoot == NULL) //base case
 	{
-		cout << "base case" << endl; //debug
+		//cout << "base case" << endl; //debug
 		return;
 	}
 

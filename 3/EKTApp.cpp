@@ -77,18 +77,38 @@ int main()
 //	cout << "3: " << (unsigned int)testword3.isEmpty() << endl;
 //	cout << "4: " << (unsigned int)testword4.isEmpty() << endl;
 	
-	btree* testbtree = new btree;
+	btree testbtree; //testing on heap for now
 	word testword1 = word("aaaa1", "zzzz1");
 	word testword2 = word("aaaa3", "zzzz3");
 	word testword3 = word();
 	word testword4 = word("aaaa2", "zzzz2");
-	testbtree->insert(testword1);
-	testbtree->insert(testword2);
-	testbtree->insert(testword3);
-	testbtree->insert(testword4);
+	testbtree.insert(testword1);
+	testbtree.insert(testword2);
+	testbtree.insert(testword3);
+	testbtree.insert(testword4);
+	
+	word searchword1 = word("aaaa1");
+	word searchresult1 = testbtree.search(&searchword1);
+	cout << "Retrieving searchword1 contents:" << endl;
+	searchresult1.print();
+	
+	word searchword2 = word("aaaa3");
+	word searchresult2 = testbtree.search(&searchword2);
+	cout << "Retrieving searchword2 contents:" << endl;
+	searchresult2.print();
+	
+	word searchword3 = word("");
+	word searchresult3 = testbtree.search(&searchword3);
+	cout << "Retrieving searchword3 contents:" << endl;
+	searchresult3.print();
+	
+	word searchword4 = word("aaaa2");
+	word searchresult4 = testbtree.search(&searchword4);
+	cout << "Retrieving searchword4 contents:" << endl;
+	searchresult4.print();
 	
 	cout << "Tree contents:" << endl;
-	testbtree->print();
+	testbtree.print();
 	
 	return 0;
 }

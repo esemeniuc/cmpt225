@@ -19,6 +19,16 @@ word::word()
 }
 
 //preconditions: none
+//postconditions: creates a shell word object for searching
+//description: constructor that fills in the class
+word::word(string inputSrc):
+		src(inputSrc)
+{
+	//nothing to do
+	cout << "Word created, Source: " << src << " Destination: " << dest << endl; //for debugging
+}
+
+//preconditions: none
 //postconditions: creates a word object
 //description: constructor that fills in the class
 word::word(string inputSrc, string inputDest):
