@@ -32,8 +32,8 @@ word::word(string inputSrc):
 //postconditions: creates a word object
 //description: constructor that fills in the class
 word::word(string inputSrc, string inputDest):
-src(inputSrc),
-dest(inputDest)
+		src(inputSrc),
+		dest(inputDest)
 {
 	//nothing to do
 //	cout << "Word created, Source: " << src << " Destination: " << dest << endl; //for debugging
@@ -134,6 +134,19 @@ bool word::operator==(word& inputWord) const
 	}
 	return false;
 }
+
+/*
+//preconditions: inputWord is not null
+//postconditions: 1 if src != inputWord.getSrc(), 0 otherwise
+//description: equality overloaded operator
+bool word::operator!=(word& inputWord) const
+{
+	if(src.compare(inputWord.getSrc()) != 0) //check if src is the same as inputWord's src
+	{
+		return true;
+	}
+	return false;
+}*/
 
 /*
 //preconditions: none

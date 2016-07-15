@@ -54,7 +54,7 @@ public:
 	// Description: randomizes the elements of dataArray
 	// Precondition: This stack is not empty.
 	// Time Efficiency: O(n)
-	void randomize(void);
+	void randomizeStack(void);
 
 	//Description: prints out the contents of the stack
 	//Preconditions: none

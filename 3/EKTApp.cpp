@@ -15,11 +15,10 @@
 // Remove debug commenting -- http://i2.kym-cdn.com/photos/images/original/000/128/418/ea0.jpg
 // Add more commenting to where it's needed. - Contact me (David) if needed.
 
-//todo: lowercase input
-//randomize, but later
 
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 #include "btree.h"
 
 using namespace std;

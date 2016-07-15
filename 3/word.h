@@ -73,6 +73,11 @@ public:
 	//description: equality overloaded operator
 	bool operator==(word& inputWord) const;
 	
+	//preconditions: inputWord is not null
+	//postconditions: 1 if src != inputWord.getSrc(), 0 otherwise
+	//description: equality overloaded operator
+	//bool operator!=(word& inputWord) const;
+	
 	/*
 	//preconditions: none
 	//postconditions: overloads cout to print out the word object

@@ -100,11 +100,11 @@ word stack::pop(void) throw(ClassException)
 // Description: randomizes the elements of dataArray
 // Precondition: This stack is not empty.
 // Time Efficiency: O(n)
-void stack::randomize(void)
+void stack::randomizeStack(void)
 {
 	if(dataCount >= 2) //no need to shuffle a tiny array
 	{
-		random_shuffle(dataArray[0], dataArray[dataCount]);
+		random_shuffle(&dataArray[0], &dataArray[dataCount]);
 	}
 	return; //nothing else to do
 }
