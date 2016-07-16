@@ -63,7 +63,6 @@ template <class Type>
 //default destructor for an empty node
 node<Type>::~node()
 {
-	data = NULL;
 	left = NULL;
 	right = NULL;
 }

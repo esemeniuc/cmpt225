@@ -57,11 +57,11 @@ bool queue::isEmpty() const
 // Description: Adds newElement to the "back" of this queue and
 //              returns "true" if successful, otherwise "false".
 // Time Efficiency: O(1)
-bool queue::enqueue(const string& newElement)
+bool queue::enqueue(const string& newElement) throw(ClassException)
 {
 	if((startPos % queueDefaultMax) == (endPos+1) % queueDefaultMax) //check if full
 	{
-		return false; //not successful
+		throw ClassException("Queue is full");
 	}
 	queueElements[(endPos) % queueDefaultMax] = newElement; //copy the element into our array
 	endPos++;
@@ -114,7 +114,7 @@ void queue::randomize(void)
 //Description: prints out the contents of the queue
 //Preconditions: none
 //Postconditions: prints out the contents of the queue
-void queue::print(void) const
+void queue::print(void) const //debug
 {
 	for(unsigned int i = startPos; i < endPos; i++)
 	{

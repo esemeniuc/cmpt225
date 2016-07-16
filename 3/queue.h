@@ -15,7 +15,7 @@
 
 #include "ClassException.h"
 
-const unsigned int queueDefaultMax = 101; //as defined by Anne
+const unsigned int queueDefaultMax = 10000; //arbitrarily defined
 
 //Class invariants: FIFO or LILO
 class queue
@@ -42,7 +42,7 @@ public:
 	// Description: Adds inputData to the "back" of this queue and
 	//              returns "true" if successful, otherwise "false".
 	// Time Efficiency: O(1)
-	bool enqueue(const string & inputData);
+	bool enqueue(const string & inputData) throw(ClassException);
 
 	// Description: Removes the element at the "front" of this queue and
 	//              returns "true" if successful, otherwise "false".

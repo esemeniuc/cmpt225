@@ -38,7 +38,7 @@ private:
 	//postconditions: none
 	//description: prints out the contents of the array in order
 	void rPrint(node<Type>* currentRoot) const;
-	
+
 public:
 	//preconditions: none
 	//postconditions: creates a tree object with no nodes
@@ -49,6 +49,12 @@ public:
 	//postconditions: frees all the memory from the tree using in-order traversal
 	//description: default destructor
 	~btree();
+	
+	//preconditions: root in not NULL
+	//postconditions: frees all the memory from the tree using in-order traversal
+	//description: for use in the default destructor, recursively frees memory
+	// Time Efficiency: O(n)
+	void deleteAll(node<Type>* current);
 	
 	//preconditions: none
 	//postconditions: a Type object matching inputSrc is returned, otherwise NULL is returned or throw exception
@@ -105,6 +111,26 @@ template <class Type>
 btree<Type>::~btree()
 {
 	//do a in-order traversal and delete each node
+	deleteAll(root);
+	//std::cout << "called delete" << std::endl;
+}
+
+template <class Type>
+void btree<Type>::deleteAll(node<Type>* current)
+{
+	if(current == NULL)
+	{
+		return;
+	}
+	
+	if(current->left != NULL){
+		deleteAll(current->left);
+	}
+	if(current->right != NULL){
+		deleteAll(current->right);
+	}
+	
+	delete current;
 }
 
 template <class Type>

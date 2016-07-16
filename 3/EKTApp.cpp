@@ -20,7 +20,7 @@
 #include <fstream> //for file input
 #include <algorithm> //for lowercase
 #include "btree.h"
-#include "queue.h"
+#include "fifostack.h"
 #include "word.h"
 
 using namespace std;
@@ -50,14 +50,14 @@ void dictLoader(string inputFilename, btree<Type>* inputBtree)
 	inputFile.close();
 }
 
-void userInputLoader(queue* inputQueue)
+void userInputLoader(fifostack* inputQueue)
 {
 	//keep taking user input until EOF
 	string tempString; //temporary holder for cin input
 	while(cin >> tempString) //load data into variable until we hit EOF
 	{
 		//cout << "Input #" << currentInputCount << ": Time = " << tempTime < << endl; //debug
-		inputQueue->enqueue(tempString); //insert our new string into the queue
+		inputQueue->push(tempString); //insert our new string into the queue
 	}
 //	inputQueue->print();
 }
@@ -78,7 +78,7 @@ int main(int argc, char* argv[])
 //	cout << "Tree contents:" << endl;
 //	dataBtree.print();
 	
-	queue userInputQueue; //store user input here
+	fifostack userInputQueue; //store user input here
 	userInputLoader(&userInputQueue);
 	
 //	string poptest1 = userInputQueue.peek();
@@ -88,10 +88,10 @@ int main(int argc, char* argv[])
 //	cout << poptest1 << endl;
 //	cout << poptest2 << endl;
 
-	while(userInputQueue.isEmpty() == 0)
+	while(userInputQueue.getSize() > 0)
 	{
-		word tempSearchTerm = word(userInputQueue.peek()); //get stuff on the top
-		userInputQueue.dequeue(); //decrement
+		word tempSearchTerm = word(userInputQueue.pop()); //get stuff on the top
+		//userInputQueue.dequeue(); //decrement
 		word tempResult = dataBtree.search(&tempSearchTerm);
 		
 		if(tempResult.size() == 0) //check if empty object is returned
@@ -105,7 +105,21 @@ int main(int argc, char* argv[])
 			tempResult.print();
 		}
 	}
+	
+//	for(int i = 0; i < 10; i++)
+//	{
+//		userInputQueue.push(std::to_string(i));
+//
+//	}
+//	userInputQueue.print();
+//
+//	userInputQueue.randomizefifostack();
+//	userInputQueue.print();
+//	for(int i = 0; i < 5; i++)
+//	{
+//		cout << userInputQueue.pop() << endl;
+//	}
 
-	//userInputQueue.print();
+
 	
 }

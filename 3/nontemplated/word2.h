@@ -7,14 +7,14 @@
  * ID: esemeniu_dmagaril
  */
 
-#ifndef INC_3_WORD_H
-#define INC_3_WORD_H
+#ifndef INC_3_WORD2_H
+#define INC_3_WORD2_H
 
 #include <string>
 
 using namespace std;
 
-class word
+class word2
 {
 private:
 	string src; //lookup word
@@ -26,22 +26,22 @@ public:
 	//preconditions: none
 	//postconditions: creates a word object with empty fields for src and dest
 	//description: default constructor
-	word();
+	word2();
 	
 	//preconditions: none
 	//postconditions: creates a shell word object for searching
 	//description: constructor that fills in the class
-	word(string inputSrc);
+	word2(string inputSrc);
 	
 	//preconditions: none
 	//postconditions: creates a word object
 	//description: constructor that fills in the class
-	word(string inputSrc, string inputDest);
+	word2(string inputSrc, string inputDest);
 	
 	//preconditions: none
 	//postconditions: none
 	//description: default destructor
-	~word();
+	~word2();
 	
 	//preconditions: src is a non empty string
 	//postconditions: 0 if src is set correctly, 1 if there is an error
@@ -71,12 +71,12 @@ public:
 	//preconditions: inputWord is not null
 	//postconditions: 0 if inputWord is greater than "this", 1 if less than "this"
 	//description: less than overloaded operator
-	bool operator<(word& inputWord) const;
+	bool operator<(word2& inputWord) const;
 	
 	//preconditions: inputWord is not null
 	//postconditions: 1 if src == inputWord.getSrc(), 0 otherwise
 	//description: equality overloaded operator
-	bool operator==(word& inputWord) const;
+	bool operator==(word2& inputWord) const;
 	
 	//preconditions: inputWord is not null
 	//postconditions: 1 if src != inputWord.getSrc(), 0 otherwise
@@ -98,4 +98,4 @@ public:
 };
 
 
-#endif //INC_3_WORD_H
+#endif //INC_3_WORD2_H
