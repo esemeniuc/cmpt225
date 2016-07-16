@@ -4,7 +4,7 @@
  * Class Description: A data collection ADT class to satisfy Assn 3's requirements.
 
  * Class Invariant: Data collection with the following characteristics:
- *                   - assumes size(), print() are available for use in templated object
+ * - assumes size(), print() are available for use in templated object
  * Creation date: July 8, 2016
  * Author: Eric Semeniuc, David Magaril
  * ID: esemeniu_dmagaril
@@ -15,6 +15,7 @@
 
 #include "node.h"
 #include "ClassException.h"
+#include <iostream>
 
 template <class Type>
 
@@ -112,7 +113,7 @@ btree<Type>::~btree()
 {
 	//do a in-order traversal and delete each node
 	deleteAll(root);
-	//std::cout << "called delete" << std::endl;
+	cout << "called delete" << endl;
 }
 
 template <class Type>
@@ -172,7 +173,7 @@ uint8_t btree<Type>::rInsert(node<Type>* currentRoot, node<Type>* inputNode)
 		{
 			if (currentRoot->left == NULL) //check if empty
 			{
-				currentRoot->left = inputNode; //insert
+				currentRoot->left = inputNode; //insert into empty slot
 				return 0; //all good
 			}
 			else //non empty, so continue
@@ -193,8 +194,7 @@ uint8_t btree<Type>::rInsert(node<Type>* currentRoot, node<Type>* inputNode)
 			}
 		}
 	}
-	
-	
+
 	return 1; //shouldn't reach the end, so throw error
 }
 
