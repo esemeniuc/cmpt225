@@ -30,7 +30,7 @@ musla::~musla()
 //preconditions: inputID is > 0
 //postconditions: a student object with ID inputID is returned. if not found, then ClassException is thrown
 //description: looks up a student based on their ID and returns it in O(1) time
-student musla::lookupID(uint32_t inputID) const throw(classException)
+const student& musla::lookupID(uint32_t inputID) const throw(classException)
 {
 	
 }
@@ -38,7 +38,7 @@ student musla::lookupID(uint32_t inputID) const throw(classException)
 //preconditions: inputLName is not empty
 //postconditions: a student object with inputLName is returned. if not found, then ClassException is thrown
 //description: looks up a student based on their last name and returns it in O(1) time
-student musla::lookupLName(std::string inputLName) const throw(classException)
+const student& musla::lookupLName(std::string inputLName) const throw(classException)
 {
 	
 }
