@@ -5,7 +5,7 @@
 #include "testDriver.h"
 #include "classException.h"
 
-void testDriver::testThrowException()
+void testDriver::throwException()
 {
 	throw(classException("Error, wtf mate?"));
 }

@@ -6,7 +6,7 @@ using namespace std;
 int main()
 {
 	testDriver testDriver1;
-	testDriver1.testThrowException();
+	testDriver1.throwException();
 	cout << "Hello, World!" << endl;
 	return 0;
 }

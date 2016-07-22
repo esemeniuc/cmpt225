@@ -8,7 +8,7 @@
 
 class testDriver {
 public:
-	void testThrowException();
+	void throwException();
 };
 
 
