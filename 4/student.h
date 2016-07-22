@@ -42,7 +42,7 @@ public:
 			 std::string inputEmail,
 			 std::string inputEnrolled[],
 			 uint32_t enrolledCount,
-			 std::string inputFaculty);
+			 std::string inputFaculty) throw(classException);
 	
 	//default destructor
 	~student();

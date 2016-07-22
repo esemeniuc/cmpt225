@@ -48,3 +48,14 @@ void testDriver::studentValidate()
 	assert(student3.printString() == student3String);
 	
 }
+
+void testDriver::universityValidate()
+{
+//private:
+//std::string name;
+//std::string address;
+//std::string email;
+//std::string phone;
+//size_t studentCount; //for listInfo()
+	
+}

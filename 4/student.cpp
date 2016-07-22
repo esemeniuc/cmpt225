@@ -46,7 +46,7 @@ student::student(uint32_t inputStudentNumber,
 				 std::string inputEmail,
 				 std::string inputEnrolled[],
 				 uint32_t inputEnrolledCount,
-				 std::string inputFaculty):
+				 std::string inputFaculty) throw(classException):
 		studentNumber(inputStudentNumber),
 		lastName(inputLastName),
 		firstName(inputFirstName),
@@ -57,7 +57,7 @@ student::student(uint32_t inputStudentNumber,
 {
 	if(inputStudentNumber == 0 || inputLastName.empty()) //can't have empty studentNumber or lastName
 	{
-		//throw(classException("Error: can't have empty studentNumber or lastName"));
+		throw(classException("Error: can't have empty studentNumber or lastName"));
 	}
 	
 	std::copy(inputEnrolled, inputEnrolled + inputEnrolledCount, enrolled);

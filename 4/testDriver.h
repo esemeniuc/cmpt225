@@ -12,6 +12,7 @@ class testDriver
 public:
 	void throwException();
 	void studentValidate();
+	void universityValidate();
 };
 
 

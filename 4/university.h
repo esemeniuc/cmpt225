@@ -6,6 +6,7 @@
 #define INC_4_UNIVERSITY_H
 
 #include <string>
+#include "student.h"
 
 class university
 {
@@ -17,6 +18,23 @@ private:
 	size_t studentCount; //for listInfo()
 	
 public:
+	//preconditions: inputName is not empty
+	//postconditions: throws classException if inputName is empty
+	//description: constructor with only university name
+	university(std::string inputName) throw(classException);
+	
+	//preconditions: inputName is not empty
+	//postconditions: throws classException if inputName is empty
+	//description: constructor with all fields
+	university(std::string inputName, std::string inputAddress, std::string inputEmail, std::string inputPhone) throw (classException);
+	
+	//default destructor
+	~university();
+	
+	//preconditions: none
+	//postconditions: none
+	//description: inserts a student into the university in O(log(n)) time
+	bool setStudent(student& inputStudent) const;
 	
 	//preconditions: none
 	//postconditions: none

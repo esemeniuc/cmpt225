@@ -3,12 +3,37 @@
 //
 
 #include "university.h"
+
 //private:
 //std::string name;
 //std::string address;
 //std::string email;
 //std::string phone;
 //size_t studentCount; //for listInfo()
+
+//preconditions: inputName is not empty
+//postconditions: throws classException if inputName is empty
+//description: constructor with only university name
+university::university(std::string inputName) throw(classException)
+{
+	
+}
+
+//preconditions: inputName is not empty
+//postconditions: throws classException if inputName is empty
+//description: constructor with all fields
+university::university(std::string inputName, std::string inputAddress, std::string inputEmail, std::string inputPhone) throw (classException)
+{
+	
+}
+
+//preconditions: none
+//postconditions: none
+//description: inserts a student into the university in O(log(n)) time
+bool university::setStudent(student& inputStudent) const
+{
+	
+}
 
 //preconditions: none
 //postconditions: none
