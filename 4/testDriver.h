@@ -5,10 +5,13 @@
 #ifndef INC_4_TESTDRIVER_H
 #define INC_4_TESTDRIVER_H
 
+#include "student.h"
 
-class testDriver {
+class testDriver
+{
 public:
 	void throwException();
+	void studentValidate();
 };
 
 

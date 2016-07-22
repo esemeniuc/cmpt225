@@ -14,8 +14,8 @@
 musla::musla():
 universityCount(0)
 {
-	lnameTable = new student[muslaDefaultSize];
-	idTable = new student[muslaDefaultSize];
+	lnameTable = new student*[muslaDefaultSize];
+	idTable = new student*[muslaDefaultSize];
 	//nothing else to do
 }
 

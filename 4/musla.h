@@ -17,8 +17,8 @@ class musla
 private:
 	size_t universityCount; //default is 0
 	
-	student* lnameTable; //hashtable for last names
-	student* idTable; //hashtable for student ids
+	student** lnameTable; //hashtable for last names
+	student** idTable; //hashtable for student ids
 	
 public:
 	musla(); //default constructor

@@ -14,19 +14,19 @@ private:
 	std::string address;
 	std::string email;
 	std::string phone;
-	size_t studentCount; //for display
+	size_t studentCount; //for listInfo()
 	
 public:
 	
 	//preconditions: none
 	//postconditions: none
 	//description: lists all of the students attending the university sorted by ID in O(n) time
-	void listStudentsID(void) const;
+	void listStudentsByID(void) const;
 	
 	//preconditions: none
 	//postconditions: none
 	//description: lists all of the students attending the university sorted by last name in O(n) time
-	void listStudentsLName(void) const;
+	void listStudentsByLName(void) const;
 	
 	//preconditions: none
 	//postconditions: none
