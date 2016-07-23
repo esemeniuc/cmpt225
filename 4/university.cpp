@@ -14,17 +14,31 @@
 //preconditions: inputName is not empty
 //postconditions: throws classException if inputName is empty
 //description: constructor with only university name
-university::university(std::string inputName) throw(classException)
+university::university(std::string inputName) throw(classException):
+name(inputName)
 {
-	
+	if(inputName.empty()) //can't have empty inputName
+	{
+		throw(classException("Error: can't have empty inputName"));
+	}
 }
 
 //preconditions: inputName is not empty
 //postconditions: throws classException if inputName is empty
 //description: constructor with all fields
-university::university(std::string inputName, std::string inputAddress, std::string inputEmail, std::string inputPhone) throw (classException)
+university::university(std::string inputName,
+					   std::string inputAddress,
+					   std::string inputEmail,
+					   std::string inputPhone) throw (classException):
+name(inputName),
+address(inputAddress),
+email(inputEmail),
+phone(inputPhone)
 {
-	
+		if(inputName.empty()) //can't have empty inputName
+		{
+			throw(classException("Error: can't have empty inputName"));
+		}
 }
 
 //preconditions: none

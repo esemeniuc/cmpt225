@@ -28,5 +28,13 @@ classException.o: classException.cpp
 testDriver.o: testDriver.cpp
 	$(CC) $(CFLAGS) testDriver.cpp
 
+#templated
+btree.o: btree.h btree.cpp
+	$(CC) $(CFLAGS) btree.h
+
+#templated
+node.o: node.h node.cpp
+	$(CC) $(CFLAGS) node.h
+
 clean:
 	rm *.o muslaApp
