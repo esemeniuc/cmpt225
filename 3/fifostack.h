@@ -8,7 +8,7 @@
 
 #include "ClassException.h"
 
-const unsigned int fifostackDefaultMax = 2; //as defined by Anne
+const unsigned int fifostackDefaultMax = 100; //as defined by Anne
 
 //Class invariants: FIFO or LILO
 class fifostack
