@@ -5,14 +5,20 @@
 #ifndef INC_4_TESTDRIVER_H
 #define INC_4_TESTDRIVER_H
 
-#include "student.h"
-
 class testDriver
 {
 public:
+	//general tests
 	void throwException();
+	
+	//student tests
 	void studentValidate();
+	void studentThrowException();
+	
+	//university tests
 	void universityValidate();
+	void universityThrowException();
+	
 };
 
 

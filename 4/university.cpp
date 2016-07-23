@@ -2,6 +2,7 @@
 // Created by eric on 21/07/16.
 //
 
+#include <iostream>
 #include "university.h"
 
 //private:
@@ -30,7 +31,7 @@ university::university(std::string inputName) throw(classException):
 university::university(std::string inputName,
 					   std::string inputAddress,
 					   std::string inputEmail,
-					   std::string inputPhone) throw (classException):
+					   std::string inputPhone) throw(classException):
 		name(inputName),
 		address(inputAddress),
 		email(inputEmail),
@@ -51,10 +52,13 @@ university::~university()
 //preconditions: inputStudent has a valid lastName and studentID
 //postconditions: returns 0 upon successful insertion, 1 if there is an error
 //description: inserts a student into the university in O(log(n)) time
-uint8_t university::setStudent(student& inputStudent)
+uint8_t university::insert(const student& inputStudent)
 {
+	if(inputStudent.empty()) //check for empty input
+	{
+		return 1; //error, can't input empty students
+	}
 	return studentList.insert(inputStudent);
-
 }
 
 //preconditions: none
@@ -62,7 +66,7 @@ uint8_t university::setStudent(student& inputStudent)
 //description: lists all of the students attending the university sorted by ID in O(n) time
 void university::listStudentsByID(void) const
 {
-	
+	//inorder traverse of btree based on ID pointers
 }
 
 //preconditions: none
@@ -70,13 +74,13 @@ void university::listStudentsByID(void) const
 //description: lists all of the students attending the university sorted by last name in O(n) time
 void university::listStudentsByLName(void) const
 {
-	
+	//inorder traverse of btree based on Lname pointers
 }
 
 //preconditions: none
 //postconditions: none
-//description: displays all university info in O(1) time
-void university::listInfo(void) const
+//description: displays all university info (not including student info)
+void university::print(void) const
 {
-	
+	std::cout << "University Details\nName: " << name << "\nAddress: " << "\nEmail: " << email << "\nPhone: " << phone << "\nStudent Count: " << studentCount << std::endl;
 }

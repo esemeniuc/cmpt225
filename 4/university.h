@@ -9,6 +9,8 @@
 #include "btree.h"
 #include "student.h"
 
+#define private public //debug: ugly hack to do assert testing
+
 class university
 {
 private:
@@ -28,7 +30,7 @@ public:
 	//preconditions: inputName is not empty
 	//postconditions: throws classException if inputName is empty
 	//description: constructor with all fields
-	university(std::string inputName, std::string inputAddress, std::string inputEmail, std::string inputPhone) throw (classException);
+	university(std::string inputName, std::string inputAddress, std::string inputEmail, std::string inputPhone) throw(classException);
 	
 	//default destructor
 	~university();
@@ -36,7 +38,7 @@ public:
 	//preconditions: inputStudent has a valid lastName and studentID
 	//postconditions: returns 0 upon successful insertion, 1 if there is an error
 	//description: inserts a student into the university in O(log(n)) time
-	uint8_t setStudent(student& inputStudent);
+	uint8_t insert(const student& inputStudent);
 	
 	//preconditions: none
 	//postconditions: none
@@ -50,8 +52,8 @@ public:
 	
 	//preconditions: none
 	//postconditions: none
-	//description: displays all university info in O(1) time
-	void listInfo(void) const;
+	//description: displays all university info (not including student info) in O(1) time
+	void print(void) const;
 };
 
 

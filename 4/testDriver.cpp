@@ -5,6 +5,8 @@
 #include <cassert>
 #include <iostream>
 #include "testDriver.h"
+#include "student.h"
+#include "university.h"
 #include "classException.h"
 
 void testDriver::throwException()
@@ -49,13 +51,30 @@ void testDriver::studentValidate()
 	
 }
 
+void testDriver::studentThrowException()
+{
+	student noStudentID = student(0); //should throw bad studentID exception
+	student emptyStudentLName = student(""); //should throw no LName exception
+	student noIDorStudentLName = student(0, "", "john", "123 street", "js@js.com", NULL, 0, "CS Major"); //should throw no ID or LName exception
+	
+}
+
 void testDriver::universityValidate()
 {
-//private:
 //std::string name;
 //std::string address;
 //std::string email;
 //std::string phone;
+//btree<student> studentList;
 //size_t studentCount; //for listInfo()
+
 	
 }
+
+void testDriver::universityThrowException()
+{
+	university emptyName = university(""); //should throw empty name exception
+	university emptyNameParameterized = university("", "123 street", "js@js.com", ""); //should throw empty name exception
+	
+}
+
