@@ -4,10 +4,7 @@
  * Class Description: A data collection ADT class to satisfy Assn 3's requirements.
 
  * Class Invariant: Data collection with the following characteristics:
- *                   -
- *                   -
- *                   -
- *                   -
+ * Assumes ==, <, empty(), print() are available for use in the templated object
  * Creation date: July 8, 2016
  * Author: Eric Semeniuc, David Magaril
  * ID: esemeniu_dmagaril
@@ -126,13 +123,13 @@ uint8_t btree<Type>::rInsert(node<Type>* currentRoot, Type* inputData)
 }
 
 template <class Type>
-//preconditions: inputData.size() >= 1 (at least 1 term is entered)
+//preconditions: inputData must not be empty
 //postconditions: returns 0 if successfully inputted, 1 if there is an error
 //description: creates a node to insert in sorted order (based on src) into the tree
 uint8_t btree<Type>::insert(Type inputData)
 {
 	//check if params are valid
-	if(inputData.size() == 0) //check for non fully populated
+	if(inputData.empty()) //check for non fully populated
 	{
 		return 1; //can't non filled objects
 	}
@@ -155,12 +152,12 @@ uint8_t btree<Type>::insert(Type inputData)
 }
 
 template <class Type>
-//preconditions: none
+//preconditions: inputData must not be empty
 //postconditions: a Type object matching inputSrc is returned, otherwise NULL is returned or throw exception
 //description: recursively calls rSearch and stops when a Type matching inputSrc is found, or reaches bottom of the tree
 Type btree<Type>::search(Type* inputData) const throw(classException)
 {
-	if (inputData->size() == 0) //check for empty input
+	if (inputData->empty()) //check for empty input
 	{
 		throw classException("Can't search with empty input");//can't search without proper input
 	}
@@ -176,7 +173,7 @@ Type btree<Type>::search(Type* inputData) const throw(classException)
 		//option 2
 		//throw ClassException("Type doesn't exist"); //failed, don't try to access searchResult->data unless segfault
 		
-		//option 3 - make an empty object and have client code check if its empty, to make the <not found> version
+		//option 3 - make an empty object and have client code check if it's empty, to make the <not found> version
 		Type emptyObject;
 		return emptyObject;
 	}

@@ -48,6 +48,21 @@ public:
 	~student();
 	
 	//preconditions: none
+	//postconditions: returns 1 if student is empty, 0 if student has valid lastname and id
+	//description: checks if student object is empty
+	bool empty(void) const;
+	
+	//preconditions: inputStudent is not empty
+	//postconditions: 0 if inputStudent is greater than "this", 1 if less than "this"
+	//description: less than overloaded operator
+	bool operator<(const student& inputStudent) const;
+	
+	//preconditions: inputStudent is not empty
+	//postconditions: 1 if lastName == inputStudent.lastName, 0 otherwise
+	//description: equality overloaded operator
+	bool operator==(const student& inputStudent) const;
+	
+	//preconditions: none
 	//postconditions: none
 	//description: prints out the student's info in O(1) time
 	void print(void) const;

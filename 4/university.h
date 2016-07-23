@@ -6,6 +6,7 @@
 #define INC_4_UNIVERSITY_H
 
 #include <string>
+#include "btree.h"
 #include "student.h"
 
 class university
@@ -15,6 +16,7 @@ private:
 	std::string address;
 	std::string email;
 	std::string phone;
+	btree<student> studentList;
 	size_t studentCount; //for listInfo()
 	
 public:
@@ -31,10 +33,10 @@ public:
 	//default destructor
 	~university();
 	
-	//preconditions: none
-	//postconditions: none
+	//preconditions: inputStudent has a valid lastName and studentID
+	//postconditions: returns 0 upon successful insertion, 1 if there is an error
 	//description: inserts a student into the university in O(log(n)) time
-	bool setStudent(student& inputStudent) const;
+	uint8_t setStudent(student& inputStudent);
 	
 	//preconditions: none
 	//postconditions: none

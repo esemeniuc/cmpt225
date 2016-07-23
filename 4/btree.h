@@ -4,7 +4,7 @@
  * Class Description: A data collection ADT class to satisfy Assn 3's requirements.
 
  * Class Invariant: Data collection with the following characteristics:
- * - assumes size(), print() are available for use in templated object
+ * Assumes ==, <, empty(), print() are available for use in the templated object
  * Creation date: July 8, 2016
  * Author: Eric Semeniuc, David Magaril
  * ID: esemeniu_dmagaril
@@ -57,7 +57,7 @@ public:
 	// Time Efficiency: O(n)
 	void deleteAll(node<Type>* current);
 	
-	//preconditions: none
+	//preconditions: inputData must not be empty
 	//postconditions: a Type object matching inputSrc is returned, otherwise NULL is returned or throw exception
 	//description: recursively calls rSearch and stops when a Type matching inputSrc is found, or reaches bottom of the tree
 	Type search(Type* inputData) const throw(classException);

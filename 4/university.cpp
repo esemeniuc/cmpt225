@@ -9,13 +9,14 @@
 //std::string address;
 //std::string email;
 //std::string phone;
+//btree<student> studentList;
 //size_t studentCount; //for listInfo()
 
 //preconditions: inputName is not empty
 //postconditions: throws classException if inputName is empty
 //description: constructor with only university name
 university::university(std::string inputName) throw(classException):
-name(inputName)
+		name(inputName)
 {
 	if(inputName.empty()) //can't have empty inputName
 	{
@@ -30,23 +31,30 @@ university::university(std::string inputName,
 					   std::string inputAddress,
 					   std::string inputEmail,
 					   std::string inputPhone) throw (classException):
-name(inputName),
-address(inputAddress),
-email(inputEmail),
-phone(inputPhone)
+		name(inputName),
+		address(inputAddress),
+		email(inputEmail),
+		phone(inputPhone)
 {
-		if(inputName.empty()) //can't have empty inputName
-		{
-			throw(classException("Error: can't have empty inputName"));
-		}
+	if(inputName.empty()) //can't have empty inputName
+	{
+		throw(classException("Error: can't have empty inputName"));
+	}
 }
 
-//preconditions: none
-//postconditions: none
-//description: inserts a student into the university in O(log(n)) time
-bool university::setStudent(student& inputStudent) const
+//default destructor
+university::~university()
 {
-	
+	studentCount = 0;
+}
+
+//preconditions: inputStudent has a valid lastName and studentID
+//postconditions: returns 0 upon successful insertion, 1 if there is an error
+//description: inserts a student into the university in O(log(n)) time
+uint8_t university::setStudent(student& inputStudent)
+{
+	return studentList.insert(inputStudent);
+
 }
 
 //preconditions: none

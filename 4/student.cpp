@@ -70,6 +70,45 @@ student::~student()
 }
 
 //preconditions: none
+//postconditions: returns 1 if student is empty, 0 if student has valid lastname and id
+//description: checks if student object is empty
+bool student::empty(void) const
+{
+	if(lastName.empty() || studentNumber < 0) //check if either lastName or studentNumber is empty
+	{
+		return true;
+	}
+	
+	return false;
+}
+
+//preconditions: inputStudent is not empty
+//postconditions: 0 if inputStudent is greater than "this", 1 if less than "this"
+//description: less than overloaded operator
+bool student::operator<(const student& inputStudent) const
+{
+	if(lastName.compare(inputStudent.lastName) < 0) //check if rhs is less than inputStudent
+	{
+		return true;
+	}
+	
+	return false;
+}
+
+//preconditions: inputStudent is not empty
+//postconditions: 1 if lastName == inputStudent.lastName, 0 otherwise
+//description: equality overloaded operator
+bool student::operator==(const student& inputStudent) const
+{
+	if(lastName == inputStudent.lastName) //check for match
+	{
+		return true;
+	}
+	
+	return false;
+}
+
+//preconditions: none
 //postconditions: none
 //description: prints out the student's info in O(1) time
 void student::print(void) const
