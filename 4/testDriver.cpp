@@ -27,7 +27,7 @@ void testDriver::studentValidate()
 	student student1(112233); //studentID
 	student student2("lastname"); //lastname
 	
-	assert(student1.studentNumber == 112233);
+	assert(student1.ID == 112233);
 	assert(student2.lastName == "lastname");
 	
 	std::string student3Enrolled[] = {"Math", "Phys", "something"};

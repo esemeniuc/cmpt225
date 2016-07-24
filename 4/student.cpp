@@ -6,7 +6,7 @@
 #include "student.h"
 
 //private:
-//	std::uint32_t studentNumber;
+//	std::uint32_t ID;
 //	std::string lastName;
 //	std::string firstName;
 //	std::string address;
@@ -15,14 +15,14 @@
 //	uint32_t enrolledCount;
 //	std::string faculty;
 
-//constructor with just studentNumber
-//preconditions: studentNumber must not be blank
-student::student(uint32_t inputStudentNumber) throw(classException):
-		studentNumber(inputStudentNumber)
+//constructor with just ID
+//preconditions: ID must not be blank
+student::student(uint32_t inputID) throw(classException):
+		ID(inputID)
 {
-	if(inputStudentNumber == 0) //can't have empty studentNumber
+	if(inputID == 0) //can't have empty ID
 	{
-		throw(classException("Error: can't have empty studentNumber"));
+		throw(classException("Error: can't have empty ID"));
 	}
 }
 
@@ -38,8 +38,8 @@ student::student(std::string inputLastName) throw(classException):
 }
 
 //student constructor with parameters for all fields
-//preconditions: studentNumber and lastName must not be blank
-student::student(uint32_t inputStudentNumber,
+//preconditions: ID and lastName must not be blank
+student::student(uint32_t inputID,
 				 std::string inputLastName,
 				 std::string inputFirstName,
 				 std::string inputAddress,
@@ -47,7 +47,7 @@ student::student(uint32_t inputStudentNumber,
 				 std::string inputEnrolled[],
 				 uint32_t inputEnrolledCount,
 				 std::string inputFaculty) throw(classException):
-		studentNumber(inputStudentNumber),
+		ID(inputID),
 		lastName(inputLastName),
 		firstName(inputFirstName),
 		address(inputAddress),
@@ -55,9 +55,9 @@ student::student(uint32_t inputStudentNumber,
 		enrolledCount(inputEnrolledCount),
 		faculty(inputFaculty)
 {
-	if(inputStudentNumber == 0 || inputLastName.empty()) //can't have empty studentNumber or lastName
+	if(inputID == 0 || inputLastName.empty()) //can't have empty ID or lastName
 	{
-		throw(classException("Error: can't have empty studentNumber or lastName"));
+		throw(classException("Error: can't have empty ID or lastName"));
 	}
 	
 	std::copy(inputEnrolled, inputEnrolled + inputEnrolledCount, enrolled);
@@ -74,46 +74,62 @@ student::~student()
 //description: checks if student object is empty
 bool student::empty(void) const
 {
-	if(lastName.empty() || studentNumber < 0) //check if either lastName or studentNumber is empty
+	if(lastName.empty() || ID < 0) //check if either lastName or ID is empty
 	{
 		return true;
 	}
-	
+
 	return false;
 }
 
-//preconditions: inputStudent is not empty
-//postconditions: 0 if inputStudent is greater than "this", 1 if less than "this"
-//description: less than overloaded operator
-bool student::operator<(const student& inputStudent) const
+//preconditions: none
+//postconditions: returns the ID member
+//description: returns the Id member
+uint32_t student::getID()
 {
-	if(lastName.compare(inputStudent.lastName) < 0) //check if rhs is less than inputStudent
-	{
-		return true;
-	}
-	
-	return false;
+	return ID;
 }
 
-//preconditions: inputStudent is not empty
-//postconditions: 1 if lastName == inputStudent.lastName, 0 otherwise
-//description: equality overloaded operator
-bool student::operator==(const student& inputStudent) const
+//preconditions: none
+//postconditions: returns the lastName member
+//description: returns the lastName member
+std::string student::getLName()
 {
-	if(lastName == inputStudent.lastName) //check for match
-	{
-		return true;
-	}
-	
-	return false;
+	return lastName;
 }
+
+////preconditions: inputStudent is not empty
+////postconditions: 0 if inputStudent is greater than "this", 1 if less than "this"
+////description: less than overloaded operator
+//bool student::operator<(const student& inputStudent) const
+//{
+//	if(lastName.compare(inputStudent.lastName) < 0) //check if rhs is less than inputStudent
+//	{
+//		return true;
+//	}
+//	
+//	return false;
+//}
+//
+////preconditions: inputStudent is not empty
+////postconditions: 1 if lastName == inputStudent.lastName, 0 otherwise
+////description: equality overloaded operator
+//bool student::operator==(const student& inputStudent) const
+//{
+//	if(lastName == inputStudent.lastName) //check for match
+//	{
+//		return true;
+//	}
+//
+//	return false;
+//}
 
 //preconditions: none
 //postconditions: none
 //description: prints out the student's info in O(1) time
 void student::print(void) const
 {
-	std::cout << "Student #:\t" << studentNumber << "\nLastname:\t" << lastName << "\nFirstname:\t" << firstName << "\nAddress:\t" << address << "\nEmail:\t\t" << email << "\nEnrolled:\n";
+	std::cout << "Student #:\t" << ID << "\nLastname:\t" << lastName << "\nFirstname:\t" << firstName << "\nAddress:\t" << address << "\nEmail:\t\t" << email << "\nEnrolled:\n";
 	
 	size_t index = 0;
 	while(index < enrolledCount)
@@ -130,7 +146,7 @@ void student::print(void) const
 //description: returns a string with the student's info in O(1) time
 std::string student::printString(void) const
 {
-	std::string returnString = "Student #:\t" + std::to_string(studentNumber) + "\nLastname:\t" + lastName + "\nFirstname:\t" + firstName + "\nAddress:\t" + address + "\nEmail:\t\t" + email + "\nEnrolled:\n";
+	std::string returnString = "Student #:\t" + std::to_string(ID) + "\nLastname:\t" + lastName + "\nFirstname:\t" + firstName + "\nAddress:\t" + address + "\nEmail:\t\t" + email + "\nEnrolled:\n";
 	
 	size_t index = 0;
 	while(index < enrolledCount)

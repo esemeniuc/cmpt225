@@ -48,11 +48,11 @@ void btree<Type>::deleteAll(node<Type>* current)
 		return;
 	}
 	
-	if(current->left != NULL){
-		deleteAll(current->left);
+	if(current->left1 != NULL){
+		deleteAll(current->left1);
 	}
-	if(current->right != NULL){
-		deleteAll(current->right);
+	if(current->right1 != NULL){
+		deleteAll(current->right1);
 	}
 	
 	delete current;
@@ -62,20 +62,33 @@ template <class Type>
 //preconditions: tree is not empty, and the shell object is not empty
 //postconditions: a Type object matching inputSrc is returned, otherwise NULL is returned or throw exception
 //description: finds a Type matching inputSrc if it exists in the tree
-node<Type>* btree<Type>::rSearch(node<Type>* root, Type* inputData) const
+node<Type>* btree<Type>::rSearch(node<Type>* root, Type* inputData, bool mode) const
 {
 	if(root == NULL || root->data == *inputData) //base case
 	{
 		return root;
 	}
 	
-	if(*inputData < root->data)
+	node<Type>* left;
+	node<Type>* right;
+	if(mode == 0)//use first set of pointers when mode = 0, second set when mode = 1
 	{
-		return rSearch(root->left, inputData);
+		left = root->left1;
+		right = root->right1;
 	}
 	else
 	{
-		return rSearch(root->right, inputData);
+		left = root->left2;
+		right = root->right2;
+	}
+	
+	if(*inputData < root->data)
+	{
+		return rSearch(left, inputData);
+	}
+	else
+	{
+		return rSearch(right, inputData);
 	}
 	
 }
@@ -84,42 +97,81 @@ template <class Type>
 //preconditions: inputNode has a valid filled class
 //postconditions: returns 0 on successful insertion our new node, 0 on failure
 //description: finds the correct parent node to allow insertion a child node
-uint8_t btree<Type>::rInsert(node<Type>* currentRoot, Type* inputData)
+uint8_t btree<Type>::rInsertID(node<Type>* currentRoot, node<Type>* inputNode)
 {
 	while(currentRoot != NULL) //base case
 	{
-		if (currentRoot->data == *inputData) //check for duplicates
+		if (currentRoot->data.getID() == inputNode->data.getID()) //check for duplicates
 		{
 			return 1; // failure, don't want duplicates
 		}
 		
-		if (*inputData < currentRoot->data) //check if we have to go to the left
+		if (inputNode->data.getID() < currentRoot->data.getID()) //check if we have to go to the left
 		{
-			if (currentRoot->left == NULL) //check if empty
+			if (currentRoot->left1 == NULL) //check if empty
 			{
-				currentRoot->left = new node<Type>(*inputData); //insert into empty slot
+				currentRoot->left1 = inputNode; //insert into empty slot
 				return 0; //all good
 			}
 			else //non empty, so continue
 			{
-				currentRoot = currentRoot->left; //visit the left subtree
+				currentRoot = currentRoot->left1; //visit the left subtree
 			}
 		}
 		else //go to right
 		{
-			if (currentRoot->right == NULL) //check if empty
+			if (currentRoot->right1 == NULL) //check if empty
 			{
-				currentRoot->right = new node<Type>(*inputData); //insert
+				currentRoot->right1 = inputNode; //insert
 				return 0; //all good
 			}
 			else //non empty, so continue
 			{
-				currentRoot = currentRoot->right; //visit the right subtree
+				currentRoot = currentRoot->right1; //visit the right subtree
 			}
 		}
 	}
 	
-	return 1; //shouldn't reach the end, so throw error
+	return 1; //shouldn't reach the end, so return error
+}
+
+template <class Type>
+uint8_t btree<Type>::rInsertLName(node<Type>* currentRoot, node<Type>* inputNode)
+{
+	while(currentRoot != NULL) //base case
+	{
+		if (currentRoot->data.getLName() == inputNode->data.getLName()) //check for duplicates
+		{
+			return 1; // failure, don't want duplicates
+		}
+		
+		if (inputNode->data.getLName() < currentRoot->data.getLName()) //check if we have to go to the left
+		{
+			if (currentRoot->left2 == NULL) //check if empty
+			{
+				currentRoot->left2 = inputNode; //insert into empty slot
+				return 0; //all good
+			}
+			else //non empty, so continue
+			{
+				currentRoot = currentRoot->left2; //visit the left subtree
+			}
+		}
+		else //go to right
+		{
+			if (currentRoot->right2 == NULL) //check if empty
+			{
+				currentRoot->right2 = inputNode; //insert
+				return 0; //all good
+			}
+			else //non empty, so continue
+			{
+				currentRoot = currentRoot->right2; //visit the right subtree
+			}
+		}
+	}
+	
+	return 1; //shouldn't reach the end, so return error
 }
 
 template <class Type>
@@ -135,34 +187,45 @@ uint8_t btree<Type>::insert(Type inputData)
 	}
 	
 	//cout << "**about to insert**" << endl;
+	//create a node to insert based input params
+	node<Type>* tempNode = new node<Type>(inputData); //pass in inputData
 	//if root is NULL, then insert at root, because insert function cant modify root variable
 	if(root == NULL)
 	{
-		root = new node<Type>(inputData); //make the new node our root
+		root = tempNode; //make the new node our root
 		nodeCount++; //update counter
 		return 0; //all good
 	}
 	
 	//find proper place in tree to insert the node
-	rInsert(root, &inputData);
-//	uint8_t status = rInsert(root, tempNode);
-//	cout << "insert status: " << (int)status << endl; //debug
-	nodeCount++; //increment count
-	return 0; //all good
+	uint8_t insertIDStatus = rInsertID(root, tempNode);
+	uint8_t insertLNameStatus = rInsertLName(root, tempNode);
+	std::cout << "insertIDStatus: " << (int)insertIDStatus << "insertLNameStatus: " << (int)insertLNameStatus << std::endl; //debug
+	if(insertIDStatus == 0 && insertLNameStatus == 0) ///if all is good, then increment
+	{
+		nodeCount++; //increment count
+		return 0; //all good
+	}
+	else //some error occurred
+	{
+		delete tempNode; //no need for node that failed to insert
+		return 1; //error
+	}
+	
 }
 
 template <class Type>
 //preconditions: inputData must not be empty
 //postconditions: a Type object matching inputSrc is returned, otherwise NULL is returned or throw exception
 //description: recursively calls rSearch and stops when a Type matching inputSrc is found, or reaches bottom of the tree
-Type btree<Type>::search(Type* inputData) const throw(classException)
+Type btree<Type>::search(Type* inputData, bool mode) const throw(classException)
 {
 	if (inputData->empty()) //check for empty input
 	{
 		throw classException("Can't search with empty input");//can't search without proper input
 	}
 	
-	node<Type>* searchResult = rSearch(root, inputData); //look for parent of matching node
+	node<Type>* searchResult = rSearch(root, inputData, mode); //look for parent of matching node
 	
 	if(searchResult == NULL) //compare
 	{
@@ -171,11 +234,11 @@ Type btree<Type>::search(Type* inputData) const throw(classException)
 //		return *inputData;
 		
 		//option 2
-		//throw ClassException("Type doesn't exist"); //failed, don't try to access searchResult->data unless segfault
+		throw classException("Type doesn't exist"); //failed, don't try to access searchResult->data unless segfault
 		
 		//option 3 - make an empty object and have client code check if it's empty, to make the <not found> version
-		Type emptyObject;
-		return emptyObject;
+//		Type emptyObject;
+//		return emptyObject;
 	}
 	
 	return searchResult->data; //otherwise return Type, all is good
@@ -185,7 +248,7 @@ template <class Type>
 //preconditions: none
 //postconditions: none
 //description: prints out the contents of the array in order using in order traversal
-void btree<Type>::rPrint(node<Type>* currentRoot) const
+void btree<Type>::rPrint(node<Type>* currentRoot, bool mode) const
 {
 	if(currentRoot == NULL) //base case
 	{
@@ -193,16 +256,29 @@ void btree<Type>::rPrint(node<Type>* currentRoot) const
 		return;
 	}
 	
-	rPrint(currentRoot->left); //recurse left
+	node<Type>* left;
+	node<Type>* right;
+	if(mode == 0) //use first set of pointers when mode = 0, second set when mode = 1
+	{
+		left = root->left1;
+		right = root->right1;
+	}
+	else
+	{
+		left = root->left2;
+		right = root->right2;
+	}
+	
+	rPrint(left); //recurse left
 	currentRoot->data.print(); //print the object
-	rPrint(currentRoot->right); //recurse right
+	rPrint(right); //recurse right
 }
 
 template <class Type>
 //preconditions: none
 //postconditions: none
 //description: prints out the contents of the array in order
-void btree<Type>::print(void) const
+void btree<Type>::print(bool mode) const
 {
-	rPrint(root);
+	rPrint(root, mode);
 }

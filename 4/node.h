@@ -7,9 +7,6 @@
  * ID: esemeniu_dmagaril
  */
 
-
-// #pragma once is shorthand for the 2 #include guards we've seen before:
-// #ifndef _node and #define _node
 #ifndef INC_3_NODE_H
 #define INC_3_NODE_H
 
@@ -21,8 +18,10 @@ class node
 public:
 	// Public attributes - Why are the attributes public?
 	Type data;   // The data in the node
-	node* left;   // Pointer to left node
-	node* right;   // Pointer to right node
+	node* left1;   // Pointer to left node from set 1
+	node* right1;   // Pointer to right node from set 1
+	node* left2;   // Pointer to left node from set 2
+	node* right2;   // Pointer to right node from set 2
 	
 	// Constructors and destructor
 	node(); //default constructor for an empty node

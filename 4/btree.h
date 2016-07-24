@@ -27,18 +27,22 @@ private:
 	
 	//preconditions: tree is not empty, and the shell object is not empty
 	//postconditions: a Type object matching inputSrc is returned, otherwise NULL is returned or throw exception
-	//description: finds a Type matching inputSrc if it exists in the tree
-	node<Type>* rSearch(node<Type>* root, Type* inputData) const;
+	//description: finds a Type matching inputSrc if it exists in the tree.
+	//Mode 0 for ordered traversal using left and right 1, mode 1 for left and right 2
+	node<Type>* rSearch(node<Type>* root, Type* inputData, bool mode) const;
 	
 	//preconditions: inputNode has a valid filled class
 	//postconditions: returns 0 on successful insertion our new node, 0 on failure
 	//description: finds the correct parent node to allow insertion a child node
-	uint8_t rInsert(node<Type>* root, Type* inputData);
+	//Mode 0 for ordered traversal using left and right 1, mode 1 for left and right 2
+	uint8_t rInsertID(node<Type>* root, node<Type>* inputNode);
+	uint8_t rInsertLName(node<Type>* root, node<Type>* inputNode);
 	
 	//preconditions: none
 	//postconditions: none
-	//description: prints out the contents of the array in order
-	void rPrint(node<Type>* currentRoot) const;
+	//description: prints out the contents of the array in order using in order traversal
+	//Mode 0 for ordered traversal using left and right 1, mode 1 for left and right 2
+	void rPrint(node<Type>* currentRoot, bool mode) const;
 
 public:
 	//preconditions: none
@@ -60,17 +64,19 @@ public:
 	//preconditions: inputData must not be empty
 	//postconditions: a Type object matching inputSrc is returned, otherwise NULL is returned or throw exception
 	//description: recursively calls rSearch and stops when a Type matching inputSrc is found, or reaches bottom of the tree
-	Type search(Type* inputData) const throw(classException);
+	//Mode 0 for ordered traversal using left and right 1, mode 1 for left and right 2
+	Type search(Type* inputData, bool mode) const throw(classException);
 	
 	//preconditions: inputData.size() >= 1 (at least 1 term is entered)
 	//postconditions: returns 0 if successfully inputted, 1 if there is an error
 	//description: creates a node to insert in sorted order (based on src) into the tree
+	//Mode 0 for ordered traversal using left and right 1, mode 1 for left and right 2
 	uint8_t insert(Type inputData);
 	
 	//preconditions: none
 	//postconditions: none
 	//description: prints out the contents of the array in order
-	void print(void) const;
+	void print(bool mode) const;
 };
 
 #include "btree.cpp"

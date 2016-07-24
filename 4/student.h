@@ -14,7 +14,7 @@ const uint8_t studentEnrollmentMax = 100;
 class student
 {
 private:
-	uint32_t studentNumber;
+	uint32_t ID;
 	std::string lastName;
 	std::string firstName;
 	std::string address;
@@ -25,17 +25,17 @@ private:
 	
 public:
 	
-	//constructor with just studentNumber
-	//preconditions: studentNumber must not be blank
-	student(uint32_t inputStudentNumber) throw(classException);
+	//constructor with just ID
+	//preconditions: ID must not be blank
+	student(uint32_t inputID) throw(classException);
 	
 	//constructor with just lastName
 	//preconditions: lastName must not be blank
 	student(std::string inputLastName) throw(classException);
 	
 	//student constructor with parameters for all fields
-	//preconditions: studentNumber and lastName must not be blank
-	student(uint32_t inputStudentNumber,
+	//preconditions: ID and lastName must not be blank
+	student(uint32_t inputID,
 			 std::string inputLastName,
 			 std::string inputFirstName,
 			 std::string inputAddress,
@@ -48,19 +48,29 @@ public:
 	~student();
 	
 	//preconditions: none
-	//postconditions: returns 1 if student is empty, 0 if student has valid lastname and id
+	//postconditions: returns 1 if student is empty, 0 if student has valid lastName and ID
 	//description: checks if student object is empty
 	bool empty(void) const;
 	
-	//preconditions: inputStudent is not empty
-	//postconditions: 0 if inputStudent is greater than "this", 1 if less than "this"
-	//description: less than overloaded operator
-	bool operator<(const student& inputStudent) const;
+	//preconditions: none
+	//postconditions: returns the ID member
+	//description: returns the Id member
+	uint32_t getID();
 	
-	//preconditions: inputStudent is not empty
-	//postconditions: 1 if lastName == inputStudent.lastName, 0 otherwise
-	//description: equality overloaded operator
-	bool operator==(const student& inputStudent) const;
+	//preconditions: none
+	//postconditions: returns the lastName member
+	//description: returns the lastName member
+	std::string getLName();
+	
+//	//preconditions: inputStudent is not empty
+//	//postconditions: 0 if inputStudent is greater than "this", 1 if less than "this"
+//	//description: less than overloaded operator
+//	bool operator<(const student& inputStudent) const;
+//	
+//	//preconditions: inputStudent is not empty
+//	//postconditions: 1 if lastName == inputStudent.lastName, 0 otherwise
+//	//description: equality overloaded operator
+//	bool operator==(const student& inputStudent) const;
 	
 	//preconditions: none
 	//postconditions: none

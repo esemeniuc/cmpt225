@@ -12,8 +12,10 @@
 template <class Type>
 //default constructor for an empty node
 node<Type>::node():
-		left(NULL),
-		right(NULL)
+		left1(NULL),
+		right1(NULL),
+		left2(NULL),
+		right2(NULL)
 {
 	//nothing else
 }
@@ -22,8 +24,10 @@ template <class Type>
 //parameterized constructor
 node<Type>::node(Type inputData):
 		data(inputData),
-		left(NULL),
-		right(NULL)
+		left1(NULL),
+		right1(NULL),
+		left2(NULL),
+		right2(NULL)
 {
 	//nothing else
 }
@@ -32,6 +36,8 @@ template <class Type>
 //default destructor for an empty node
 node<Type>::~node()
 {
-	left = NULL;
-	right = NULL;
+	left1 = NULL;
+	right1 = NULL;
+	left2 = NULL;
+	right2 = NULL;
 }
