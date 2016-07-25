@@ -16,6 +16,7 @@
 */
 
 #include "btree.h"
+#include "student.h"
 
 template <class Type>
 //preconditions: none
@@ -62,36 +63,41 @@ template <class Type>
 //preconditions: tree is not empty, and the shell object is not empty
 //postconditions: a Type object matching inputSrc is returned, otherwise NULL is returned or throw exception
 //description: finds a Type matching inputSrc if it exists in the tree
-node<Type>* btree<Type>::rSearch(node<Type>* root, Type* inputData, bool mode) const
+node<Type>* btree<Type>::rSearchID(node<Type>* currentRoot, Type* inputData) const
 {
-	if(root == NULL || root->data == *inputData) //base case
+	if(currentRoot == NULL || currentRoot->data.getID() == inputData->getID()) //base case
 	{
-		return root;
+		return currentRoot;
 	}
 	
-	node<Type>* left;
-	node<Type>* right;
-	if(mode == 0)//use first set of pointers when mode = 0, second set when mode = 1
+	if(inputData->getID() < currentRoot->data.getID())
 	{
-		left = root->left1;
-		right = root->right1;
+		return rSearchID(currentRoot->left1, inputData);
 	}
 	else
 	{
-		left = root->left2;
-		right = root->right2;
+		return rSearchID(currentRoot->right1, inputData);
 	}
-	
-	if(*inputData < root->data)
-	{
-		return rSearch(left, inputData);
-	}
-	else
-	{
-		return rSearch(right, inputData);
-	}
-	
 }
+
+template <class Type>
+node<Type>* btree<Type>::rSearchLName(node<Type>* currentRoot, Type* inputData) const
+{
+	if(currentRoot == NULL || currentRoot->data.getFullName() == inputData->getFullName()) //base case
+	{
+		return currentRoot;
+	}
+	
+	if(inputData->getFullName() < currentRoot->data.getFullName())
+	{
+		return rSearchLName(currentRoot->left2, inputData);
+	}
+	else
+	{
+		return rSearchLName(currentRoot->right2, inputData);
+	}
+}
+
 
 template <class Type>
 //preconditions: inputNode has a valid filled class
@@ -101,7 +107,7 @@ uint8_t btree<Type>::rInsertID(node<Type>* currentRoot, node<Type>* inputNode)
 {
 	while(currentRoot != NULL) //base case
 	{
-		if (currentRoot->data.getID() == inputNode->data.getID()) //check for duplicates
+		if (currentRoot->data.equals(inputNode->data)) //check for duplicates
 		{
 			return 1; // failure, don't want duplicates
 		}
@@ -140,12 +146,12 @@ uint8_t btree<Type>::rInsertLName(node<Type>* currentRoot, node<Type>* inputNode
 {
 	while(currentRoot != NULL) //base case
 	{
-		if (currentRoot->data.getLName() == inputNode->data.getLName()) //check for duplicates
+		if (currentRoot->data.equals(inputNode->data)) //check for duplicates
 		{
 			return 1; // failure, don't want duplicates
 		}
 		
-		if (inputNode->data.getLName() < currentRoot->data.getLName()) //check if we have to go to the left
+		if (inputNode->data.getFullName() < currentRoot->data.getFullName()) //check if we have to go to the left
 		{
 			if (currentRoot->left2 == NULL) //check if empty
 			{
@@ -200,7 +206,7 @@ uint8_t btree<Type>::insert(Type inputData)
 	//find proper place in tree to insert the node
 	uint8_t insertIDStatus = rInsertID(root, tempNode);
 	uint8_t insertLNameStatus = rInsertLName(root, tempNode);
-	std::cout << "insertIDStatus: " << (int)insertIDStatus << "insertLNameStatus: " << (int)insertLNameStatus << std::endl; //debug
+//	std::cout << "Nonfirst insert: insertIDStatus: " << (int)insertIDStatus << " insertLNameStatus: " << (int)insertLNameStatus << std::endl; //debug
 	if(insertIDStatus == 0 && insertLNameStatus == 0) ///if all is good, then increment
 	{
 		nodeCount++; //increment count
@@ -218,14 +224,41 @@ template <class Type>
 //preconditions: inputData must not be empty
 //postconditions: a Type object matching inputSrc is returned, otherwise NULL is returned or throw exception
 //description: recursively calls rSearch and stops when a Type matching inputSrc is found, or reaches bottom of the tree
-Type btree<Type>::search(Type* inputData, bool mode) const throw(classException)
+Type btree<Type>::searchID(Type* inputData) const throw(classException)
 {
-	if (inputData->empty()) //check for empty input
+	if(inputData->getID() <= 0) //check for empty input
 	{
-		throw classException("Can't search with empty input");//can't search without proper input
+		throw classException("Can't search with empty ID");//can't search without proper input
 	}
 	
-	node<Type>* searchResult = rSearch(root, inputData, mode); //look for parent of matching node
+	node<Type>* searchResult = rSearchID(root, inputData);//look for parent of matching node
+
+	if(searchResult == NULL) //compare
+	{
+		//option 1
+//		inputData->setDest("<not found>");
+//		return *inputData;
+		
+		//option 2
+		throw classException("Search object not found"); //failed, don't try to access searchResult->data unless segfault
+		
+		//option 3 - make an empty object and have client code check if it's empty, to make the <not found> version
+//		Type emptyObject;
+//		return emptyObject;
+	}
+	
+	return searchResult->data; //otherwise return Type, all is good
+}
+
+template <class Type>
+Type btree<Type>::searchLName(Type* inputData) const throw(classException)
+{
+	if(inputData->getLName().empty()) //check for empty input
+	{
+		throw classException("Can't search with empty lastname");//can't search without proper input
+	}
+	
+	node<Type>* searchResult = rSearchLName(root, inputData);//look for parent of matching node
 	
 	if(searchResult == NULL) //compare
 	{
@@ -234,7 +267,7 @@ Type btree<Type>::search(Type* inputData, bool mode) const throw(classException)
 //		return *inputData;
 		
 		//option 2
-		throw classException("Type doesn't exist"); //failed, don't try to access searchResult->data unless segfault
+		throw classException("Search object not found"); //failed, don't try to access searchResult->data unless segfault
 		
 		//option 3 - make an empty object and have client code check if it's empty, to make the <not found> version
 //		Type emptyObject;
@@ -260,18 +293,18 @@ void btree<Type>::rPrint(node<Type>* currentRoot, bool mode) const
 	node<Type>* right;
 	if(mode == 0) //use first set of pointers when mode = 0, second set when mode = 1
 	{
-		left = root->left1;
-		right = root->right1;
+		left = currentRoot->left1;
+		right = currentRoot->right1;
 	}
 	else
 	{
-		left = root->left2;
-		right = root->right2;
+		left = currentRoot->left2;
+		right = currentRoot->right2;
 	}
 	
-	rPrint(left); //recurse left
+	rPrint(left, mode); //recurse left
 	currentRoot->data.print(); //print the object
-	rPrint(right); //recurse right
+	rPrint(right, mode); //recurse right
 }
 
 template <class Type>

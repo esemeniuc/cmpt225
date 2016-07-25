@@ -29,9 +29,9 @@ public:
 	//preconditions: ID must not be blank
 	student(uint32_t inputID) throw(classException);
 	
-	//constructor with just lastName
+	//constructor with just lastName and firstName
 	//preconditions: lastName must not be blank
-	student(std::string inputLastName) throw(classException);
+	student(std::string inputLastName, std::string inputFirstName) throw(classException);
 	
 	//student constructor with parameters for all fields
 	//preconditions: ID and lastName must not be blank
@@ -52,21 +52,31 @@ public:
 	//description: checks if student object is empty
 	bool empty(void) const;
 	
+	//preconditions: inputStudent is not empty
+	//postconditions: 1 if lastName and ID match, 0 otherwise
+	//description: equality comparison
+	bool equals(const student& inputStudent) const;
+	
 	//preconditions: none
 	//postconditions: returns the ID member
 	//description: returns the Id member
-	uint32_t getID();
+	uint32_t getID() const;
 	
 	//preconditions: none
 	//postconditions: returns the lastName member
 	//description: returns the lastName member
-	std::string getLName();
+	std::string getLName() const;
+	
+	//preconditions: none
+	//postconditions: returns the lastName and firstName concatenated together
+	//description: returns the lastName and firstName concatenated together
+	std::string getFullName() const;
 	
 //	//preconditions: inputStudent is not empty
 //	//postconditions: 0 if inputStudent is greater than "this", 1 if less than "this"
 //	//description: less than overloaded operator
 //	bool operator<(const student& inputStudent) const;
-//	
+//
 //	//preconditions: inputStudent is not empty
 //	//postconditions: 1 if lastName == inputStudent.lastName, 0 otherwise
 //	//description: equality overloaded operator

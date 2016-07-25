@@ -20,7 +20,7 @@
 student::student(uint32_t inputID) throw(classException):
 		ID(inputID)
 {
-	if(inputID == 0) //can't have empty ID
+	if(inputID <= 0) //can't have empty ID
 	{
 		throw(classException("Error: can't have empty ID"));
 	}
@@ -28,8 +28,9 @@ student::student(uint32_t inputID) throw(classException):
 
 //constructor with just lastName
 //preconditions: lastName must not be blank
-student::student(std::string inputLastName) throw(classException):
-		lastName(inputLastName)
+student::student(std::string inputLastName, std::string inputFirstName) throw(classException):
+		lastName(inputLastName),
+		firstName(inputFirstName)
 {
 	if(inputLastName.empty()) //can't have empty lastName
 	{
@@ -74,7 +75,7 @@ student::~student()
 //description: checks if student object is empty
 bool student::empty(void) const
 {
-	if(lastName.empty() || ID < 0) //check if either lastName or ID is empty
+	if(lastName.empty() && ID <= 0) //check if either lastName or ID is empty
 	{
 		return true;
 	}
@@ -82,10 +83,22 @@ bool student::empty(void) const
 	return false;
 }
 
+//preconditions: inputStudent is not empty
+//postconditions: 1 if lastName and ID match, 0 otherwise
+//description: equality comparison
+bool student::equals(const student& inputStudent) const
+{
+	if(ID == inputStudent.getID() || getFullName() == inputStudent.getFullName())
+	{
+		return true;
+	}
+	return false;
+}
+
 //preconditions: none
 //postconditions: returns the ID member
 //description: returns the Id member
-uint32_t student::getID()
+uint32_t student::getID() const
 {
 	return ID;
 }
@@ -93,9 +106,17 @@ uint32_t student::getID()
 //preconditions: none
 //postconditions: returns the lastName member
 //description: returns the lastName member
-std::string student::getLName()
+std::string student::getLName() const
 {
 	return lastName;
+}
+
+//preconditions: none
+//postconditions: returns the lastName and firstName concatenated together
+//description: returns the lastName and firstName concatenated together
+std::string student::getFullName() const
+{
+	return (lastName + firstName);
 }
 
 ////preconditions: inputStudent is not empty
@@ -103,7 +124,7 @@ std::string student::getLName()
 ////description: less than overloaded operator
 //bool student::operator<(const student& inputStudent) const
 //{
-//	if(lastName.compare(inputStudent.lastName) < 0) //check if rhs is less than inputStudent
+//	if(lastName.compare(inputStudent.lastName) =< 0) //check if rhs is less than inputStudent
 //	{
 //		return true;
 //	}

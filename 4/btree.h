@@ -29,7 +29,8 @@ private:
 	//postconditions: a Type object matching inputSrc is returned, otherwise NULL is returned or throw exception
 	//description: finds a Type matching inputSrc if it exists in the tree.
 	//Mode 0 for ordered traversal using left and right 1, mode 1 for left and right 2
-	node<Type>* rSearch(node<Type>* root, Type* inputData, bool mode) const;
+	node<Type>* rSearchID(node<Type>* root, Type* inputData) const;
+	node<Type>* rSearchLName(node<Type>* root, Type* inputData) const;
 	
 	//preconditions: inputNode has a valid filled class
 	//postconditions: returns 0 on successful insertion our new node, 0 on failure
@@ -65,7 +66,8 @@ public:
 	//postconditions: a Type object matching inputSrc is returned, otherwise NULL is returned or throw exception
 	//description: recursively calls rSearch and stops when a Type matching inputSrc is found, or reaches bottom of the tree
 	//Mode 0 for ordered traversal using left and right 1, mode 1 for left and right 2
-	Type search(Type* inputData, bool mode) const throw(classException);
+	Type searchID(Type* inputData) const throw(classException);
+	Type searchLName(Type* inputData) const throw(classException);
 	
 	//preconditions: inputData.size() >= 1 (at least 1 term is entered)
 	//postconditions: returns 0 if successfully inputted, 1 if there is an error

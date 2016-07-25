@@ -9,15 +9,31 @@ class testDriver
 {
 public:
 	//general tests
+	void testAllNonException();
+	
+	//exception tests
 	void throwException();
+	void studentThrowException();
+	void universityThrowException();
 	
 	//student tests
 	void studentValidate();
-	void studentThrowException();
 	
 	//university tests
 	void universityValidate();
-	void universityThrowException();
+	
+	//btree tests
+	void btreeInsertNormal();
+	void btreeInsertDuplicateName();
+	void btreeInsertDuplicateID();
+	void btree4Valid();
+	void btree4Invalid();
+	void btree2of4ValidFirst();
+	void btree2of4ValidMiddle();
+	void btreeSearchExistsID();
+	void btreeSearchExistsLName();
+	void btreeSearchNotExistsID();
+	void btreeSearchNotExistsLName();
 	
 };
 

@@ -33,7 +33,7 @@ size_t musla::hashString(std::string inputString, size_t modulus) const
 	uint64_t hashVal = 0;
 	
 	size_t index = 0;
-	while(inputString[index] != NULL)
+	while(inputString[index] != '\0')
 	{
 		hashVal += (index + 1) * inputString[index];
 	}
