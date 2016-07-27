@@ -16,7 +16,6 @@
 */
 
 #include "btree.h"
-#include "student.h"
 
 template <class Type>
 //preconditions: none

@@ -8,6 +8,8 @@
 #include <cstddef>
 #include "student.h"
 #include "university.h"
+#include "node.h"
+
 #include "classException.h"
 
 const uint8_t muslaDefaultSize = 100; //arbitrarily defined
@@ -16,7 +18,7 @@ class musla
 {
 private:
 	
-	university* universityArray; //array of universities
+	university** universityArray; //array of universities
 	size_t universityCount; //default is 0
 	size_t studentCount; //default is 0
 	
@@ -57,15 +59,20 @@ public:
 	
 	~musla(); //default destructor
 	
-	//preconditions: inputUniversity is not null
-	//postconditions: returns a matching university object if a match is found, or throws an exception
-	//description: returns a matching inputUniversity object
-	const university& getUniversity(university* inputUniversity) const throw(classException);
+	//preconditions: filename is not empty
+	//postconditions: returns 0 upon success, 1 on failure
+	//description: reads all the file contents from inputFileName
+	uint8_t loadFromFile(std::string inputFilename);
 	
 	//preconditions: inputUniversity is not null
 	//postconditions: returns 0 on success, 1 on failure
 	//description: inputs a inputUniversity object to musla
-	bool addUniversity(university* inputUniversity);
+	university* addUniversity(university* inputUniversity);
+	
+	//preconditions: inputUniversity is not null
+	//postconditions: returns a matching university object if a match is found, or throws an exception
+	//description: returns a matching inputUniversity object
+	const university& getUniversity(university* inputUniversity) const throw(classException);
 	
 	//preconditions: inputStudentLName is not empty
 	//postconditions: returns a matching student object if a lname match is found, or throws an exception

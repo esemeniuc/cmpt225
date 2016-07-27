@@ -55,6 +55,24 @@ size_t musla::hashString2(std::string inputString, size_t modulus) const
 	return (size_t)hashVal;
 }
 
+//preconditions: filename is not empty
+//postconditions: returns 0 upon success, 1 on failure
+//description: reads all the file contents from inputFileName
+uint8_t musla::loadFromFile(std::string inputFilename)
+{
+	//read in the universityCount from file, then total studentCount
+	//create appropriate universityArray size, hash table sizes
+	
+	
+	
+	//while(getline) from file pointer
+	//if(detectUni)
+	//{
+	//while(loop until reach empty line)
+	//{
+	//insert students into university
+}
+
 //preconditions: inputID is a valid input
 //postconditions: a student object with ID == inputID is returned. if not found, then classException is thrown
 //description: looks up a student based on their ID and returns it in O(1) time
@@ -86,7 +104,7 @@ musla::musla(uint32_t inputUniversityCount, uint32_t inputStudentCount):
 universityCount(inputUniversityCount),
 studentCount(inputStudentCount)
 {
-	universityArray = new university[2 * universityCount];
+	universityArray = new university*[2 * universityCount];
 	universityTable = new university*[2 * universityCount];
 	idTable = new student*[2 * studentCount];
 	lnameTable = new student*[2 * studentCount];
@@ -104,17 +122,21 @@ musla::~musla()
 }
 
 //preconditions: inputUniversity is not null
-//postconditions: returns a matching university object if a match is found, or throws an exception
-//description: returns a matching inputUniversity object
-const university& musla::getUniversity(university* inputUniversity) const throw(classException)
+//postconditions: returns 0 on success, 1 on failure
+//description: inputs a inputUniversity object to musla
+university* musla::addUniversity(university* inputUniversity)
 {
-	
+	//hash university name
+	//lookup index and check if the current index is NULL
+	//if null, then then add uni there
+	//if not, then traverse until we reach a null
+	//return the memory address of the university
 }
 
 //preconditions: inputUniversity is not null
-//postconditions: returns 0 on success, 1 on failure
-//description: inputs a inputUniversity object to musla
-bool musla::addUniversity(university* inputUniversity)
+//postconditions: returns a matching university object if a match is found, or throws an exception
+//description: returns a matching inputUniversity object
+const university& musla::getUniversity(university* inputUniversity) const throw(classException)
 {
 	
 }
