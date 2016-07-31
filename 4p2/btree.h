@@ -14,7 +14,7 @@
 #define INC_4P2_BTREE_H
 
 #include "node.h"
-#include "ClassException.h"
+#include "classException.h"
 #include <iostream>
 
 template <class Type>
@@ -60,7 +60,7 @@ public:
 	//preconditions: none
 	//postconditions: a Type object matching inputSrc is returned, otherwise NULL is returned or throw exception
 	//description: recursively calls rSearch and stops when a Type matching inputSrc is found, or reaches bottom of the tree
-	Type search(Type* inputData) const throw(ClassException);
+	Type search(Type* inputData) const throw(classException);
 	
 	//preconditions: inputData.size() >= 1 (at least 1 term is entered)
 	//postconditions: returns 0 if successfully inputted, 1 if there is an error

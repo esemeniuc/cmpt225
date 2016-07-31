@@ -22,7 +22,7 @@ exQueue::exQueue():
 		dataCount(0),
 		dataStart(0)
 {
-	dataArray = new string[exQueueDefaultMax];
+	dataArray = new std::string[exQueueDefaultMax];
 }
 
 
@@ -46,7 +46,7 @@ uint32_t exQueue::getSize() const
 //postcondition: the data array is 2x as large and dataMax is doubled
 uint8_t exQueue::expand(void)
 {
-	string* tempArray = new string[2 * dataMax]; //double the size of the old array
+	std::string* tempArray = new std::string[2 * dataMax]; //double the size of the old array
 	//cout << "Size of profile: " << sizeof(Profile) << endl;
 	copy(dataArray+dataStart, dataArray + dataCount, tempArray); //copy profiles into temp, starting from beginning
 //	for(int i = 0; i < dataCount; i++)
@@ -66,7 +66,7 @@ uint8_t exQueue::expand(void)
 // Description: Adds inputData to the top of exQueue and
 //              returns 0 if successful, otherwise 1.
 // Time Efficiency: O(1)
-uint8_t exQueue::push(const string inputData)
+uint8_t exQueue::push(const std::string inputData)
 {
 	//check if array is full, if so then expand
 	if(dataCount == dataMax)
@@ -87,14 +87,14 @@ uint8_t exQueue::push(const string inputData)
 // Description: Removes the element at the bottom/front of exQueue and
 //              returns it
 // Precondition: This exQueue is not empty.
-// Exceptions: Throws ClassException if this exQueue is empty.
+// Exceptions: Throws classException if this exQueue is empty.
 // Time Efficiency: O(1)
-string exQueue::pop(void) throw(ClassException)
+std::string exQueue::pop(void) throw(classException)
 {
 	//cout << "#" << dataArray[dataStart] << ": Size: " << dataStart << " Count: " << dataCount << " Max: " << dataMax << endl;
 	if((dataCount - dataStart) <= 0) //check for empty exQueue
 	{
-		throw ClassException("Cannot pop from an empty exQueue");
+		throw classException("Cannot pop from an empty exQueue");
 	}
 	
 	//remove element from the array
@@ -122,6 +122,6 @@ void exQueue::print(void) const //debug
 //	cout << "call print" << endl;
 	for(unsigned int i = dataStart; i < dataCount; i++)
 	{
-		cout << dataArray[i] << endl;
+		std::cout << dataArray[i] << std::endl;
 	}
 }

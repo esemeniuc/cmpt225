@@ -12,14 +12,12 @@
 
 #include <string>
 
-using namespace std;
-
 class word
 {
 private:
-	string src; //lookup word
+	std::string src; //lookup word
 	
-	string dest; //translation of the word
+	std::string dest; //translation of the word
 
 public:
 	
@@ -31,12 +29,12 @@ public:
 	//preconditions: none
 	//postconditions: creates a shell word object for searching
 	//description: constructor that fills in the class
-	word(string inputSrc);
+	word(std::string inputSrc);
 	
 	//preconditions: none
 	//postconditions: creates a word object
 	//description: constructor that fills in the class
-	word(string inputSrc, string inputDest);
+	word(std::string inputSrc, std::string inputDest);
 	
 	//preconditions: none
 	//postconditions: none
@@ -46,22 +44,22 @@ public:
 	//preconditions: src is a non empty string
 	//postconditions: 0 if src is set correctly, 1 if there is an error
 	//description: sets the source word
-	uint8_t setSrc(string inputSrc);
+	uint8_t setSrc(std::string inputSrc);
 	
 	//preconditions: dest is a non empty string
 	//postconditions: 0 if dest is set correctly, 1 if there is an error
 	//description: sets the destination word
-	uint8_t setDest(string inputDest);
+	uint8_t setDest(std::string inputDest);
 	
 	//preconditions: none
 	//postconditions: src is returned
 	//description: gets the value of src
-	string getSrc(void) const;
+	std::string getSrc(void) const;
 	
 	//preconditions: none
 	//postconditions: dest is returned
 	//description: gets the value of dest
-	string getDest(void) const;
+	std::string getDest(void) const;
 	
 	//preconditions: none
 	//postconditions: returns 0 if src and dest are empty, returns 1 if dest is empty, and returns 2 if both are not empty

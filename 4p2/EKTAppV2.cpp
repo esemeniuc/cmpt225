@@ -2,19 +2,17 @@
 #include "testDriver.h"
 #include "ekt.h"
 
-using namespace std;
-
 int main(int argc, char* argv[])
 {
 //	testDriver testDriver1;
 //	testDriver1.testAllNonException();
 	
-	cout << "Hello, World!" << endl;
+	std::cout << "Hello, World!" << std::endl;
 	
 	ekt userEKT;
 	
 	//load data into tree
-	btree <word> dataBtree;
+	btree<word> dataBtree;
 	userEKT.dictLoader("dataFile.txt", &dataBtree);
 	
 	//dumps out the contents of the tree and ends if in display mode

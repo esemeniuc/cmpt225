@@ -158,11 +158,11 @@ template <class Type>
 //preconditions: none
 //postconditions: a Type object matching inputSrc is returned, otherwise NULL is returned or throw exception
 //description: recursively calls rSearch and stops when a Type matching inputSrc is found, or reaches bottom of the tree
-Type btree<Type>::search(Type* inputData) const throw(ClassException)
+Type btree<Type>::search(Type* inputData) const throw(classException)
 {
 	if (inputData->size() == 0) //check for empty input
 	{
-		throw ClassException("Can't search with empty input");//can't search without proper input
+		throw classException("Can't search with empty input");//can't search without proper input
 	}
 	
 	node<Type>* searchResult = rSearch(root, inputData); //look for parent of matching node
@@ -174,7 +174,7 @@ Type btree<Type>::search(Type* inputData) const throw(ClassException)
 //		return *inputData;
 		
 		//option 2
-		//throw ClassException("Type doesn't exist"); //failed, don't try to access searchResult->data unless segfault
+		//throw classException("Type doesn't exist"); //failed, don't try to access searchResult->data unless segfault
 		
 		//option 3 - make an empty object and have client code check if its empty, to make the <not found> version
 		Type emptyObject;

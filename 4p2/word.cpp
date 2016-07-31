@@ -27,7 +27,7 @@ word::word()
 //preconditions: none
 //postconditions: creates a shell word object for searching
 //description: constructor that fills in the class
-word::word(string inputSrc):
+word::word(std::string inputSrc):
 		src(inputSrc)
 {
 	//nothing to do
@@ -37,7 +37,7 @@ word::word(string inputSrc):
 //preconditions: none
 //postconditions: creates a word object
 //description: constructor that fills in the class
-word::word(string inputSrc, string inputDest):
+word::word(std::string inputSrc, std::string inputDest):
 		src(inputSrc),
 		dest(inputDest)
 {
@@ -57,7 +57,7 @@ word::~word()
 //preconditions: src is a non empty string
 //postconditions: 0 if src is set correctly, 1 if there is an error
 //description: sets the source word
-uint8_t word::setSrc(string inputSrc)
+uint8_t word::setSrc(std::string inputSrc)
 {
 	if(inputSrc.length() == 0) //check if input is empty
 	{
@@ -71,7 +71,7 @@ uint8_t word::setSrc(string inputSrc)
 //preconditions: dest is a non empty string
 //postconditions: 0 if dest is set correctly, 1 if there is an error
 //description: sets the destination word
-uint8_t word::setDest(string inputDest)
+uint8_t word::setDest(std::string inputDest)
 {
 	if(inputDest.length() == 0) //check if input is empty
 	{
@@ -85,7 +85,7 @@ uint8_t word::setDest(string inputDest)
 //preconditions: none
 //postconditions: src is returned
 //description: gets the value of src
-string word::getSrc(void) const
+std::string word::getSrc(void) const
 {
 	return src;
 }
@@ -93,7 +93,7 @@ string word::getSrc(void) const
 //preconditions: none
 //postconditions: dest is returned
 //description: gets the value of dest
-string word::getDest(void) const
+std::string word::getDest(void) const
 {
 	return dest;
 }
@@ -169,5 +169,5 @@ ostream& word::operator<<(ostream& os)
 //description: cout overloaded operator
 void word::print(void) const
 {
-	cout << getSrc() << ":" << getDest() << endl;
+	std::cout << getSrc() << ":" << getDest() << std::endl;
 }
