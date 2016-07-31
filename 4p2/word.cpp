@@ -122,7 +122,7 @@ uint8_t word::size(void) const
 //description: less than overloaded operator
 bool word::operator<(word& inputWord) const
 {
-	if(src.compare(inputWord.getSrc()) < 0) //check if source less than inputWord
+	if(src < inputWord.getSrc()) //check if source less than inputWord
 	{
 		return true;
 	}
@@ -134,7 +134,7 @@ bool word::operator<(word& inputWord) const
 //description: equality overloaded operator
 bool word::operator==(word& inputWord) const
 {
-	if(src.compare(inputWord.getSrc()) == 0) //check if src is the same as inputWord's src
+	if(src == inputWord.getSrc()) //check if src is the same as inputWord's src
 	{
 		return true;
 	}

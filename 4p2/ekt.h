@@ -17,21 +17,28 @@
 class ekt
 {
 private:
-	btree<word> dataBtree;
-	exQueue userInputQueue; //store user input here
+	btree<word> dataBtree; //store translations here
+	exQueue userInputQueue; //store translations or user input here
 
 public:
 	ekt();
 	
 	~ekt();
 	
+	//preconditions: inputFilename is not empty
+	//postconditions: returns 0 on successful read from file, 1 if there is an error
+	//description: reads in english klingon translations in the from of english:klingon
 	uint8_t loadFromFile(std::string inputFilename);
+	
+	//preconditions: none
+	//postconditions: prints out klingon words based on user input
+	//description: creates an interactive prompt for user to enter words to be translated
 	void translate(void);
+	
+	//preconditions: none
+	//postconditions: none
+	//description: prints out all the available words for translation
 	void display(void) const;
-	
-	
-//	void dictLoader(std::string inputFilename, btree<word>* inputBtree);
-//	void userInputLoader(exQueue* inputQueue);
 	
 };
 
