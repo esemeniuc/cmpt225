@@ -12,7 +12,7 @@ A templatized English Klingon Translator that stores user's English input and pr
 ### 4p1. Multi University Student Listing App (MUSLA)
 A system which stores Canadian Univerity info, along with each university's students, and their relevant information. Utilizes a double-linked binary search tree.
 
-### 4p2. English Klingon Translator
+### 4p2. English Klingon Translator v2
 A templatized English Klingon Translator that uses a hash table to perform faster lookups, while guaranteeing O(log(n)) translation insertion time
 
 
