@@ -15,7 +15,6 @@
 
 #include "node.h"
 #include "classException.h"
-#include <iostream>
 
 template <class Type>
 
