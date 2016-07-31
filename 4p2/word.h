@@ -7,8 +7,8 @@
  * ID: esemeniu_dmagaril
  */
 
-#ifndef INC_3_WORD_H
-#define INC_3_WORD_H
+#ifndef INC_4P2_WORD_H
+#define INC_4P2_WORD_H
 
 #include <string>
 
@@ -98,4 +98,4 @@ public:
 };
 
 
-#endif //INC_3_WORD_H
+#endif //INC_4P2_WORD_H

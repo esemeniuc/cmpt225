@@ -1,9 +1,9 @@
-// Filename: fifostack.h/fifostack.cpp
+// Filename: exQueue.h/exQueue.cpp
 // Created by eric on 16/06/16.
 // Description:
-//An array-based data collection implementation fifostack ADT class.
+//An array-based data collection implementation for an expandable queue ADT.
 
-#include "fifostack.h"
+#include "exQueue.h"
 #include <iostream> //debug
 #include <algorithm>
 
@@ -11,32 +11,32 @@
 /*
 private:
 	uint32_t dataMax; //maximum number of elements in our array
-	uint32_t dataCount; //number of elements in our fifostack
+	uint32_t dataCount; //number of elements in our exQueue
 	uint32_t dataStart; //start of elements that haven't been popped
-	string* dataArray; //array of data elements in the fifostack
+	string* dataArray; //array of data elements in the exQueue
 */
 
-// Description: default constructor for an empty fifostack
-fifostack::fifostack():
-		dataMax(fifostackDefaultMax),
+// Description: default constructor for an empty exQueue
+exQueue::exQueue():
+		dataMax(exQueueDefaultMax),
 		dataCount(0),
 		dataStart(0)
 {
-	dataArray = new string[fifostackDefaultMax];
+	dataArray = new string[exQueueDefaultMax];
 }
 
 
-// Description: default destructor for an empty fifostack
-fifostack::~fifostack()
+// Description: default destructor for an empty exQueue
+exQueue::~exQueue()
 {
 	dataCount = 0;
 	dataStart = 0;
 	delete[] dataArray;
 }
 
-// Description: Returns the number of valid elements in fifostack
+// Description: Returns the number of valid elements in exQueue
 // Time Efficiency: O(1)
-uint32_t fifostack::getSize() const
+uint32_t exQueue::getSize() const
 {
 	return dataCount - dataStart;
 }
@@ -44,7 +44,7 @@ uint32_t fifostack::getSize() const
 //expands the array size to be 2 times the original size. returns 0 on success, 1 on error
 //precondition: the data array is not null and dataMax is > 0
 //postcondition: the data array is 2x as large and dataMax is doubled
-uint8_t fifostack::expand(void)
+uint8_t exQueue::expand(void)
 {
 	string* tempArray = new string[2 * dataMax]; //double the size of the old array
 	//cout << "Size of profile: " << sizeof(Profile) << endl;
@@ -63,10 +63,10 @@ uint8_t fifostack::expand(void)
 	return 0; //all good
 }
 
-// Description: Adds inputData to the top of fifostack and
+// Description: Adds inputData to the top of exQueue and
 //              returns 0 if successful, otherwise 1.
 // Time Efficiency: O(1)
-uint8_t fifostack::push(const string inputData)
+uint8_t exQueue::push(const string inputData)
 {
 	//check if array is full, if so then expand
 	if(dataCount == dataMax)
@@ -84,17 +84,17 @@ uint8_t fifostack::push(const string inputData)
 	
 }
 
-// Description: Removes the element at the bottom/front of fifostack and
+// Description: Removes the element at the bottom/front of exQueue and
 //              returns it
-// Precondition: This fifostack is not empty.
-// Exceptions: Throws ClassException if this fifostack is empty.
+// Precondition: This exQueue is not empty.
+// Exceptions: Throws ClassException if this exQueue is empty.
 // Time Efficiency: O(1)
-string fifostack::pop(void) throw(ClassException)
+string exQueue::pop(void) throw(ClassException)
 {
 	//cout << "#" << dataArray[dataStart] << ": Size: " << dataStart << " Count: " << dataCount << " Max: " << dataMax << endl;
-	if((dataCount - dataStart) <= 0) //check for empty fifostack
+	if((dataCount - dataStart) <= 0) //check for empty exQueue
 	{
-		throw ClassException("Cannot pop from an empty fifostack");
+		throw ClassException("Cannot pop from an empty exQueue");
 	}
 	
 	//remove element from the array
@@ -103,9 +103,9 @@ string fifostack::pop(void) throw(ClassException)
 }
 
 // Description: randomizes the elements of dataArray
-// Precondition: This fifostack is not empty.
+// Precondition: This exQueue is not empty.
 // Time Efficiency: O(n)
-void fifostack::randomizefifostack(void)
+void exQueue::randomize(void)
 {
 	if((dataCount - dataStart) >= 2) //no need to shuffle a tiny array
 	{
@@ -114,10 +114,10 @@ void fifostack::randomizefifostack(void)
 	return; //nothing else to do
 }
 
-//Description: prints out the contents of the fifostack
+//Description: prints out the contents of the exQueue
 //Preconditions: none
-//Postconditions: prints out the contents of the fifostack
-void fifostack::print(void) const //debug
+//Postconditions: prints out the contents of the exQueue
+void exQueue::print(void) const //debug
 {
 //	cout << "call print" << endl;
 	for(unsigned int i = dataStart; i < dataCount; i++)

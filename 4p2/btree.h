@@ -10,8 +10,8 @@
  * ID: esemeniu_dmagaril
  */
 
-#ifndef INC_3_BTREE_H
-#define INC_3_BTREE_H
+#ifndef INC_4P2_BTREE_H
+#define INC_4P2_BTREE_H
 
 #include "node.h"
 #include "ClassException.h"
@@ -75,4 +75,4 @@ public:
 
 #include "btree.cpp"
 
-#endif //INC_3_BTREE_H
+#endif //INC_4P2_BTREE_H

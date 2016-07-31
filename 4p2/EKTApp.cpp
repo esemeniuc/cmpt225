@@ -20,7 +20,7 @@
 #include <fstream> //for file input
 #include <algorithm> //for lowercase
 #include "btree.h"
-#include "fifostack.h"
+#include "exQueue.h"
 #include "word.h"
 
 using namespace std;
@@ -50,7 +50,7 @@ void dictLoader(string inputFilename, btree<Type>* inputBtree)
 	inputFile.close();
 }
 
-void userInputLoader(fifostack* inputQueue)
+void userInputLoader(exQueue* inputQueue)
 {
 	//keep taking user input until EOF
 	string tempString; //temporary holder for cin input
@@ -78,7 +78,7 @@ int main(int argc, char* argv[])
 //	cout << "Tree contents:" << endl;
 //	dataBtree.print();
 	
-	fifostack userInputQueue; //store user input here
+	exQueue userInputQueue; //store user input here
 	userInputLoader(&userInputQueue);
 	
 //	string poptest1 = userInputQueue.peek();
@@ -113,7 +113,7 @@ int main(int argc, char* argv[])
 //	}
 //	userInputQueue.print();
 //
-//	userInputQueue.randomizefifostack();
+//	userInputQueue.randomizeexQueue();
 //	userInputQueue.print();
 //	for(int i = 0; i < 5; i++)
 //	{
