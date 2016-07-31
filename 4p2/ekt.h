@@ -17,11 +17,22 @@
 class ekt
 {
 private:
-	
+	btree<word> dataBtree;
+	exQueue userInputQueue; //store user input here
+
 public:
-	void dictLoader(std::string inputFilename, btree<word>* inputBtree);
+	ekt();
 	
-	void userInputLoader(exQueue* inputQueue);
+	~ekt();
+	
+	uint8_t loadFromFile(std::string inputFilename);
+	void translate(void);
+	void display(void) const;
+	
+	
+//	void dictLoader(std::string inputFilename, btree<word>* inputBtree);
+//	void userInputLoader(exQueue* inputQueue);
+	
 };
 
 #endif //INC_4P2_EKT_H

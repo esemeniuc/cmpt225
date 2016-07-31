@@ -8,6 +8,20 @@
 #include "word.h"
 #include "btree.h"
 
+//	for(int i = 0; i < 10; i++)
+//	{
+//		userInputQueue.push(std::to_string(i));
+//
+//	}
+//	userInputQueue.print();
+//
+//	userInputQueue.randomize();
+//	userInputQueue.print();
+//	for(int i = 0; i < 5; i++)
+//	{
+//		cout << userInputQueue.pop() << endl;
+//	}
+
 //void testDriver::throwException()
 //{
 //	throw(classException("Error, wtf mate?"));

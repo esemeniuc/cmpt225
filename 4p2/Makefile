@@ -5,36 +5,37 @@ CC=g++-6
 # options I'll pass to the compiler.
 CFLAGS= -std=c++11 -c -Wall -ggdb
 
-all: EKTApp
+all: EKTAppV2
 
-EKTApp: EKTAppV2.o btree.o node.o exQueue.o word.o classException.o
-	$(CC) -std=c++11 -Wall -ggdb EKTAppV2.o exQueue.o word.o classException.o -o EKTAppV2
-
-EKTAppV2.o: EKTAppV2.cpp
-	$(CC) $(CFLAGS) EKTAppV2.cpp
+EKTAppV2: btree.o classException.o ekt.o EKTAppV2.o exQueue.o node.o word.o
+	$(CC) -std=c++11 -Wall -ggdb classException.o ekt.o EKTAppV2.o exQueue.o word.o -o EKTAppV2
+#note ignore btree.o and node.o from compile line otherwise compile will break
 
 #templated
 btree.o: btree.h
 	$(CC) $(CFLAGS) btree.h
 
-#templated
-node.o: node.h
-	$(CC) $(CFLAGS) node.h
+classException.o: classException.cpp classException.h
+	$(CC) $(CFLAGS) classException.cpp
+
+ekt.o: ekt.cpp ekt.h
+	$(CC) $(CFLAGS) ekt.cpp
+
+EKTAppV2.o: EKTAppV2.cpp
+	$(CC) $(CFLAGS) EKTAppV2.cpp
 
 exQueue.o: exQueue.cpp exQueue.h
 	$(CC) $(CFLAGS) exQueue.cpp
 
-ekt.o: ekt.cpp ekt.h
-	$(CC) $(CFLAGS) ekt.cpp
+#templated
+node.o: node.h
+	$(CC) $(CFLAGS) node.h
 
 #queue.o: queue.cpp queue.h
 #$(CC) $(CFLAGS) queue.cpp
 
 word.o: word.cpp word.h
 	$(CC) $(CFLAGS) word.cpp
-
-classException.o: classException.cpp classException.h
-	$(CC) $(CFLAGS) classException.cpp
 
 clean:
 	rm *.o *.h.gch EKTAppV2
