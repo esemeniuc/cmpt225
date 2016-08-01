@@ -19,7 +19,7 @@ class ekt
 private:
 	btree<word> dataBtree; //store translations here
 	exQueue userInputQueue; //store file input translations or user input here
-	node<word>** wordTable; //hashtable for word entries
+	nodeDL<word>** wordTable; //hashtable for word entries
 	size_t modulus; //modulus for wordTable
 	
 	

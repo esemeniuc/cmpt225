@@ -13,7 +13,7 @@
 #ifndef INC_4P2_BTREE_H
 #define INC_4P2_BTREE_H
 
-#include "node.h"
+#include "nodeDL.h"
 #include "classException.h"
 
 template <class Type>
@@ -21,23 +21,23 @@ template <class Type>
 class btree
 {
 private:
-	node<Type>* root; //root of the tree
+	nodeDL<Type>* root; //root of the tree
 	uint32_t nodeCount; //how many elements we have
 	
 	//preconditions: tree is not empty, and the shell object is not empty
 	//postconditions: a Type object matching inputSrc is returned, otherwise NULL is returned or throw exception
 	//description: finds a Type matching inputSrc if it exists in the tree
-	node<Type>* rSearch(node<Type>* root, Type* inputData) const;
+	nodeDL<Type>* rSearch(nodeDL<Type>* root, Type* inputData) const;
 	
 	//preconditions: inputNode has a valid filled class
 	//postconditions: returns 0 on successful insertion our new node, 0 on failure
 	//description: finds the correct parent node to allow insertion a child node
-	uint8_t rInsert(node<Type>* root, Type* inputData);
+	uint8_t rInsert(nodeDL<Type>* root, Type* inputData);
 	
 	//preconditions: none
 	//postconditions: none
 	//description: prints out the contents of the array in order
-	void rPrint(node<Type>* currentRoot) const;
+	void rPrint(nodeDL<Type>* currentRoot) const;
 
 public:
 	//preconditions: none
@@ -54,7 +54,7 @@ public:
 	//postconditions: frees all the memory from the tree using in-order traversal
 	//description: for use in the default destructor, recursively frees memory
 	// Time Efficiency: O(n)
-	void deleteAll(node<Type>* current);
+	void deleteAll(nodeDL<Type>* current);
 	
 	//preconditions: none
 	//postconditions: a Type object matching inputSrc is returned, otherwise NULL is returned or throw exception

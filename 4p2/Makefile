@@ -7,7 +7,7 @@ CFLAGS= -std=c++11 -c -Wall -ggdb
 
 all: EKTAppV2
 
-EKTAppV2: btree.o classException.o ekt.o EKTAppV2.o exQueue.o node.o testDriver.o word.o
+EKTAppV2: btree.o classException.o ekt.o EKTAppV2.o exQueue.o nodeDL.o nodeSL.o testDriver.o word.o
 	$(CC) -std=c++11 -Wall -ggdb classException.o ekt.o EKTAppV2.o exQueue.o testDriver.o word.o -o EKTAppV2
 #note ignore btree.o and node.o from compile line otherwise compile will break
 
@@ -28,8 +28,12 @@ exQueue.o: exQueue.h exQueue.cpp
 	$(CC) $(CFLAGS) exQueue.cpp
 
 #templated
-node.o: node.h
-	$(CC) $(CFLAGS) node.h
+nodeDL.o: nodeDL.h
+	$(CC) $(CFLAGS) nodeDL.h
+
+#templated
+nodeSL.o: nodeSL.h
+	$(CC) $(CFLAGS) nodeSL.h
 
 #queue.o: queue.cpp queue.h
 #$(CC) $(CFLAGS) queue.cpp

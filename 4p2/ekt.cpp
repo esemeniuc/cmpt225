@@ -92,7 +92,7 @@ uint8_t ekt::loadFromFile(std::string inputFilename)
 	size_t fileInputSize = fileInputQueue.getSize();
 //	std::cout << fileInputSize << "\n\n";
 	modulus = 2 * fileInputSize;
-	wordTable = new node<word>*[modulus]; //make our hash table to point to word objects
+	wordTable = new nodeDL<word>*[modulus]; //make our hash table to point to word objects
 	
 	for(size_t i = 0; i < fileInputSize; i++)
 	{
@@ -125,7 +125,7 @@ uint8_t ekt::insert(const word& inputWord)
 	
 	size_t hashIndex = hashString2(inputWord.getSrc()); //hashString1 not working....
 //	std::cout << hashIndex << "\n\n";
-	node<word>* current = wordTable[hashIndex]; //get the "head" of the linked list
+	nodeDL<word>* current = wordTable[hashIndex]; //get the "head" of the linked list
 //	while(current != NULL)
 //	{
 //		current = current->next;

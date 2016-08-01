@@ -14,7 +14,7 @@
  */
 
 /*private:
-	node<Type>* root; //root of the tree
+	nodeDL<Type>* root; //root of the tree
 	uint32_t nodeCount; //how many elements we have
 */
 
@@ -43,7 +43,7 @@ btree<Type>::~btree()
 }
 
 template <class Type>
-void btree<Type>::deleteAll(node<Type>* current)
+void btree<Type>::deleteAll(nodeDL<Type>* current)
 {
 //	cout << "called delete, root = " << root << endl;
 	if(current == NULL)
@@ -65,7 +65,7 @@ template <class Type>
 //preconditions: tree is not empty, and the shell object is not empty
 //postconditions: a Type object matching inputSrc is returned, otherwise NULL is returned or throw exception
 //description: finds a Type matching inputSrc if it exists in the tree
-node<Type>* btree<Type>::rSearch(node<Type>* root, Type* inputData) const
+nodeDL<Type>* btree<Type>::rSearch(nodeDL<Type>* root, Type* inputData) const
 {
 	if(root == NULL || root->data == *inputData) //base case
 	{
@@ -87,7 +87,7 @@ template <class Type>
 //preconditions: inputNode has a valid filled class
 //postconditions: returns 0 on successful insertion our new node, 0 on failure
 //description: finds the correct parent node to allow insertion a child node
-uint8_t btree<Type>::rInsert(node<Type>* currentRoot, Type* inputData)
+uint8_t btree<Type>::rInsert(nodeDL<Type>* currentRoot, Type* inputData)
 {
 	while(currentRoot != NULL) //base case
 	{
@@ -100,7 +100,7 @@ uint8_t btree<Type>::rInsert(node<Type>* currentRoot, Type* inputData)
 		{
 			if (currentRoot->left == NULL) //check if empty
 			{
-				currentRoot->left = new node<Type>(*inputData); //insert into empty slot
+				currentRoot->left = new nodeDL<Type>(*inputData); //insert into empty slot
 				return 0; //all good
 			}
 			else //non empty, so continue
@@ -112,7 +112,7 @@ uint8_t btree<Type>::rInsert(node<Type>* currentRoot, Type* inputData)
 		{
 			if (currentRoot->right == NULL) //check if empty
 			{
-				currentRoot->right = new node<Type>(*inputData); //insert
+				currentRoot->right = new nodeDL<Type>(*inputData); //insert
 				return 0; //all good
 			}
 			else //non empty, so continue
@@ -141,7 +141,7 @@ uint8_t btree<Type>::insert(Type inputData)
 	//if root is NULL, then insert at root, because insert function cant modify root variable
 	if (root == NULL)
 	{
-		root = new node<Type>(inputData); //make the new node our root
+		root = new nodeDL<Type>(inputData); //make the new node our root
 		nodeCount++; //update counter
 		return 0; //all good
 	}
@@ -172,7 +172,7 @@ Type btree<Type>::search(Type* inputData) const throw(classException)
 		throw classException("Can't search with empty input");//can't search without proper input
 	}
 	
-	node<Type>* searchResult = rSearch(root, inputData); //look for parent of matching node
+	nodeDL<Type>* searchResult = rSearch(root, inputData); //look for parent of matching node
 	
 	if(searchResult == NULL) //compare
 	{
@@ -195,7 +195,7 @@ template <class Type>
 //preconditions: none
 //postconditions: none
 //description: prints out the contents of the array in order using in order traversal
-void btree<Type>::rPrint(node<Type>* currentRoot) const
+void btree<Type>::rPrint(nodeDL<Type>* currentRoot) const
 {
 	if(currentRoot == NULL) //base case
 	{

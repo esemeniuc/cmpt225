@@ -1,17 +1,17 @@
 /*
- * filename: node.cpp
+ * filename: nodeDL.h/nodeDL.cpp
  *
- * Description: A class to be used in the btree files, to act as a node in a binary tree.
+ * Description: A double linked node class to be primarily used in the btree.
  * Creation date: July 8, 2016
  * Author: Eric Semeniuc, David Magaril
  * ID: esemeniu_dmagaril
  */
 
-#include "node.h"
+#include "nodeDL.h"
 
 template <class Type>
 //default constructor for an empty node
-node<Type>::node():
+nodeDL<Type>::nodeDL():
 		left(NULL),
 		right(NULL)
 {
@@ -20,7 +20,7 @@ node<Type>::node():
 
 template <class Type>
 //parameterized constructor
-node<Type>::node(Type inputData):
+nodeDL<Type>::nodeDL(Type inputData):
 		data(inputData),
 		left(NULL),
 		right(NULL)
@@ -30,7 +30,7 @@ node<Type>::node(Type inputData):
 
 template <class Type>
 //default destructor for an empty node
-node<Type>::~node()
+nodeDL<Type>::~nodeDL()
 {
 	left = NULL;
 	right = NULL;
