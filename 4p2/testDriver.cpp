@@ -309,3 +309,13 @@ void testDriver::exQueueRandomize()
 //	std::cout << "diff: " << scrambled.compare(nonScrambled);
 	assert(scrambled != nonScrambled);
 }
+
+void testDriver::ektTestHash()
+{
+	std::string testString1 = "abc";
+	std::string testString2 = "cab";
+}
+void testDriver::ektInsert()
+{
+	
+}

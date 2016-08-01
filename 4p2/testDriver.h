@@ -32,6 +32,13 @@ public:
 	void exQueueInsertRemove();
 	void exQueueExpand();
 	void exQueueRandomize();
+	
+	//ekt tests
+	//note make sure "#define private public" is on in ekt.h
+	
+	void ektTestHash();
+	void ektInsert();
+	
 };
 
 #endif //INC_4P2_TESTDRIVER_H

@@ -15,6 +15,8 @@
 #include "nodeSL.h"
 #include "word.h"
 
+#define private public //debug: ugly hack to do assert testing
+
 class ekt
 {
 private:
@@ -64,6 +66,11 @@ public:
 	//postconditions: none
 	//description: prints out all the available words for translation
 	void display(void) const;
+	
+	//preconditions: none
+	//postconditions: returns the standard deviation of the length of each chain in the hash table
+	//description: gets
+	double getStdDev(void) const;
 	
 };
 

@@ -50,6 +50,7 @@ size_t ekt::hashString(std::string inputString) const
 	while(inputString[index] != '\0')
 	{
 		hashVal += (index + 1) * inputString[index];
+		index++;
 	}
 	
 	return (size_t)(hashVal % modulus);
@@ -104,8 +105,7 @@ uint8_t ekt::loadFromFile(std::string inputFilename)
 		std::string tempDest = tempString.substr(length+1, tempString.length());
 		std::transform(tempSrc.begin(), tempSrc.end(), tempSrc.begin(), ::tolower); //make things lowercase
 		//cout << "src: " << tempSrc << " dest: " << tempDest << endl; //debug
-//		dataBtree.insert(word(tempSrc, tempDest));
-		uint8_t insertStatus = insert(word(tempSrc, tempDest));
+		insert(word(tempSrc, tempDest));
 	}
 
 	inputFile.close();
@@ -113,23 +113,19 @@ uint8_t ekt::loadFromFile(std::string inputFilename)
 }
 
 //preconditions: inputWord is not empty
-//postconditions: returns 0 on successful read from file, 1 if there is an error
+//postconditions: returns 0 on insertion, 1 if there is an error
 //description: inserts word objects into the btree and hashtable
 uint8_t ekt::insert(const word& inputWord)
 {
-	dataBtree.insert(inputWord); //insert the new word
-	
-	//note: get the memory address of the object in the btree;
-	
-	//begin chaining
-	nodeDL<word>* insertedNodeAddress = dataBtree.insert(inputWord);
+	//begin chaining by getting the memory address of the object inserted into the btree;
+	nodeDL<word>* insertedNodeAddress = dataBtree.insert(inputWord); //insert the new word
 	if(insertedNodeAddress == nullptr)
 	{
 		return 1; //fail, can't insert with null
 	}
 	
 	word* wordAddress = &(insertedNodeAddress->data);
-	size_t hashIndex = hashString2(inputWord.getSrc()); //hashString1 not working...
+	size_t hashIndex = hashString(inputWord.getSrc()); //hashString1 not working...
 //	std::cout << hashIndex << "\n\n";
 	wordTable[hashIndex] = new nodeSL<word>(wordAddress, wordTable[hashIndex]); //make a node to insert at front of list and set the new node into the hashtable
 	
@@ -173,4 +169,45 @@ void ekt::translate(void)
 void ekt::display(void) const
 {
 	dataBtree.print();
+}
+
+//preconditions: none
+//postconditions: returns the standard deviation of the length of each chain in the hash table
+//description: gets
+double ekt::getStdDev(void) const
+{
+	//get the length of each chain from the hash table and store them in an array of length modulus
+	double tempArray[modulus];
+	
+	//store length of each chain into tempArray
+	for(size_t i = 0; i < modulus; i++)
+	{
+		size_t chainLength = 0;
+		nodeSL<word>* current = wordTable[i];
+		while(current != NULL)
+		{
+			chainLength++;
+			current = current->next;
+		}
+		
+		tempArray[i] = chainLength;
+	}
+	
+	
+	//get the average length of each chain
+	double runningAvg = 0;
+	for(size_t i = 0; i < modulus; i++)
+	{
+		runningAvg += tempArray[i];
+	}
+	
+	double sumOfSquares = 0;
+	for(size_t i = 0; i < modulus; i++) //sum up (x(i) - x(bar))^2
+	{
+		sumOfSquares += pow((tempArray[i] - runningAvg), 2); //get the sum of square
+	}
+	
+	double sigma = double(sumOfSquares / (modulus - 1)); //divide by n-1
+	
+	return sigma;
 }
