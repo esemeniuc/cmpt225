@@ -24,17 +24,17 @@ private:
 	//preconditions: none
 	//postconditions: returns a hash index
 	//description: generates a hash based on inputInteger and returns it in O(1) time
-	size_t ekt::hashInteger(uint32_t inputInteger, size_t modulus) const;
+	size_t hashInteger(uint32_t inputInteger, size_t modulus) const;
 	
 	//preconditions: none
 	//postconditions: returns a hash index
 	//description: generates a hash based on inputString and returns it in O(1) time
-	size_t ekt::hashString(std::string inputString, size_t modulus) const;
+	size_t hashString(std::string inputString, size_t modulus) const;
 	
 	//preconditions: none
 	//postconditions: returns a hash index
 	//description: generates a hash based on inputString and returns it in O(1) time
-	size_t ekt::hashString2(std::string inputString, size_t modulus) const;
+	size_t hashString2(std::string inputString, size_t modulus) const;
 
 
 public:

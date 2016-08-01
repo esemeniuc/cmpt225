@@ -169,5 +169,13 @@ ostream& word::operator<<(ostream& os)
 //description: cout overloaded operator
 void word::print(void) const
 {
-	std::cout << getSrc() << ":" << getDest() << std::endl;
+	std::cout << src << ":" << dest << std::endl;
+}
+
+//preconditions: none
+//postconditions: returns a string with the word object
+//description: returns a string with the word object
+std::string word::getString(void) const
+{
+	return src + ":" + dest;
 }

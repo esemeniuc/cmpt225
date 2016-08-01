@@ -92,7 +92,11 @@ public:
 	//postconditions: prints out the word object
 	//description: cout overloaded operator
 	void print(void) const;
-
+	
+	//preconditions: none
+	//postconditions: returns a string with the word object
+	//description: returns a string with the word object
+	std::string getString(void) const;
 };
 
 

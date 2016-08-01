@@ -7,6 +7,7 @@
  * ID: esemeniu_dmagaril
  */
 
+#include <iostream>
 #include <fstream> //for file input
 #include <algorithm> //for lowercase
 #include "ekt.h"
@@ -130,7 +131,7 @@ size_t ekt::hashString2(std::string inputString, size_t modulus) const
 {
 	uint64_t hashVal = 5381;
 	int c;
-	for(int i = 0; i < inputString.length(); ++i)
+	for(size_t i = 0; i < inputString.length(); ++i)
 	{
 		c = (int) inputString[i];
 		hashVal = ((hashVal << 5) + hashVal) + c;

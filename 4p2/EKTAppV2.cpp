@@ -1,15 +1,15 @@
-#include <iostream>
+#include <iostream> //for debug
 #include "testDriver.h"
 #include "ekt.h"
 
 int main(int argc, char* argv[])
 {
-//	testDriver testDriver1;
-//	testDriver1.testAllNonException();
+	testDriver testDriver1;
+	testDriver1.testAllNonException();
 	
 	std::cout << "Hello, World!" << std::endl;
 	
-	ekt userEKT;
+	ekt userEKT; //make ekt object
 	
 //	std::cout << "Tree contents:" << std::endl;
 //	userEKT.display();
