@@ -84,23 +84,23 @@ nodeDL<Type>* btree<Type>::rSearch(nodeDL<Type>* root, Type* inputData) const
 }
 
 template <class Type>
-//preconditions: inputNode has a valid filled class
+//preconditions: inputNode has a valid filled object
 //postconditions: returns 0 on successful insertion our new node, 0 on failure
 //description: finds the correct parent node to allow insertion a child node
-uint8_t btree<Type>::rInsert(nodeDL<Type>* currentRoot, Type* inputData)
+uint8_t btree<Type>::rInsert(nodeDL<Type>* currentRoot, nodeDL<Type>* inputNode)
 {
 	while(currentRoot != NULL) //base case
 	{
-		if (currentRoot->data == *inputData) //check for duplicates
+		if (currentRoot->data == inputNode->data) //check for duplicates
 		{
 			return 1; // failure, don't want duplicates
 		}
 		
-		if (*inputData < currentRoot->data) //check if we have to go to the left
+		if (inputNode->data < currentRoot->data) //check if we have to go to the left
 		{
 			if (currentRoot->left == NULL) //check if empty
 			{
-				currentRoot->left = new nodeDL<Type>(*inputData); //insert into empty slot
+				currentRoot->left = inputNode; //insert into empty slot
 				return 0; //all good
 			}
 			else //non empty, so continue
@@ -112,7 +112,7 @@ uint8_t btree<Type>::rInsert(nodeDL<Type>* currentRoot, Type* inputData)
 		{
 			if (currentRoot->right == NULL) //check if empty
 			{
-				currentRoot->right = new nodeDL<Type>(*inputData); //insert
+				currentRoot->right = inputNode; //insert
 				return 0; //all good
 			}
 			else //non empty, so continue
@@ -122,42 +122,45 @@ uint8_t btree<Type>::rInsert(nodeDL<Type>* currentRoot, Type* inputData)
 		}
 	}
 	
-	return 1; //shouldn't reach the end, so throw error
+	return 1; //shouldn't reach the end, so return error
 }
 
 template <class Type>
 //preconditions: inputData.size() >= 1 (at least 1 term is entered)
-//postconditions: returns 0 if successfully inputted, 1 if there is an error
+//postconditions: returns tempNode if successfully inputted, NULL if there is an error
 //description: creates a node to insert in sorted order (based on src) into the tree
-uint8_t btree<Type>::insert(Type inputData)
+nodeDL<Type>* btree<Type>::insert(Type inputData)
 {
 	//check if params are valid
 	if (inputData.size() == 0) //check for non fully populated
 	{
-		return 1; //can't non filled objects
+		return nullptr; //can't insert non filled objects
 	}
 	
 	//cout << "**about to insert**" << endl;
+	//create a node to insert based input params
+	nodeDL<Type>* tempNode = new nodeDL<Type>(inputData); //pass in inputData
 	//if root is NULL, then insert at root, because insert function cant modify root variable
 	if (root == NULL)
 	{
 		root = new nodeDL<Type>(inputData); //make the new node our root
 		nodeCount++; //update counter
-		return 0; //all good
+		return tempNode; //all good
 	}
 	
 	//find proper place in tree to insert the node
-	uint8_t insertStatus = rInsert(root, &inputData);
+	uint8_t insertStatus = rInsert(root, tempNode);
 //	cout << "insert status: " << (int)status << endl; //debug
 	
 	if (insertStatus == 0) ///if all is good, then increment
 	{
 		nodeCount++; //increment count
-		return 0; //all good
+		return tempNode; //all good
 	}
 	else //some error occurred
 	{
-		return 1; //error
+		delete tempNode; //no need for node that failed to insert
+		return nullptr; //error
 	}
 }
 

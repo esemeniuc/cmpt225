@@ -1,7 +1,7 @@
 /*
  * filename: nodeSL.h/nodeSL.cpp
  *
- * Description: A slingly linked node class to be primarily used for chaining.
+ * Description: A singly linked node class to be primarily used for chaining.
  * Creation date: July 8, 2016
  * Author: Eric Semeniuc, David Magaril
  * ID: esemeniu_dmagaril
@@ -17,12 +17,12 @@ class nodeSL
 {
 public:
 	// Public attributes - Why are the attributes public?
-	Type data;   // The data in the node
+	Type* data;   // The data in the node
 	nodeSL* next;   // Pointer to next node
 	
 	// Constructors and destructor
 	nodeSL(); //default constructor for an empty node
-	nodeSL(Type inputData, nodeSL<Type>* inputNextNode); //parameterized constructor
+	nodeSL(Type* inputData, nodeSL<Type>* inputNextNode); //parameterized constructor
 	~nodeSL();
 	
 }; // end nodeSL.h

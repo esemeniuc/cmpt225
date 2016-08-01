@@ -12,6 +12,7 @@
 
 #include "btree.h"
 #include "exQueue.h"
+#include "nodeSL.h"
 #include "word.h"
 
 class ekt
@@ -19,7 +20,7 @@ class ekt
 private:
 	btree<word> dataBtree; //store translations here
 	exQueue userInputQueue; //store file input translations or user input here
-	nodeDL<word>** wordTable; //hashtable for word entries
+	nodeSL<word>** wordTable; //hashtable for word entries
 	size_t modulus; //modulus for wordTable
 	
 	

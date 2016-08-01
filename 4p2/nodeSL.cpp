@@ -1,7 +1,7 @@
 /*
  * filename: nodeSL.h/nodeSL.cpp
  *
- * Description: A slingly linked node class to be primarily used for chaining.
+ * Description: A singly linked node class to be primarily used for chaining.
  * Creation date: July 8, 2016
  * Author: Eric Semeniuc, David Magaril
  * ID: esemeniu_dmagaril
@@ -19,7 +19,7 @@ nodeSL<Type>::nodeSL():
 
 template <class Type>
 //parameterized constructor
-nodeSL<Type>::nodeSL(Type inputData, nodeSL<Type>* inputNextNode):
+nodeSL<Type>::nodeSL(Type* inputData, nodeSL<Type>* inputNextNode):
 		data(inputData),
 		next(inputNextNode)
 {

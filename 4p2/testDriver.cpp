@@ -52,11 +52,11 @@ void testDriver::btreeInsertNormal()
 	word testWord1 = word("aaa", "bbb");
 	word testWord2 = word("ccc", "ddd");
 	
-	uint8_t status1 = wordBtree.insert(testWord1);
-	uint8_t status2 = wordBtree.insert(testWord2);
+	nodeDL<word>* status1 = wordBtree.insert(testWord1);
+	nodeDL<word>* status2 = wordBtree.insert(testWord2);
 //	std::cout << (unsigned int)status1 << (unsigned int)status2 << std::endl;
 //	wordBtree.print(0);
-	assert(status1 == 0 && status2 == 0);
+	assert(status1 != nullptr && status2 != nullptr);
 }
 
 void testDriver::btreeInsertDuplicateWord()
@@ -67,12 +67,12 @@ void testDriver::btreeInsertDuplicateWord()
 	word testWord2 = word("aaa", "ddd");
 	word testWord3 = word("aaa", "bbb");
 	
-	uint8_t status1 = wordBtree.insert(testWord1);
-	uint8_t status2 = wordBtree.insert(testWord2);
-	uint8_t status3 = wordBtree.insert(testWord3);
+	nodeDL<word>* status1 = wordBtree.insert(testWord1);
+	nodeDL<word>* status2 = wordBtree.insert(testWord2);
+	nodeDL<word>* status3 = wordBtree.insert(testWord3);
 //	std::cout << (unsigned int)status1 << (unsigned int)status2 << (unsigned int)status3 << std::endl;
 //	wordBtree.print();
-	assert(status1 == 0 && status2 == 1 && status3 == 1);
+	assert(status1 != nullptr && status2 == nullptr && status3 == nullptr);
 }
 
 void testDriver::btree4Valid()
@@ -84,13 +84,13 @@ void testDriver::btree4Valid()
 	word testWord3 = word("word 5", "word 6");
 	word testWord4 = word("word 7", "word 8");
 	
-	uint8_t status1 = wordBtree.insert(testWord1);
-	uint8_t status2 = wordBtree.insert(testWord2);
-	uint8_t status3 = wordBtree.insert(testWord3);
-	uint8_t status4 = wordBtree.insert(testWord4);
+	nodeDL<word>* status1 = wordBtree.insert(testWord1);
+	nodeDL<word>* status2 = wordBtree.insert(testWord2);
+	nodeDL<word>* status3 = wordBtree.insert(testWord3);
+	nodeDL<word>* status4 = wordBtree.insert(testWord4);
 //	std::cout << (unsigned int)status1 << (unsigned int)status2 << (unsigned int)status3 << (unsigned int)status4 << std::endl;
 //	wordBtree.print();
-	assert(status1 == 0 && status2 == 0 && status3 == 0 && status4 == 0);
+	assert(status1 != nullptr && status2 != nullptr && status3 != nullptr && status4 != nullptr);
 }
 
 void testDriver::btree4Invalid()
@@ -102,13 +102,13 @@ void testDriver::btree4Invalid()
 	word testWord3 = word("word 3");
 	word testWord4 = word("word 3", "word 5");
 	
-	uint8_t status1 = wordBtree.insert(testWord1);
-	uint8_t status2 = wordBtree.insert(testWord2);
-	uint8_t status3 = wordBtree.insert(testWord3);
-	uint8_t status4 = wordBtree.insert(testWord4);
+	nodeDL<word>* status1 = wordBtree.insert(testWord1);
+	nodeDL<word>* status2 = wordBtree.insert(testWord2);
+	nodeDL<word>* status3 = wordBtree.insert(testWord3);
+	nodeDL<word>* status4 = wordBtree.insert(testWord4);
 //	std::cout << (unsigned int)status1 << (unsigned int)status2 << (unsigned int)status3 << (unsigned int)status4 << std::endl;
 //	wordBtree.print();
-	assert(status1 == 0 && status2 == 1 && status3 == 1 && status4 == 1);
+	assert(status1 != nullptr && status2 == nullptr && status3 == nullptr && status4 == nullptr);
 }
 
 void testDriver::btree2of4ValidFirst()
@@ -120,13 +120,13 @@ void testDriver::btree2of4ValidFirst()
 	word testWord3 = word("word 3", "word 6");
 	word testWord4 = word("word 5", "word 4");
 	
-	uint8_t status1 = wordBtree.insert(testWord1);
-	uint8_t status2 = wordBtree.insert(testWord2);
-	uint8_t status3 = wordBtree.insert(testWord3);
-	uint8_t status4 = wordBtree.insert(testWord4);
+	nodeDL<word>* status1 = wordBtree.insert(testWord1);
+	nodeDL<word>* status2 = wordBtree.insert(testWord2);
+	nodeDL<word>* status3 = wordBtree.insert(testWord3);
+	nodeDL<word>* status4 = wordBtree.insert(testWord4);
 //	std::cout << (unsigned int)status1 << (unsigned int)status2 << (unsigned int)status3 << (unsigned int)status4 << std::endl;
 //	wordBtree.print();
-	assert(status1 == 0 && status2 == 0 && status3 == 1 && status4 == 1);
+	assert(status1 != nullptr && status2 != nullptr && status3 == nullptr && status4 == nullptr);
 }
 
 void testDriver::btreeSearchSorted()

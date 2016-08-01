@@ -92,7 +92,7 @@ uint8_t ekt::loadFromFile(std::string inputFilename)
 	size_t fileInputSize = fileInputQueue.getSize();
 //	std::cout << fileInputSize << "\n\n";
 	modulus = 2 * fileInputSize;
-	wordTable = new nodeDL<word>*[modulus]; //make our hash table to point to word objects
+	wordTable = new nodeSL<word>*[modulus]; //make our hash table to point to word objects
 	
 	for(size_t i = 0; i < fileInputSize; i++)
 	{
@@ -122,16 +122,16 @@ uint8_t ekt::insert(const word& inputWord)
 	//note: get the memory address of the object in the btree;
 	
 	//begin chaining
+	nodeDL<word>* insertedNodeAddress = dataBtree.insert(inputWord);
+	if(insertedNodeAddress == nullptr)
+	{
+		return 1; //fail, can't insert with null
+	}
 	
-	size_t hashIndex = hashString2(inputWord.getSrc()); //hashString1 not working....
+	word* wordAddress = &(insertedNodeAddress->data);
+	size_t hashIndex = hashString2(inputWord.getSrc()); //hashString1 not working...
 //	std::cout << hashIndex << "\n\n";
-	nodeDL<word>* current = wordTable[hashIndex]; //get the "head" of the linked list
-//	while(current != NULL)
-//	{
-//		current = current->next;
-//	}
-//	word* wordAddress = dataBtree.insert(inputWord); //insert the new word
-//	wordTable[hashIndex] = wordAddress; //set our hash index to store the memory address
+	wordTable[hashIndex] = new nodeSL<word>(wordAddress, wordTable[hashIndex]); //make a node to insert at front of list and set the new node into the hashtable
 	
 	return 0; //all good
 }
