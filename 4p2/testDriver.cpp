@@ -292,14 +292,20 @@ void testDriver::exQueueRandomize()
 	{
 		testQueue.push(std::to_string(i));
 	}
-	std::cout << "before:\n";
-	testQueue.print();
+//	std::cout << "Before:\n";
+//	testQueue.print();
 	testQueue.randomize();
-	std::cout << "\nafter:\n";
-	testQueue.print();
+//	std::cout << "\nAfter:\n";
+//	testQueue.print();
 	
-	for(int i = 0; i < 5; i++)
+	std::string scrambled;
+	std::string nonScrambled;
+	
+	for(int i = 0; i < 10; i++)
 	{
-		std::cout << testQueue.pop() << std::endl;
+		scrambled += testQueue.pop();
+		nonScrambled += std::to_string(i);
 	}
+//	std::cout << "diff: " << scrambled.compare(nonScrambled);
+	assert(scrambled != nonScrambled);
 }

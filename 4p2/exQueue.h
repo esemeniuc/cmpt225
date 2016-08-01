@@ -8,7 +8,7 @@
 
 #include "classException.h"
 
-const unsigned int exQueueDefaultMax = 20; //as defined by Anne
+const unsigned int exQueueDefaultMax = 100; //as defined by Anne
 
 //Class invariants: FIFO or LILO
 class exQueue
