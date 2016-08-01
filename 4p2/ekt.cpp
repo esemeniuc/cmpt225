@@ -74,17 +74,17 @@ void ekt::translate(void)
 	{
 		word tempSearchTerm = word(userInputQueue.pop()); //get stuff on the top
 		//userInputQueue.dequeue(); //decrement
-		word tempResult = dataBtree.search(&tempSearchTerm);
+		word searchResult = dataBtree.search(&tempSearchTerm);
 		
-		if (tempResult.size() == 0) //check if empty object is returned
+		if (searchResult.size() == 0) //check if empty object is returned
 		{
 			//then mash together the tempSearchTerm src field with <not found>
-			word printWord(tempSearchTerm.getSrc(), "<not found>");
-			printWord.print();
+			word emptyWord(tempSearchTerm.getSrc(), "<not found>");
+			emptyWord.print();
 		}
 		else
 		{
-			tempResult.print();
+			searchResult.print();
 		}
 	}
 }

@@ -17,7 +17,7 @@ void testDriver::testAllNonException()
 	btree4Invalid();
 	btree2of4ValidFirst();
 	btreeSearch();
-//	btreeSearchNotExists();
+	btreeSearchNotExists();
 }
 
 void testDriver::exQueueRandomize()
@@ -81,8 +81,8 @@ void testDriver::btreeInsertDuplicateWord()
 	uint8_t status1 = wordBtree.insert(testWord1);
 	uint8_t status2 = wordBtree.insert(testWord2);
 	uint8_t status3 = wordBtree.insert(testWord3);
-	std::cout << (unsigned int)status1 << (unsigned int)status2 << (unsigned int)status3 << std::endl;
-	wordBtree.print();
+//	std::cout << (unsigned int)status1 << (unsigned int)status2 << (unsigned int)status3 << std::endl;
+//	wordBtree.print();
 	assert(status1 == 0 && status2 == 1 && status3 == 1);
 }
 
@@ -100,7 +100,7 @@ void testDriver::btree4Valid()
 	uint8_t status3 = wordBtree.insert(testWord3);
 	uint8_t status4 = wordBtree.insert(testWord4);
 //	std::cout << (unsigned int)status1 << (unsigned int)status2 << (unsigned int)status3 << (unsigned int)status4 << std::endl;
-//	wordBtree.print(0);
+//	wordBtree.print();
 	assert(status1 == 0 && status2 == 0 && status3 == 0 && status4 == 0);
 }
 
@@ -118,7 +118,7 @@ void testDriver::btree4Invalid()
 	uint8_t status3 = wordBtree.insert(testWord3);
 	uint8_t status4 = wordBtree.insert(testWord4);
 //	std::cout << (unsigned int)status1 << (unsigned int)status2 << (unsigned int)status3 << (unsigned int)status4 << std::endl;
-//	wordBtree.print(0);
+//	wordBtree.print();
 	assert(status1 == 0 && status2 == 1 && status3 == 1 && status4 == 1);
 }
 
@@ -136,7 +136,7 @@ void testDriver::btree2of4ValidFirst()
 	uint8_t status3 = wordBtree.insert(testWord3);
 	uint8_t status4 = wordBtree.insert(testWord4);
 //	std::cout << (unsigned int)status1 << (unsigned int)status2 << (unsigned int)status3 << (unsigned int)status4 << std::endl;
-//	wordBtree.print(0);
+//	wordBtree.print();
 	assert(status1 == 0 && status2 == 0 && status3 == 1 && status4 == 1);
 }
 
@@ -153,13 +153,17 @@ void testDriver::btreeSearch()
 	uint8_t status2 = wordBtree.insert(testWord2);
 	uint8_t status3 = wordBtree.insert(testWord3);
 	uint8_t status4 = wordBtree.insert(testWord4);
-	std::cout << (unsigned int)status1 << (unsigned int)status2 << (unsigned int)status3 << (unsigned int)status4 << std::endl;
-	wordBtree.print();
+//	std::cout << (unsigned int)status1 << (unsigned int)status2 << (unsigned int)status3 << (unsigned int)status4 << std::endl;
+//	wordBtree.print();
 
 	word searchWord = word("word 5");
 	word searchResult = wordBtree.search(&searchWord);
 //	searchResult.print();
-	assert(searchWord == searchResult);
+	assert(searchWord.getSrc() == searchResult.getSrc());
+	
+//	std::cout << "Src1: " << searchWord.getSrc() << ", Src2: " << searchResult.getSrc() << ", Dest1: " << searchWord.getDest() << ", Dest2: " << searchResult.getDest() << std::endl;
+//	wordBtree.print();
+	assert(testWord3.getSrc() == searchResult.getSrc() && testWord3.getDest() == searchResult.getDest());
 }
 
 
@@ -176,11 +180,11 @@ void testDriver::btreeSearchNotExists()
 	uint8_t status2 = wordBtree.insert(testWord2);
 	uint8_t status3 = wordBtree.insert(testWord3);
 	uint8_t status4 = wordBtree.insert(testWord4);
-	std::cout << (unsigned int)status1 << (unsigned int)status2 << (unsigned int)status3 << (unsigned int)status4 << std::endl;
-	wordBtree.print();
+//	std::cout << (unsigned int)status1 << (unsigned int)status2 << (unsigned int)status3 << (unsigned int)status4 << std::endl;
+//	wordBtree.print();
 
 	word searchWord = word("non existent");
 	word searchResult = wordBtree.search(&searchWord);
-	searchResult.print();
-	assert(searchWord == searchResult);
+//	searchResult.print();
+	assert(searchResult.getString() == ":");
 }

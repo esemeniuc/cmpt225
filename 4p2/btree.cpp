@@ -132,14 +132,14 @@ template <class Type>
 uint8_t btree<Type>::insert(Type inputData)
 {
 	//check if params are valid
-	if(inputData.size() == 0) //check for non fully populated
+	if (inputData.size() == 0) //check for non fully populated
 	{
 		return 1; //can't non filled objects
 	}
 	
 	//cout << "**about to insert**" << endl;
 	//if root is NULL, then insert at root, because insert function cant modify root variable
-	if(root == NULL)
+	if (root == NULL)
 	{
 		root = new node<Type>(inputData); //make the new node our root
 		nodeCount++; //update counter
@@ -147,11 +147,18 @@ uint8_t btree<Type>::insert(Type inputData)
 	}
 	
 	//find proper place in tree to insert the node
-	rInsert(root, &inputData);
-//	uint8_t status = rInsert(root, tempNode);
+	uint8_t insertStatus = rInsert(root, &inputData);
 //	cout << "insert status: " << (int)status << endl; //debug
-	nodeCount++; //increment count
-	return 0; //all good
+	
+	if (insertStatus == 0) ///if all is good, then increment
+	{
+		nodeCount++; //increment count
+		return 0; //all good
+	}
+	else //some error occurred
+	{
+		return 1; //error
+	}
 }
 
 template <class Type>

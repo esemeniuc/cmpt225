@@ -23,6 +23,6 @@ int main(int argc, char* argv[])
 		return 0; //all done, no need to continue running
 	}
 	
-	userEKT.translate(); //call up translation prompt
+//	userEKT.translate(); //call up translation prompt
 
 }
