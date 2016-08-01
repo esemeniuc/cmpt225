@@ -19,22 +19,24 @@ class ekt
 private:
 	btree<word> dataBtree; //store translations here
 	exQueue userInputQueue; //store file input translations or user input here
-	word** wordTable; //hashtable for word entries
+	node<word>** wordTable; //hashtable for word entries
+	size_t modulus; //modulus for wordTable
+	
 	
 	//preconditions: none
 	//postconditions: returns a hash index
 	//description: generates a hash based on inputInteger and returns it in O(1) time
-	size_t hashInteger(uint32_t inputInteger, size_t modulus) const;
+	size_t hashInteger(uint32_t inputInteger) const;
 	
 	//preconditions: none
 	//postconditions: returns a hash index
 	//description: generates a hash based on inputString and returns it in O(1) time
-	size_t hashString(std::string inputString, size_t modulus) const;
+	size_t hashString(std::string inputString) const;
 	
 	//preconditions: none
 	//postconditions: returns a hash index
 	//description: generates a hash based on inputString and returns it in O(1) time
-	size_t hashString2(std::string inputString, size_t modulus) const;
+	size_t hashString2(std::string inputString) const;
 
 
 public:
@@ -46,6 +48,11 @@ public:
 	//postconditions: returns 0 on successful read from file, 1 if there is an error
 	//description: reads in english klingon translations in the from of english:klingon
 	uint8_t loadFromFile(std::string inputFilename);
+	
+	//preconditions: inputWord is not empty
+	//postconditions: returns 0 on successful read from file, 1 if there is an error
+	//description: inserts word objects into the btree and hashtable
+	uint8_t insert(const word& inputWord);
 	
 	//preconditions: none
 	//postconditions: prints out klingon words based on user input

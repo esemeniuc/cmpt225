@@ -3,9 +3,9 @@
 // Description:
 //An array-based data collection implementation for an expandable queue ADT.
 
-#include "exQueue.h"
 #include <iostream> //debug
 #include <algorithm>
+#include "exQueue.h"
 
 //Class invariants: FIFO or LILO
 /*
