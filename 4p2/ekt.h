@@ -23,6 +23,7 @@ private:
 	btree<word> dataBtree; //store translations here
 	exQueue userInputQueue; //store file input translations or user input here
 	nodeSL<word>** wordTable; //hashtable for word entries
+	size_t wordCount; //number of successfully added words in ekt
 	size_t modulus; //modulus for wordTable
 	
 	
@@ -39,7 +40,7 @@ private:
 	//preconditions: none
 	//postconditions: returns a hash index
 	//description: generates a hash based on inputString and returns it in O(1) time
-	size_t hashString2(std::string inputString) const;
+	size_t hashStringBad(std::string inputString) const;
 
 
 public:

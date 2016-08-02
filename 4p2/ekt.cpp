@@ -10,11 +10,15 @@
 #include <iostream>
 #include <fstream> //for file input
 #include <algorithm> //for lowercase
+#include <cmath> //for pow() in std dev
 #include "ekt.h"
 
 /*private:
-btree<word> dataBtree; //store translations here
-exQueue userInputQueue; //store translations or user input here
+	btree<word> dataBtree; //store translations here
+	exQueue userInputQueue; //store file input translations or user input here
+	nodeSL<word>** wordTable; //hashtable for word entries
+	size_t wordCount; //number of successfully added words in ekt
+	size_t modulus; //modulus for wordTable
 */
 
 ekt::ekt()
@@ -44,6 +48,18 @@ size_t ekt::hashInteger(uint32_t inputInteger) const
 //description: generates a hash based on inputString and returns it in O(1) time
 size_t ekt::hashString(std::string inputString) const
 {
+	uint64_t hashVal = 5381;
+	int c;
+	for(size_t i = 0; i < inputString.length(); ++i)
+	{
+		c = (int)inputString[i];
+		hashVal = ((hashVal << 5) + hashVal) + c;
+	}
+	return (size_t)(hashVal % modulus);
+}
+
+size_t ekt::hashStringBad(std::string inputString) const
+{
 	uint64_t hashVal = 0;
 	
 	size_t index = 0;
@@ -53,18 +69,6 @@ size_t ekt::hashString(std::string inputString) const
 		index++;
 	}
 	
-	return (size_t)(hashVal % modulus);
-}
-
-size_t ekt::hashString2(std::string inputString) const
-{
-	uint64_t hashVal = 5381;
-	int c;
-	for(size_t i = 0; i < inputString.length(); ++i)
-	{
-		c = (int) inputString[i];
-		hashVal = ((hashVal << 5) + hashVal) + c;
-	}
 	return (size_t)(hashVal % modulus);
 }
 
@@ -93,19 +97,23 @@ uint8_t ekt::loadFromFile(std::string inputFilename)
 	size_t fileInputSize = fileInputQueue.getSize();
 //	std::cout << fileInputSize << "\n\n";
 	modulus = 2 * fileInputSize;
-	wordTable = new nodeSL<word>*[modulus]; //make our hash table to point to word objects
+	//make our hash table to point to word
+	wordTable = new nodeSL<word>*[modulus](); //() means initialize to NULL objects
 	
 	for(size_t i = 0; i < fileInputSize; i++)
 	{
 		tempString = fileInputQueue.pop();
 		
-		//string transform stuff
+		//string transformation stuff
 		uint64_t length = tempString.find(':', 1); //use uint64_t because find returns long ints
 		std::string tempSrc = tempString.substr(0, length);
 		std::string tempDest = tempString.substr(length+1, tempString.length());
 		std::transform(tempSrc.begin(), tempSrc.end(), tempSrc.begin(), ::tolower); //make things lowercase
 		//cout << "src: " << tempSrc << " dest: " << tempDest << endl; //debug
-		insert(word(tempSrc, tempDest));
+		if(insert(word(tempSrc, tempDest)) == 0) //if successfully inserted
+		{
+			wordCount++; //increment count
+		}
 	}
 
 	inputFile.close();
@@ -193,21 +201,21 @@ double ekt::getStdDev(void) const
 		tempArray[i] = chainLength;
 	}
 	
-	
 	//get the average length of each chain
-	double runningAvg = 0;
+	double runningTotal = 0;
 	for(size_t i = 0; i < modulus; i++)
 	{
-		runningAvg += tempArray[i];
+		runningTotal += tempArray[i];
 	}
+	double avg = runningTotal/modulus;
 	
 	double sumOfSquares = 0;
 	for(size_t i = 0; i < modulus; i++) //sum up (x(i) - x(bar))^2
 	{
-		sumOfSquares += pow((tempArray[i] - runningAvg), 2); //get the sum of square
+		sumOfSquares += pow((tempArray[i] - avg), 2); //get the sum of square
 	}
 	
-	double sigma = double(sumOfSquares / (modulus - 1)); //divide by n-1
+	double sigma = pow((sumOfSquares / modulus), 0.5); //divide by n
 	
 	return sigma;
 }

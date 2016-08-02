@@ -7,7 +7,7 @@
 #include "testDriver.h"
 #include "word.h"
 #include "btree.h"
-#include "exQueue.h"
+#include "ekt.h"
 
 void testDriver::testAllNonException()
 {
@@ -26,6 +26,12 @@ void testDriver::testAllNonException()
 	exQueueInsertRemove();
 	exQueueExpand();
 	exQueueRandomize();
+	
+	ektTestHash();
+	ektInsertNotChained();
+	ektInsertChained();
+	ektNotChainedStdDev();
+	ektChainedStdDev();
 }
 
 void testDriver::throwException()
@@ -313,9 +319,210 @@ void testDriver::exQueueRandomize()
 void testDriver::ektTestHash()
 {
 	std::string testString1 = "abc";
-	std::string testString2 = "cab";
-}
-void testDriver::ektInsert()
-{
+	std::string testString2 = "acb";
+	std::string testString3 = "bac";
+	std::string testString4 = "bca";
+	std::string testString5 = "cab";
+	std::string testString6 = "cba";
 	
+	ekt testEKT;
+	testEKT.modulus = 13;
+	
+//	size_t hashString1 = ekt::hashStringStatic(testString1, modulus);
+	size_t hashString1 = testEKT.hashString(testString1);
+	size_t hashString2 = testEKT.hashString(testString2);
+	size_t hashString3 = testEKT.hashString(testString3);
+	size_t hashString4 = testEKT.hashString(testString4);
+	size_t hashString5 = testEKT.hashString(testString5);
+	size_t hashString6 = testEKT.hashString(testString6);
+
+//	std::cout << "#: Result\n" << "1: " << hashString1 << "\n2: " << hashString2 << "\n3: " << hashString3 << "\n4: " << hashString4 << "\n5: " << hashString5 << "\n6: " << hashString6 << std::endl;
+	
+	assert(hashString1 != hashString2);
+	assert(hashString1 != hashString3);
+	assert(hashString1 != hashString4);
+	assert(hashString1 != hashString5);
+	assert(hashString1 != hashString6);
+	
+	assert(hashString2 != hashString3);
+	assert(hashString2 != hashString4);
+	assert(hashString2 != hashString5);
+	assert(hashString2 != hashString6);
+	
+	assert(hashString3 != hashString4);
+	assert(hashString3 != hashString5);
+	assert(hashString3 != hashString6);
+	
+	assert(hashString4 != hashString5);
+	assert(hashString4 != hashString6);
+	
+	assert(hashString5 != hashString6);
+}
+
+void testDriver::ektInsertNotChained()
+{
+	//all are on unique hash indexes, no collisions
+	std::string testString1 = "abc";
+	std::string testString2 = "acb";
+	std::string testString3 = "bac";
+	std::string testString4 = "bca";
+	std::string testString5 = "cab";
+	std::string testString6 = "cba";
+	
+	ekt testEKT;
+	//bypass loadFromFile stuff
+	testEKT.modulus = 13;
+	testEKT.wordCount = 6;
+	testEKT.wordTable = new nodeSL<word>*[testEKT.modulus](); //() means initialize to NULL
+
+	size_t hashIndex1 = testEKT.hashString(testString1);
+	size_t hashIndex2 = testEKT.hashString(testString2);
+	size_t hashIndex3 = testEKT.hashString(testString3);
+	size_t hashIndex4 = testEKT.hashString(testString4);
+	size_t hashIndex5 = testEKT.hashString(testString5);
+	size_t hashIndex6 = testEKT.hashString(testString6);
+	
+//	std::cout << "#: Result\n" << "1: " << hashIndex1 << "\n2: " << hashIndex2 << "\n3: " << hashIndex3 << "\n4: " << hashIndex4 << "\n5: " << hashIndex5 << "\n6: " << hashIndex6 << std::endl;
+	
+	word testWord1 = word(testString1);
+	word testWord2 = word(testString2);
+	word testWord3 = word(testString3);
+	word testWord4 = word(testString4);
+	word testWord5 = word(testString5);
+	word testWord6 = word(testString6);
+	
+	testEKT.insert(testWord1);
+	testEKT.insert(testWord2);
+	testEKT.insert(testWord3);
+	testEKT.insert(testWord4);
+	testEKT.insert(testWord5);
+	testEKT.insert(testWord6);
+	
+	assert(*(testEKT.wordTable[hashIndex1]->data) == testWord1);
+	assert(*(testEKT.wordTable[hashIndex2]->data) == testWord2);
+	assert(*(testEKT.wordTable[hashIndex3]->data) == testWord3);
+	assert(*(testEKT.wordTable[hashIndex4]->data) == testWord4);
+	assert(*(testEKT.wordTable[hashIndex5]->data) == testWord5);
+	assert(*(testEKT.wordTable[hashIndex6]->data) == testWord6);
+}
+
+void testDriver::ektInsertChained()
+{
+	//3 will collide
+	std::string testString1 = "abc";
+	std::string testString2 = "acb";
+	std::string testString3 = "bac";
+	std::string testString4 = "bca";
+	std::string testString5 = "cab";
+	std::string testString6 = "cba";
+	
+	ekt testEKT;
+	//bypass loadFromFile stuff
+	testEKT.modulus = 6;
+	testEKT.wordTable = new nodeSL<word>*[testEKT.modulus](); //() means initialize to NULL
+	
+	size_t hashIndex1 = testEKT.hashString(testString1);
+	size_t hashIndex2 = testEKT.hashString(testString2);
+	size_t hashIndex3 = testEKT.hashString(testString3);
+	size_t hashIndex4 = testEKT.hashString(testString4);
+	size_t hashIndex5 = testEKT.hashString(testString5);
+	size_t hashIndex6 = testEKT.hashString(testString6);
+	
+//	std::cout << "#: Result\n" << "1: " << hashIndex1 << "\n2: " << hashIndex2 << "\n3: " << hashIndex3 << "\n4: " << hashIndex4 << "\n5: " << hashIndex5 << "\n6: " << hashIndex6 << std::endl;
+	
+	word testWord1 = word(testString1);
+	word testWord2 = word(testString2);
+	word testWord3 = word(testString3);
+	word testWord4 = word(testString4);
+	word testWord5 = word(testString5);
+	word testWord6 = word(testString6);
+	
+	testEKT.insert(testWord1);
+	testEKT.insert(testWord2);
+	testEKT.insert(testWord3);
+	testEKT.insert(testWord4);
+	testEKT.insert(testWord5);
+	testEKT.insert(testWord6);
+	
+	//assumes djb2 algorithm with the following indexes:
+	/*1st: 3
+	2nd: 5
+	3rd: 3
+	4th: 1
+	5th: 5
+	6th: 1*/
+	assert(*(testEKT.wordTable[hashIndex1]->next->data) == testWord1);
+	assert(*(testEKT.wordTable[hashIndex2]->next->data) == testWord2);
+	assert(*(testEKT.wordTable[hashIndex3]->data) == testWord3);
+	assert(*(testEKT.wordTable[hashIndex4]->next->data) == testWord4);
+	assert(*(testEKT.wordTable[hashIndex5]->data) == testWord5);
+	assert(*(testEKT.wordTable[hashIndex6]->data) == testWord6);
+}
+
+void testDriver::ektNotChainedStdDev()
+{
+	//all are on unique hash indexes, no collisions
+	std::string testString1 = "abc";
+	std::string testString2 = "acb";
+	std::string testString3 = "bac";
+	std::string testString4 = "bca";
+	std::string testString5 = "cab";
+	std::string testString6 = "cba";
+	
+	ekt testEKT;
+	//bypass loadFromFile stuff
+	testEKT.modulus = 13;
+	testEKT.wordTable = new nodeSL<word>*[testEKT.modulus](); //() means initialize to NULL
+	
+	word testWord1 = word(testString1);
+	word testWord2 = word(testString2);
+	word testWord3 = word(testString3);
+	word testWord4 = word(testString4);
+	word testWord5 = word(testString5);
+	word testWord6 = word(testString6);
+	
+	testEKT.insert(testWord1);
+	testEKT.insert(testWord2);
+	testEKT.insert(testWord3);
+	testEKT.insert(testWord4);
+	testEKT.insert(testWord5);
+	testEKT.insert(testWord6);
+	
+	double stdDev = testEKT.getStdDev();
+//	std::cout << "Stddev = " << stdDev << std::endl;
+	assert(stdDev <= 0.5);
+}
+
+void testDriver::ektChainedStdDev()
+{
+	//all are on unique hash indexes, no collisions
+	std::string testString1 = "abc";
+	std::string testString2 = "acb";
+	std::string testString3 = "bac";
+	std::string testString4 = "bca";
+	std::string testString5 = "cab";
+	std::string testString6 = "cba";
+	
+	ekt testEKT;
+	//bypass loadFromFile stuff
+	testEKT.modulus = 6;
+	testEKT.wordTable = new nodeSL<word>*[testEKT.modulus](); //() means initialize to NULL
+	
+	word testWord1 = word(testString1);
+	word testWord2 = word(testString2);
+	word testWord3 = word(testString3);
+	word testWord4 = word(testString4);
+	word testWord5 = word(testString5);
+	word testWord6 = word(testString6);
+	
+	testEKT.insert(testWord1);
+	testEKT.insert(testWord2);
+	testEKT.insert(testWord3);
+	testEKT.insert(testWord4);
+	testEKT.insert(testWord5);
+	testEKT.insert(testWord6);
+	
+	double stdDev = testEKT.getStdDev();
+//	std::cout << "Stddev = " << stdDev << std::endl;
+	assert(stdDev >= 0.9 && stdDev <= 1.1);
 }
