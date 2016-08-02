@@ -534,7 +534,7 @@ void testDriver::ektTranslate6Valid()
 {
 	ekt testEKT;
 	//bypass loadFromFile stuff
-	testEKT.modulus = 5;
+	testEKT.modulus = 2;
 	testEKT.wordTable = new nodeSL<word>*[testEKT.modulus](); //() means initialize to NULL
 	
 	word testWord1 = word("stop", "mevyap");
@@ -570,7 +570,7 @@ void testDriver::ektTranslate6Invalid()
 {
 	ekt testEKT;
 	//bypass loadFromFile stuff
-	testEKT.modulus = 5;
+	testEKT.modulus = 2;
 	testEKT.wordTable = new nodeSL<word>*[testEKT.modulus](); //() means initialize to NULL
 	
 	word testWord1 = word("stop", "mevyap");
@@ -606,7 +606,7 @@ void testDriver::ektTranslate2of6ValidFirst()
 {
 	ekt testEKT;
 	//bypass loadFromFile stuff
-	testEKT.modulus = 5;
+	testEKT.modulus = 2;
 	testEKT.wordTable = new nodeSL<word>*[testEKT.modulus](); //() means initialize to NULL
 	
 	word testWord1 = word("stop", "mevyap");
