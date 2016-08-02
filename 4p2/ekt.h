@@ -75,6 +75,11 @@ public:
 	//description: gets
 	double getStdDev(void) const;
 	
+	//preconditions: none
+	//postconditions: returns the word pair based on inputWord
+	//postconditions: returns the word pair based on inputWord
+	word* getWord(word inputWord) const;
+	
 };
 
 #endif //INC_4P2_EKT_H

@@ -38,9 +38,11 @@ public:
 	void ektTestHash();
 	void ektInsertNotChained();
 	void ektInsertChained();
-	
 	void ektNotChainedStdDev();
 	void ektChainedStdDev();
+	void ektTranslate6Valid();
+	void ektTranslate6Invalid();
+	void ektTranslate2of6ValidFirst();
 };
 
 #endif //INC_4P2_TESTDRIVER_H

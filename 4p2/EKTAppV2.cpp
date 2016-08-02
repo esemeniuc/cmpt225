@@ -5,9 +5,9 @@
 int main(int argc, char* argv[])
 {
 	//debug stuff
-	testDriver testDriver1;
-	testDriver1.testAllNonException();
-	std::cout << "Hello, World!" << std::endl;
+//	testDriver testDriver1;
+//	testDriver1.testAllNonException();
+//	std::cout << "Hello, World!" << std::endl;
 	
 	ekt userEKT; //make ekt object
 	userEKT.loadFromFile("dataFile.txt");

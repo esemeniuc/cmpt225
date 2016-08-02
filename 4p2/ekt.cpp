@@ -99,7 +99,7 @@ uint8_t ekt::loadFromFile(std::string inputFilename)
 	fileInputQueue.randomize(); //randomize to guarantee O(log(n)) insertion later on
 	size_t fileInputSize = fileInputQueue.getSize();
 //	std::cout << fileInputSize << "\n\n";
-	modulus = 2 * fileInputSize;
+	modulus = (2 * fileInputSize) + 1; //make result odd for better hashing
 	//make our hash table to point to word
 	wordTable = new nodeSL<word>*[modulus](); //() means initialize to NULL objects
 	
@@ -152,32 +152,49 @@ void ekt::translate(void)
 	std::string tempString; //temporary holder for cin input
 	while(std::cin >> tempString) //load data into variable until we hit EOF
 	{
+		std::transform(tempString.begin(), tempString.end(), tempString.begin(), ::tolower); //make things lowercase
 		userInputQueue.push(tempString); //insert our new string into the queue
 	}
 //	userInputQueue.print(); //debug
 	while (userInputQueue.getSize() > 0)
 	{
-		word tempSearchTerm = word(userInputQueue.pop()); //get stuff on the top
-		
-		size_t hashIndex = hashString(tempSearchTerm.getSrc());
-		
-		nodeSL<word>* searchResult = wordTable[hashIndex];
-		
-		while(searchResult != NULL && !(*(searchResult->data) == tempSearchTerm)) //while not null or not matching, keep traversing
+		std::string userInput = userInputQueue.pop();
+		word* searchResult = getWord(word(userInput)); //get stuff on the top. pop gets a string, then package it into a word, then find the memory address of it
+		if(searchResult != NULL) //check if empty object is returned
 		{
-			searchResult = searchResult->next;
-		}
-		
-		if(searchResult == NULL) //check if empty object is returned
-		{
-			//then mash together the tempSearchTerm src field with <not found>
-			word emptyWord(tempSearchTerm.getSrc(), "<not found>");
-			emptyWord.print();
+			searchResult->print();
 		}
 		else
 		{
-			searchResult->data->print();
+			//then mash together the tempSearchTerm src field with <not found>
+			word emptyWord(userInput, "<not found>");
+			emptyWord.print();
 		}
+
+	}
+}
+
+//preconditions: none
+//postconditions: returns the klingon translation based on inputWord
+//description: returns the klingon translation based on inputWord
+word* ekt::getWord(word inputWord) const
+{
+	size_t hashIndex = hashString(inputWord.getSrc());
+	
+	nodeSL<word>* searchResult = wordTable[hashIndex];
+	
+	while(searchResult != NULL && !(*(searchResult->data) == inputWord)) //while not null or not matching, keep traversing
+	{
+		searchResult = searchResult->next;
+	}
+	
+	if(searchResult != NULL)
+	{
+		return searchResult->data;
+	}
+	else
+	{
+		return NULL;
 	}
 }
 
@@ -229,3 +246,4 @@ double ekt::getStdDev(void) const
 	
 	return sigma;
 }
+

@@ -32,6 +32,9 @@ void testDriver::testAllNonException()
 	ektInsertChained();
 	ektNotChainedStdDev();
 	ektChainedStdDev();
+	ektTranslate6Valid();
+	ektTranslate6Invalid();
+	ektTranslate2of6ValidFirst();
 }
 
 void testDriver::throwException()
@@ -525,4 +528,112 @@ void testDriver::ektChainedStdDev()
 	double stdDev = testEKT.getStdDev();
 //	std::cout << "Stddev = " << stdDev << std::endl;
 	assert(stdDev >= 0.9 && stdDev <= 1.1);
+}
+
+void testDriver::ektTranslate6Valid()
+{
+	ekt testEKT;
+	//bypass loadFromFile stuff
+	testEKT.modulus = 5;
+	testEKT.wordTable = new nodeSL<word>*[testEKT.modulus](); //() means initialize to NULL
+	
+	word testWord1 = word("stop", "mevyap");
+	word testWord2 = word("food", "Soj");
+	word testWord3 = word("win", "Qap");
+	word testWord4 = word("today", "jajvam");
+	word testWord5 = word("face", "qab");
+	word testWord6 = word("roof", "beb");
+	
+	testEKT.insert(testWord1);
+	testEKT.insert(testWord2);
+	testEKT.insert(testWord3);
+	testEKT.insert(testWord4);
+	testEKT.insert(testWord5);
+	testEKT.insert(testWord6);
+	
+	word* word1 = testEKT.getWord(word("stop"));
+	word* word2 = testEKT.getWord(word("food"));
+	word* word3 = testEKT.getWord(word("win"));
+	word* word4 = testEKT.getWord(word("today"));
+	word* word5 = testEKT.getWord(word("face"));
+	word* word6 = testEKT.getWord(word("roof"));
+	
+	assert(word1->getString() == "stop:mevyap");
+	assert(word2->getString() == "food:Soj");
+	assert(word3->getString() == "win:Qap");
+	assert(word4->getString() == "today:jajvam");
+	assert(word5->getString() == "face:qab");
+	assert(word6->getString() == "roof:beb");
+}
+
+void testDriver::ektTranslate6Invalid()
+{
+	ekt testEKT;
+	//bypass loadFromFile stuff
+	testEKT.modulus = 5;
+	testEKT.wordTable = new nodeSL<word>*[testEKT.modulus](); //() means initialize to NULL
+	
+	word testWord1 = word("stop", "mevyap");
+	word testWord2 = word("food", "Soj");
+	word testWord3 = word("win", "Qap");
+	word testWord4 = word("today", "jajvam");
+	word testWord5 = word("face", "qab");
+	word testWord6 = word("roof", "beb");
+	
+	testEKT.insert(testWord1);
+	testEKT.insert(testWord2);
+	testEKT.insert(testWord3);
+	testEKT.insert(testWord4);
+	testEKT.insert(testWord5);
+	testEKT.insert(testWord6);
+	
+	word* word1 = testEKT.getWord(word("stoOp"));
+	word* word2 = testEKT.getWord(word("fUd"));
+	word* word3 = testEKT.getWord(word("vin"));
+	word* word4 = testEKT.getWord(word("tooday"));
+	word* word5 = testEKT.getWord(word("2face"));
+	word* word6 = testEKT.getWord(word("roofr"));
+	
+	assert(word1 == NULL);
+	assert(word2 == NULL);
+	assert(word3 == NULL);
+	assert(word4 == NULL);
+	assert(word5 == NULL);
+	assert(word6 == NULL);
+}
+
+void testDriver::ektTranslate2of6ValidFirst()
+{
+	ekt testEKT;
+	//bypass loadFromFile stuff
+	testEKT.modulus = 5;
+	testEKT.wordTable = new nodeSL<word>*[testEKT.modulus](); //() means initialize to NULL
+	
+	word testWord1 = word("stop", "mevyap");
+	word testWord2 = word("food", "Soj");
+	word testWord3 = word("win", "Qap");
+	word testWord4 = word("today", "jajvam");
+	word testWord5 = word("face", "qab");
+	word testWord6 = word("roof", "beb");
+	
+	testEKT.insert(testWord1);
+	testEKT.insert(testWord2);
+	testEKT.insert(testWord3);
+	testEKT.insert(testWord4);
+	testEKT.insert(testWord5);
+	testEKT.insert(testWord6);
+	
+	word* word1 = testEKT.getWord(word("stop"));
+	word* word2 = testEKT.getWord(word("food"));
+	word* word3 = testEKT.getWord(word("vin"));
+	word* word4 = testEKT.getWord(word("tooday"));
+	word* word5 = testEKT.getWord(word("2face"));
+	word* word6 = testEKT.getWord(word("roofr"));
+	
+	assert(word1->getString() == "stop:mevyap");
+	assert(word2->getString() == "food:Soj");
+	assert(word3 == NULL);
+	assert(word4 == NULL);
+	assert(word5 == NULL);
+	assert(word6 == NULL);
 }
