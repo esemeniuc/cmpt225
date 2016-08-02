@@ -1,10 +1,12 @@
 /*
- * filename: EKTApp.cpp
+ * filename: ekt.h/ekt.cpp
  *
  * Description: An english klingon translator class
- * Creation date: July 8, 2016
+ * Creation date: July 31, 2016
  * Author: Eric Semeniuc, David Magaril
  * ID: esemeniu_dmagaril
+ *
+ * class invariant: btree and hashtable will not contain duplicates
  */
 
 #include <iostream>
@@ -21,7 +23,8 @@
 	size_t modulus; //modulus for wordTable
 */
 
-ekt::ekt()
+ekt::ekt():
+	wordCount(0)
 {
 	//nothing else to do
 }
@@ -155,10 +158,17 @@ void ekt::translate(void)
 	while (userInputQueue.getSize() > 0)
 	{
 		word tempSearchTerm = word(userInputQueue.pop()); //get stuff on the top
-		//userInputQueue.dequeue(); //decrement
-		word searchResult = dataBtree.search(&tempSearchTerm);
 		
-		if (searchResult.size() == 0) //check if empty object is returned
+		size_t hashIndex = hashString(tempSearchTerm.getSrc());
+		
+		nodeSL<word>* searchResult = wordTable[hashIndex];
+		
+		while(searchResult != NULL && !(*(searchResult->data) == tempSearchTerm)) //while not null or not matching, keep traversing
+		{
+			searchResult = searchResult->next;
+		}
+		
+		if(searchResult == NULL) //check if empty object is returned
 		{
 			//then mash together the tempSearchTerm src field with <not found>
 			word emptyWord(tempSearchTerm.getSrc(), "<not found>");
@@ -166,7 +176,7 @@ void ekt::translate(void)
 		}
 		else
 		{
-			searchResult.print();
+			searchResult->data->print();
 		}
 	}
 }

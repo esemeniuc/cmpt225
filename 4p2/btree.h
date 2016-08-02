@@ -30,7 +30,7 @@ private:
 	nodeDL<Type>* rSearch(nodeDL<Type>* root, Type* inputData) const;
 
 	//preconditions: inputNode has a valid filled object
-	//postconditions: returns 0 on successful insertion our new node, 0 on failure
+	//postconditions: returns 0 on successful insertion our new node, 1 on failure
 	//description: finds the correct parent node to allow insertion a child node
 	uint8_t rInsert(nodeDL<Type>* currentRoot, nodeDL<Type>* inputNode);
 	
@@ -62,8 +62,8 @@ public:
 	Type search(Type* inputData) const throw(classException);
 	
 	//preconditions: inputData.size() >= 1 (at least 1 term is entered)
-	//postconditions: returns 0 if successfully inputted, 1 if there is an error
-	//description: creates a node to insert in sorted order (based on src) into the tree
+	//postconditions: returns tempNode if successfully inputted, NULL if there is an error
+	//description: creates a node to insert in sorted order (based on src) into the tree (no duplicate src word allowed)
 	nodeDL<Type>* insert(Type inputData);
 	
 	//preconditions: none

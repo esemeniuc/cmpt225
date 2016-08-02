@@ -85,7 +85,7 @@ nodeDL<Type>* btree<Type>::rSearch(nodeDL<Type>* root, Type* inputData) const
 
 template <class Type>
 //preconditions: inputNode has a valid filled object
-//postconditions: returns 0 on successful insertion our new node, 0 on failure
+//postconditions: returns 0 on successful insertion our new node, 1 on failure
 //description: finds the correct parent node to allow insertion a child node
 uint8_t btree<Type>::rInsert(nodeDL<Type>* currentRoot, nodeDL<Type>* inputNode)
 {
@@ -128,7 +128,7 @@ uint8_t btree<Type>::rInsert(nodeDL<Type>* currentRoot, nodeDL<Type>* inputNode)
 template <class Type>
 //preconditions: inputData.size() >= 1 (at least 1 term is entered)
 //postconditions: returns tempNode if successfully inputted, NULL if there is an error
-//description: creates a node to insert in sorted order (based on src) into the tree
+//description: creates a node to insert in sorted order (based on src) into the tree (no duplicate src word allowed)
 nodeDL<Type>* btree<Type>::insert(Type inputData)
 {
 	//check if params are valid

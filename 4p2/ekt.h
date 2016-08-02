@@ -1,10 +1,12 @@
 /*
- * filename: EKTApp.cpp
+ * filename: ekt.h/ekt.cpp
  *
  * Description: An english klingon translator class
  * Creation date: July 31, 2016
  * Author: Eric Semeniuc, David Magaril
  * ID: esemeniu_dmagaril
+ *
+ * class invariant: btree and hashtable will not contain duplicates
  */
 
 #ifndef INC_4P2_EKT_H
