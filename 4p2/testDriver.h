@@ -1,6 +1,11 @@
-//
-// Created by eric on 31/07/16.
-//
+/*
+ * filename: testDriver.h/testDriver.cpp
+ *
+ * Description: A word object that stores a pair of strings
+ * Creation date: July 21, 2016
+ * Author: Eric Semeniuc, David Magaril
+ * ID: esemeniu_dmagaril
+ */
 
 #ifndef INC_4P2_TESTDRIVER_H
 #define INC_4P2_TESTDRIVER_H

@@ -1,7 +1,9 @@
 // Filename: exQueue.h/exQueue.cpp
 // Created by eric on 16/06/16.
 // Description:
-//An array-based data collection implementation for an expandable queue ADT.
+// An array-based data collection implementation for an expandable queue ADT.
+// Author: Eric Semeniuc, David Magaril
+// ID: esemeniu_dmagaril
 
 #ifndef INC_4P2_EXQUEUE_H
 #define INC_4P2_EXQUEUE_H

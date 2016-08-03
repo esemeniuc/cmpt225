@@ -17,7 +17,7 @@
 #include "nodeSL.h"
 #include "word.h"
 
-#define private public //debug: ugly hack to do assert testing
+//#define private public //debug: ugly hack to do assert testing
 
 class ekt
 {

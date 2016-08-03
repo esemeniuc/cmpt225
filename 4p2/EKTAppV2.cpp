@@ -1,3 +1,10 @@
+/*
+* Description: Driver/main function for ekt class
+* Creation date: July 21, 2016
+* Author: Eric Semeniuc, David Magaril
+* ID: esemeniu_dmagaril
+*/
+
 #include <iostream> //for debug
 #include "testDriver.h"
 #include "ekt.h"
