@@ -188,7 +188,7 @@ uint8_t btree<Type>::insert(Type inputData)
 	//check if params are valid
 	if(inputData.empty()) //check for non fully populated
 	{
-		return 1; //can't non filled objects
+		return 1; //can't insert non filled objects
 	}
 	
 	//cout << "**about to insert**" << endl;
