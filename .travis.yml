@@ -3,17 +3,17 @@ compiler:
   - clang++
   - g++
 script:
-  - 1/cmake CMakeLists.txt 
-  - 1/make
+  - cmake 1/CMakeLists.txt 
+  - make -C 1/
   
-  - 2/cmake CMakeLists.txt 
-  - 2/make
+  - cmake 2/CMakeLists.txt 
+  - make -C 2/
   
-  - 3/cmake CMakeLists.txt 
-  - 3/make
+  - cmake 3/CMakeLists.txt 
+  - make -C 3/
   
-  - 4p1/cmake CMakeLists.txt 
-  - 4p1/make
+  - cmake 4p1/CMakeLists.txt 
+  - make -C 4p1/
   
-  - 4p2/cmake CMakeLists.txt 
-  - 4p2/make
+  - cmake 4p2/CMakeLists.txt 
+  - make -C 4p2/
