@@ -1,7 +1,19 @@
 language: cpp
 compiler:
-  - clang
-  - gcc
+  - clang++
+  - g++
 script:
-  - ./1/cmake CMakeLists.txt 
-  - ./1/configure && make && make test
+  - 1/cmake CMakeLists.txt 
+  - 1/make
+  
+  - 2/cmake CMakeLists.txt 
+  - 2/make
+  
+  - 3/cmake CMakeLists.txt 
+  - 3/make
+  
+  - 4p1/cmake CMakeLists.txt 
+  - 4p1/make
+  
+  - 4p2/cmake CMakeLists.txt 
+  - 4p2/make
