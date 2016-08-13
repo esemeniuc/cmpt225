@@ -1,4 +1,4 @@
-# CMPT225 Assignments
+# CMPT225 Assignments [![Build Status](https://travis-ci.org/cwaffles/cmpt225.svg?branch=master)](https://travis-ci.org/cwaffles/cmpt225)
 
 ### 1. FriendsBook
 A social network like program that allows users to create profiles and add friends
