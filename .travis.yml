@@ -18,4 +18,5 @@ script:
   #- cmake 4p2/CMakeLists.txt 
   - make -C 4p2/
 
+sudo: required #arbritrary
 dist: trusty
